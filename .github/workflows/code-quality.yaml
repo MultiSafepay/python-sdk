@@ -1,0 +1,67 @@
+name: Code quality checks
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  code-quality:
+    name: Code quality checks
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
+    steps:
+      - name: Checkout master repository
+        uses: actions/checkout@v4
+        with:
+          path: ./multisafepay-python
+
+      - name: Clone MultiSafepay docker python
+        uses: actions/checkout@v4
+        with:
+          repository: MultiSafepay/docker-python
+          token: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
+          path: ./docker-python
+          submodules: 'false'
+
+      - name: Setup submodule
+        run: |
+          rm -rf ./docker-python/packages-source/multisafepay/multisafepay-python
+          mv ./multisafepay-python ./docker-python/packages-source/multisafepay/multisafepay-python
+
+      - name: Copy environment file
+        run: cp .env.example .env
+        working-directory: ./docker-python
+
+      - name: Replace environment variable
+        run: sed -i "s/^PYTHON_VERSION=.*/PYTHON_VERSION=${{ matrix.python-version }}/" .env
+        working-directory: ./docker-python
+
+      - name: Setup containers and application
+        run: bin/setup
+        working-directory: ./docker-python
+
+      - name: Run linting
+        run: bin/lint
+        working-directory: ./docker-python
+
+      - name: Static type checker
+        run: bin/static-type-check
+        working-directory: ./docker-python
+
+      - name: Run tests
+        run: bin/test-report
+        working-directory: ./docker-python
+
+      - name: Upload coverage file to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: true
+          files: ./docker-python/packages-source/multisafepay/multisafepay-python/coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
