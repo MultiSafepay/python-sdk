@@ -1,0 +1,91 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  deploy:
+    name: Build and publish package
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+        with:
+          path: ./multisafepay-python
+
+      - name: Get the version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
+
+      - name: Clone Docker container repository
+        uses: actions/checkout@v4
+        with:
+          repository: multisafepay/docker-python
+          token: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
+          path: ./docker-python
+          submodules: 'false'
+
+      - name: Setup submodule
+        run: |
+          rm -rf ./docker-python/packages-source/multisafepay/multisafepay-python
+          mv ./multisafepay-python ./docker-python/packages-source/multisafepay/multisafepay-python
+
+      - name: Copy environment file
+        run: cp .env.example .env
+        working-directory: ./docker-python
+
+      - name: Replace environment variable
+        run: sed -i "s/^PYTHON_VERSION=.*/PYTHON_VERSION=3.12/" .env
+        working-directory: ./docker-python
+
+      - name: Setup containers and application
+        run: bin/setup
+        working-directory: ./docker-python
+
+      - name: Build package
+        run: bin/build
+        working-directory: ./docker-python
+
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: ./docker-python/packages-source/multisafepay/multisafepay-python/dist/
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.VERSION }}
+          release_name: ${{ env.VERSION }}
+          draft: true
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./docker-python/packages-source/multisafepay/multisafepay-python/dist/multisafepay-${{ env.VERSION }}.tar.gz
+          asset_name: multisafepay-${{ env.VERSION }}.tar.gz
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset 2
+        id: upload-release-asset-2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GLOBAL_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./docker-python/packages-source/multisafepay/multisafepay-python/dist/multisafepay-${{ env.VERSION }}-py3-none-any.whl
+          asset_name: multisafepay-${{ env.VERSION }}-py3-none-any.whl
+          asset_content_type: application/octet-stream

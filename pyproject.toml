@@ -3,7 +3,7 @@ authors = ["Multisafepay <integration@multisafepay.com>"]
 description = "Multisafepay API wrapper"
 license = "OSL-3.0"
 name = "multisafepay"
-version = "0.1.0"
+version = "1.0.0rc1"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.14"
