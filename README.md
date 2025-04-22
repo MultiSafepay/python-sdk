@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/github/license/multisafepay/python-sdk?style=for-the-badge)](https://github.com/MultiSafepay/python-sdk/blob/master/LICENSE)
 [![Code Quality](https://img.shields.io/github/actions/workflow/status/multisafepay/python-sdk/code-quality.yaml?style=for-the-badge)](https://github.com/MultiSafepay/python-sdk/actions/workflows/code-quality.yaml)
 [![Codecov](https://img.shields.io/codecov/c/github/multisafepay/python-sdk?style=for-the-badge)](https://app.codecov.io/gh/MultiSafepay/python-sdk)
-[![Downloads](https://static.pepy.tech/badge/multisafepay?style=for-the-badge)](https://pepy.tech/project/multisafepay)
+[![Downloads](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=downloads&query=total_downloads&url=https%3A%2F%2Fpepy.tech%2Fapi%2Fprojects%2Fmultisafepay&style=for-the-badge)](https://pepy.tech/project/multisafepay)
 
 
 ## About MultiSafepay
