@@ -4,6 +4,9 @@ description = "Multisafepay API wrapper"
 license = "OSL-3.0"
 name = "multisafepay"
 version = "1.0.0rc1"
+readme = "README.md"
+repository = "https://github.com/MultiSafepay/python-sdk"
+homepage = "https://multisafepay.com"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.14"
