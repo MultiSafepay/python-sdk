@@ -5,6 +5,28 @@ license = "OSL-3.0"
 name = "multisafepay"
 version = "1.0.0rc1"
 
+[project]
+name = "multisafepay"
+version = "1.0.0rc1"
+description = "Multisafepay API wrapper"
+authors = [
+    { name = "Multisafepay", email = "integration@multisafepay.com" },
+]
+license = "OSL-3.0"
+readme = "README.md"
+repository = "https://github.com/MultiSafepay/python-sdk"
+homepage = "https://multisafepay.com"
+requires-python = ">=3.8"
+
+classifiers = []
+packages = [{include = "src"}]
+
+maintainers = [
+    { name = "Daniel Civit", email = "daniel.civit@multisafepay.com" },
+    { name = "Marco Gil", email = "marco.gil@multisafepay.com" }
+]
+license-files = ["LICENSE.md", "DISCLAIMER.md"]
+
 [tool.poetry.dependencies]
 python = ">=3.8,<3.14"
 requests = "^2.32.3"
