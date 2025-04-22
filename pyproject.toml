@@ -14,8 +14,6 @@ authors = [
 ]
 license = "OSL-3.0"
 readme = "README.md"
-repository = "https://github.com/MultiSafepay/python-sdk"
-homepage = "https://multisafepay.com"
 requires-python = ">=3.8"
 
 classifiers = []
