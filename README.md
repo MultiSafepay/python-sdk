@@ -9,6 +9,8 @@
 [![PyPI version](https://img.shields.io/pypi/v/multisafepay?style=for-the-badge)](https://pypi.org/project/multisafepay/)
 [![Python versions](https://img.shields.io/pypi/pyversions/multisafepay?style=for-the-badge)](https://pypi.org/project/multisafepay/)
 
+Easily integrate MultiSafepay's payment solutions into your Python applications with this official API client.
+This SDK provides convenient access to the MultiSafepay REST API, supports all core payment features, and is designed for seamless integration into any Python-based backend.
 
 ## About MultiSafepay
 
