@@ -19,7 +19,7 @@ jobs:
       - name: Checkout master repository
         uses: actions/checkout@v4
         with:
-          path: ./multisafepay-python
+          path: ./python-sdk
 
       - name: Clone MultiSafepay docker python
         uses: actions/checkout@v4
@@ -31,8 +31,8 @@ jobs:
 
       - name: Setup submodule
         run: |
-          rm -rf ./docker-python/packages-source/multisafepay/multisafepay-python
-          mv ./multisafepay-python ./docker-python/packages-source/multisafepay/multisafepay-python
+          rm -rf ./docker-python/packages-source/multisafepay/python-sdk
+          mv ./python-sdk ./docker-python/packages-source/multisafepay/python-sdk
 
       - name: Copy environment file
         run: cp .env.example .env
@@ -62,6 +62,6 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
-          files: ./docker-python/packages-source/multisafepay/multisafepay-python/coverage.xml
+          files: ./docker-python/packages-source/multisafepay/python-sdk/coverage.xml
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
