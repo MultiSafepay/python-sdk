@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0rc3] - 2025-04-23
+
+### Removed
+- PTHMINT-64: Remove sdk version property from Plugin object
+
 ## [1.0.0rc2] - 2025-04-23
 
 ### Added
