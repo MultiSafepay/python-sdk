@@ -83,7 +83,6 @@ def test_version_get_version():
 
     """
     version = Version(plugin_version="1.0.1")
-    print(version.get_version())
     assert version.get_version() == "Plugin 1.0.1"
 
 
