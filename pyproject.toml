@@ -11,7 +11,6 @@ homepage = "https://multisafepay.com"
 [tool.poetry.dependencies]
 python = ">=3.8,<3.14"
 requests = "^2.32.3"
-toml = "^0.10.2"
 pydantic = "^1.10.0"
 python-dotenv = "^1.0.1"
 
