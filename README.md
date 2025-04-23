@@ -6,7 +6,7 @@
 [![Code Quality](https://img.shields.io/github/actions/workflow/status/multisafepay/python-sdk/code-quality.yaml?style=for-the-badge)](https://github.com/MultiSafepay/python-sdk/actions/workflows/code-quality.yaml)
 [![Codecov](https://img.shields.io/codecov/c/github/multisafepay/python-sdk?style=for-the-badge)](https://app.codecov.io/gh/MultiSafepay/python-sdk)
 [![License](https://img.shields.io/github/license/multisafepay/python-sdk?style=for-the-badge)](https://github.com/MultiSafepay/python-sdk/blob/master/LICENSE)
-[![Latest stable version](https://img.shields.io/github/v/release/multisafepay/python-sdk?style=for-the-badge)](https://packagist.org/packages/multisafepay/magento2)
+[![Latest stable version](https://img.shields.io/github/v/release/multisafepay/python-sdk?style=for-the-badge)](https://pypi.org/project/multisafepay/)
 [![Python versions](https://img.shields.io/pypi/pyversions/multisafepay?style=for-the-badge)](https://pypi.org/project/multisafepay/)
 
 Easily integrate MultiSafepay's payment solutions into your Python applications with this official API client.
