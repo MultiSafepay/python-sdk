@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2025-04-23
+## [1.0.1] - 2025-04-23
 
 ### Added
 - PTHMINT-66: Release of 1.0.0 - Stable version
