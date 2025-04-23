@@ -16,7 +16,6 @@ def test_initializes_plugin_correctly():
     Tests that the Plugin object is initialized correctly with the given values.
     """
     plugin = Plugin(
-        sdk_version="1.0.0",
         plugin_version="1.0.0",
         shop_version="1.0.0",
         partner="TestPartner",
@@ -24,7 +23,6 @@ def test_initializes_plugin_correctly():
         shop_root_url="https://example.com",
     )
 
-    assert plugin.sdk_version == "1.0.0"
     assert plugin.plugin_version == "1.0.0"
     assert plugin.shop == "TestShop"
     assert plugin.shop_version == "1.0.0"
@@ -43,17 +41,6 @@ def test_initializes_plugin_with_empty_values():
     assert plugin.plugin_version is None
     assert plugin.partner is None
     assert plugin.shop_root_url is None
-
-
-def test_add_sdk_version_updates_value():
-    """
-    Tests that the add_sdk_version method updates the sdk_version field correctly.
-    """
-    plugin = Plugin()
-    plugin_updated = plugin.add_sdk_version("1.0.0")
-
-    assert plugin.sdk_version == "1.0.0"
-    assert isinstance(plugin_updated, Plugin)
 
 
 def test_add_plugin_version_updates_value():

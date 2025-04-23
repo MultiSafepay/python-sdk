@@ -9,7 +9,6 @@
 from typing import Optional
 
 from multisafepay.model.request_model import RequestModel
-from multisafepay.util.version import Version
 
 
 class Plugin(RequestModel):
@@ -18,7 +17,6 @@ class Plugin(RequestModel):
 
     Attributes
     ----------
-    sdk_version (Optional[str]): The version of the SDK.
     plugin_version (Optional[str]): The version of the plugin.
     shop (Optional[str]): The name of the shop.
     shop_version (Optional[str]): The version of the shop.
@@ -27,31 +25,11 @@ class Plugin(RequestModel):
 
     """
 
-    sdk_version: Optional[str] = Version.detect_sdk_version()
     plugin_version: Optional[str]
     shop: Optional[str]
     shop_version: Optional[str]
     partner: Optional[str]
     shop_root_url: Optional[str]
-
-    def add_sdk_version(
-        self,
-        sdk_version: Optional[str],
-    ) -> "Plugin":
-        """
-        Adds the SDK version to the Plugin object.
-
-        Parameters
-        ----------
-        sdk_version (Optional[str]): The version of the SDK.
-
-        Returns
-        -------
-        Plugin: The updated Plugin object.
-
-        """
-        self.sdk_version = sdk_version
-        return self
 
     def add_plugin_version(
         self,

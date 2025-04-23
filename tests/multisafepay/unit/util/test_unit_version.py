@@ -15,9 +15,8 @@ def test_version_initialization():
 
 
     """
-    version = Version(plugin_version="1.0.1", sdk_version="1.0.0")
+    version = Version(plugin_version="1.0.1")
     assert version.plugin_version == "1.0.1"
-    assert version.sdk_version == "1.0.0"
 
 
 def test_version_deserialization():
@@ -26,11 +25,8 @@ def test_version_deserialization():
 
 
     """
-    version = Version(plugin_version="1.0.1", sdk_version="1.0.0")
-    assert version.dict() == {
-        "plugin_version": "1.0.1",
-        "sdk_version": "1.0.0",
-    }
+    version = Version(plugin_version="1.0.1")
+    assert version.dict() == {"plugin_version": "1.0.1"}
 
 
 def test_version_serialization():
@@ -39,10 +35,8 @@ def test_version_serialization():
 
 
     """
-    version = Version(plugin_version="1.0.1", sdk_version="1.0.0")
-    assert (
-        version.json() == '{"plugin_version": "1.0.1", "sdk_version": "1.0.0"}'
-    )
+    version = Version(plugin_version="1.0.1")
+    assert version.json() == '{"plugin_version": "1.0.1"}'
 
 
 def test_empty_version_initialization():
@@ -53,7 +47,6 @@ def test_empty_version_initialization():
     """
     version = Version()
     assert version.plugin_version == "unknown"
-    assert version.sdk_version is None
 
 
 def test_empty_version_deserialization():
@@ -62,7 +55,7 @@ def test_empty_version_deserialization():
 
     """
     version = Version()
-    assert version.dict() == {"plugin_version": "unknown", "sdk_version": None}
+    assert version.dict() == {"plugin_version": "unknown"}
 
 
 def test_empty_version_serialization():
@@ -71,9 +64,7 @@ def test_empty_version_serialization():
 
     """
     version = Version()
-    assert (
-        version.json() == '{"plugin_version": "unknown", "sdk_version": null}'
-    )
+    assert version.json() == '{"plugin_version": "unknown"}'
 
 
 def test_version_get_plugin_version():
@@ -82,18 +73,8 @@ def test_version_get_plugin_version():
 
 
     """
-    version = Version(plugin_version="1.0.1", sdk_version="1.0.0")
+    version = Version(plugin_version="1.0.1")
     assert version.get_plugin_version() == "1.0.1"
-
-
-def test_version_get_sdk_version():
-    """
-    Test the get_sdk_version method of the Version object.
-
-
-    """
-    version = Version(plugin_version="1.0.1", sdk_version="1.0.0")
-    assert version.get_sdk_version() == "1.0.0"
 
 
 def test_version_get_version():
@@ -101,8 +82,9 @@ def test_version_get_version():
     Test the get_version method of the Version object.
 
     """
-    version = Version(plugin_version="1.0.1", sdk_version="1.0.0")
-    assert version.get_version() == "Plugin 1.0.1; Python-Sdk 1.0.0"
+    version = Version(plugin_version="1.0.1")
+    print(version.get_version())
+    assert version.get_version() == "Plugin 1.0.1"
 
 
 def test_version_set_plugin_version():
@@ -114,13 +96,3 @@ def test_version_set_plugin_version():
     version = Version()
     version.set_plugin_version("1.0.1")
     assert version.plugin_version == "1.0.1"
-
-
-def test_version_set_sdk_version():
-    """
-    Test the set_sdk_version method of the Version object.
-
-    """
-    version = Version()
-    version.set_sdk_version("1.0.0")
-    assert version.sdk_version == "1.0.0"
