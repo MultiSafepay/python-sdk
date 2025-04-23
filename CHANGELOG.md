@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0rc2] - 2025-04-23
+
+### Added
+- PTHMINT-59: Add readme, repository, and homepage missing properties in pyproject.toml
+
 ## [1.0.0rc1] - 2025-04-21
 
 ### Added
