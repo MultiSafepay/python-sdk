@@ -41,7 +41,7 @@ class CustomApiResponse(ApiResponse):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def get_data(self):
+    def get_data(self: "CustomApiResponse"):
         """
         Get the data contained in the response.
 

@@ -23,7 +23,7 @@ class Version(BaseModel):
 
     plugin_version: Optional[str] = "unknown"
 
-    def get_plugin_version(self) -> str:
+    def get_plugin_version(self: "Version") -> str:
         """
         Get the plugin version.
 
@@ -34,7 +34,7 @@ class Version(BaseModel):
         """
         return self.plugin_version
 
-    def set_plugin_version(self, version: Optional[str]):
+    def set_plugin_version(self: "Version", version: Optional[str]):
         """
         Set the plugin version.
 
@@ -45,7 +45,7 @@ class Version(BaseModel):
         """
         self.plugin_version = version
 
-    def get_version(self) -> Optional[str]:
+    def get_version(self: "Version") -> Optional[str]:
         """
         Get the combined version information of the plugin and SDK.
 

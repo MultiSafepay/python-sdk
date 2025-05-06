@@ -53,7 +53,10 @@ class Delivery(ApiModel):
     house_number_suffix: Optional[str]
     country_name: Optional[str]
 
-    def add_first_name(self, first_name: Optional[str]) -> "Delivery":
+    def add_first_name(
+        self: "Delivery",
+        first_name: Optional[str],
+    ) -> "Delivery":
         """
         Add the first name to the delivery information.
 
@@ -69,7 +72,10 @@ class Delivery(ApiModel):
         self.first_name = first_name
         return self
 
-    def add_last_name(self, last_name: Optional[str]) -> "Delivery":
+    def add_last_name(
+        self: "Delivery",
+        last_name: Optional[str],
+    ) -> "Delivery":
         """
         Add the last name to the delivery information.
 
@@ -85,7 +91,7 @@ class Delivery(ApiModel):
         self.last_name = last_name
         return self
 
-    def add_address1(self, address1: Optional[str]) -> "Delivery":
+    def add_address1(self: "Delivery", address1: Optional[str]) -> "Delivery":
         """
         Add the primary address line to the delivery information.
 
@@ -101,7 +107,7 @@ class Delivery(ApiModel):
         self.address1 = address1
         return self
 
-    def add_address2(self, address2: Optional[str]) -> "Delivery":
+    def add_address2(self: "Delivery", address2: Optional[str]) -> "Delivery":
         """
         Add the secondary address line to the delivery information.
 
@@ -117,7 +123,10 @@ class Delivery(ApiModel):
         self.address2 = address2
         return self
 
-    def add_house_number(self, house_number: Optional[str]) -> "Delivery":
+    def add_house_number(
+        self: "Delivery",
+        house_number: Optional[str],
+    ) -> "Delivery":
         """
         Add the house number to the delivery information.
 
@@ -133,7 +142,7 @@ class Delivery(ApiModel):
         self.house_number = house_number
         return self
 
-    def add_zip_code(self, zip_code: Optional[str]) -> "Delivery":
+    def add_zip_code(self: "Delivery", zip_code: Optional[str]) -> "Delivery":
         """
         Add the postal code to the delivery information.
 
@@ -149,7 +158,7 @@ class Delivery(ApiModel):
         self.zip_code = zip_code
         return self
 
-    def add_city(self, city: Optional[str]) -> "Delivery":
+    def add_city(self: "Delivery", city: Optional[str]) -> "Delivery":
         """
         Add the city to the delivery information.
 
@@ -165,7 +174,7 @@ class Delivery(ApiModel):
         self.city = city
         return self
 
-    def add_state(self, state: Optional[str]) -> "Delivery":
+    def add_state(self: "Delivery", state: Optional[str]) -> "Delivery":
         """
         Add the state or province to the delivery information.
 
@@ -182,7 +191,7 @@ class Delivery(ApiModel):
         return self
 
     def add_country(
-        self,
+        self: "Delivery",
         country: Optional[Union[Country, str]],
     ) -> "Delivery":
         """
@@ -203,7 +212,7 @@ class Delivery(ApiModel):
         return self
 
     def add_phone(
-        self,
+        self: "Delivery",
         phone: Optional[Union[PhoneNumber, str]],
     ) -> "Delivery":
         """
@@ -224,7 +233,7 @@ class Delivery(ApiModel):
         return self
 
     def add_email(
-        self,
+        self: "Delivery",
         email: Optional[Union[EmailAddress, str]],
     ) -> "Delivery":
         """
@@ -244,7 +253,10 @@ class Delivery(ApiModel):
         self.email = email.get()
         return self
 
-    def add_street_name(self, street_name: Optional[str]) -> "Delivery":
+    def add_street_name(
+        self: "Delivery",
+        street_name: Optional[str],
+    ) -> "Delivery":
         """
         Add the street name to the delivery information.
 
@@ -261,7 +273,7 @@ class Delivery(ApiModel):
         return self
 
     def add_street_name_additional(
-        self,
+        self: "Delivery",
         street_name_additional: Optional[str],
     ) -> "Delivery":
         """
@@ -280,7 +292,7 @@ class Delivery(ApiModel):
         return self
 
     def add_house_number_suffix(
-        self,
+        self: "Delivery",
         house_number_suffix: Optional[str],
     ) -> "Delivery":
         """
@@ -298,7 +310,10 @@ class Delivery(ApiModel):
         self.house_number_suffix = house_number_suffix
         return self
 
-    def add_country_name(self, country_name: Optional[str]) -> "Delivery":
+    def add_country_name(
+        self: "Delivery",
+        country_name: Optional[str],
+    ) -> "Delivery":
         """
         Add the country name to the delivery information.
 

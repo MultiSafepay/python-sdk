@@ -32,7 +32,7 @@ class CheckoutOptions(RequestModel):
     validate_cart: Optional[bool]
 
     def add_tax_tables(
-        self,
+        self: "CheckoutOptions",
         tax_tables: CheckoutOptionsApiModel,
     ) -> "CheckoutOptions":
         """
@@ -51,7 +51,7 @@ class CheckoutOptions(RequestModel):
         return self
 
     def add_validate_cart(
-        self,
+        self: "CheckoutOptions",
         validate_cart: bool,
     ) -> "CheckoutOptions":
         """

@@ -25,7 +25,7 @@ class Weight(ResponseModel):
     unit: Optional[str]
     value: Optional[Union[float, str]]
 
-    def get_unit(self) -> str:
+    def get_unit(self: "Weight") -> str:
         """
         Get the unit of measurement for the weight.
 
@@ -36,7 +36,7 @@ class Weight(ResponseModel):
         """
         return self.unit
 
-    def get_value(self) -> Union[float, str]:
+    def get_value(self: "Weight") -> Union[float, str]:
         """
         Get the value of the weight.
 

@@ -29,7 +29,7 @@ class RequestModel(BaseModel):
 
         extra = "allow"
 
-    def to_dict(self) -> dict:
+    def to_dict(self: "RequestModel") -> dict:
         """
         Convert the model to a dictionary, removing null values recursively.
 

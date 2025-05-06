@@ -31,7 +31,7 @@ class QrCode(RequestModel):
     min_amount: Optional[int]
     max_amount: Optional[int]
 
-    def add_qr_size(self, qr_size: int) -> "QrCode":
+    def add_qr_size(self: "QrCode", qr_size: int) -> "QrCode":
         """
         Adds a size to the QR code.
 
@@ -47,7 +47,7 @@ class QrCode(RequestModel):
         self.qr_size = qr_size
         return self
 
-    def add_allow_multiple(self, allow_multiple: bool) -> "QrCode":
+    def add_allow_multiple(self: "QrCode", allow_multiple: bool) -> "QrCode":
         """
         Sets whether multiple QR codes are allowed.
 
@@ -63,7 +63,10 @@ class QrCode(RequestModel):
         self.allow_multiple = allow_multiple
         return self
 
-    def add_allow_change_amount(self, allow_change_amount: bool) -> "QrCode":
+    def add_allow_change_amount(
+        self: "QrCode",
+        allow_change_amount: bool,
+    ) -> "QrCode":
         """
         Sets whether changing the amount is allowed.
 
@@ -79,7 +82,7 @@ class QrCode(RequestModel):
         self.allow_change_amount = allow_change_amount
         return self
 
-    def add_min_amount(self, min_amount: int) -> "QrCode":
+    def add_min_amount(self: "QrCode", min_amount: int) -> "QrCode":
         """
         Adds a minimum amount to the QR code.
 
@@ -95,7 +98,7 @@ class QrCode(RequestModel):
         self.min_amount = min_amount
         return self
 
-    def add_max_amount(self, max_amount: int) -> "QrCode":
+    def add_max_amount(self: "QrCode", max_amount: int) -> "QrCode":
         """
         Adds a maximum amount to the QR code.
 

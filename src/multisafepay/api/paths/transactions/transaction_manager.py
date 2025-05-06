@@ -41,7 +41,7 @@ class TransactionManager(AbstractManager):
     A class representing the TransactionManager.
     """
 
-    def __init__(self, client: Client):
+    def __init__(self: "TransactionManager", client: Client):
         """
         Initialize the CaptureManager with a client.
 
@@ -52,7 +52,10 @@ class TransactionManager(AbstractManager):
         """
         super().__init__(client)
 
-    def get_transactions(self, options: dict = None) -> CustomApiResponse:
+    def get_transactions(
+        self: "TransactionManager",
+        options: dict = None,
+    ) -> CustomApiResponse:
         """
         Retrieve a list of transactions.
 

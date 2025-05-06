@@ -36,7 +36,7 @@ class MessageList(BaseModel):
 
     __root__: List[Message] = Field(default_factory=list)
 
-    def __iter__(self):
+    def __iter__(self: "MessageList"):
         """
         Iterate over the messages in the list.
 
@@ -47,7 +47,7 @@ class MessageList(BaseModel):
         """
         return iter(self.__root__)
 
-    def __getitem__(self, index: int):
+    def __getitem__(self: "MessageList", index: int):
         """
         Get a message by index.
 
@@ -62,7 +62,7 @@ class MessageList(BaseModel):
         """
         return self.__root__[index]
 
-    def __len__(self):
+    def __len__(self: "MessageList"):
         """
         Get the number of messages in the list.
 
@@ -73,7 +73,7 @@ class MessageList(BaseModel):
         """
         return len(self.__root__)
 
-    def add_message(self, message: str) -> "MessageList":
+    def add_message(self: "MessageList", message: str) -> "MessageList":
         """
         Add a message to the list.
 
@@ -89,7 +89,7 @@ class MessageList(BaseModel):
         self.__root__.append(Message(message=message))
         return self
 
-    def get_messages(self) -> List[Dict]:
+    def get_messages(self: "MessageList") -> List[Dict]:
         """
         Get all messages in the list.
 

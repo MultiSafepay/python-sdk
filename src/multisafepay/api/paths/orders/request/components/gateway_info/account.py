@@ -30,7 +30,10 @@ class Account(RequestModel):
     account_holder_iban: Optional[str]
     emandate: Optional[str]
 
-    def add_account_id(self, account_id: Union[IbanNumber, str]) -> "Account":
+    def add_account_id(
+        self: "Account",
+        account_id: Union[IbanNumber, str],
+    ) -> "Account":
         """
         Adds an account ID to the account.
 
@@ -48,7 +51,10 @@ class Account(RequestModel):
         self.account_id = account_id.get()
         return self
 
-    def add_account_holder_name(self, account_holder_name: str) -> "Account":
+    def add_account_holder_name(
+        self: "Account",
+        account_holder_name: str,
+    ) -> "Account":
         """
         Adds an account holder name to the account.
 
@@ -65,7 +71,7 @@ class Account(RequestModel):
         return self
 
     def add_account_holder_iban(
-        self,
+        self: "Account",
         account_holder_iban: IbanNumber,
     ) -> "Account":
         """
@@ -85,7 +91,7 @@ class Account(RequestModel):
         self.account_holder_iban = account_holder_iban.get()
         return self
 
-    def add_emandate(self, emandate: str) -> "Account":
+    def add_emandate(self: "Account", emandate: str) -> "Account":
         """
         Adds an e-mandate to the account.
 

@@ -25,7 +25,7 @@ class Listing(Generic[T], BaseModel):
     data: List[T]
 
     def __init__(
-        self,
+        self: "Listing",
         data: List[Any],
         class_type: type,
         **kwargs: Dict[str, Any],
@@ -53,7 +53,7 @@ class Listing(Generic[T], BaseModel):
 
         super().__init__(data=elements)
 
-    def __iter__(self):
+    def __iter__(self: "Listing"):
         """
         Return an iterator over the items in the listing.
 
@@ -79,7 +79,7 @@ class Listing(Generic[T], BaseModel):
         """
         return self.data[index]
 
-    def __len__(self):
+    def __len__(self: "Listing"):
         """
         Get the number of items in the listing.
 
@@ -90,7 +90,7 @@ class Listing(Generic[T], BaseModel):
         """
         return len(self.data)
 
-    def get_data(self) -> List[T]:
+    def get_data(self: "Listing") -> List[T]:
         """
         Get the list of items in the listing.
 
@@ -101,7 +101,7 @@ class Listing(Generic[T], BaseModel):
         """
         return self.data
 
-    def append(self, item: T):
+    def append(self: "Listing", item: T):
         """
         Append an item to the listing.
 

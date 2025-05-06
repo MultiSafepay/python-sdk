@@ -21,7 +21,10 @@ class SecondChance(RequestModel):
 
     send_email: bool
 
-    def add_send_email(self, send_email: bool) -> "SecondChance":
+    def add_send_email(
+        self: "SecondChance",
+        send_email: bool,
+    ) -> "SecondChance":
         """
         Adds the send_email option to the SecondChance object.
 

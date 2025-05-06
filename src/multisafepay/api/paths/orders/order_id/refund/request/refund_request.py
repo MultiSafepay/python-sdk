@@ -36,7 +36,7 @@ class RefundOrderRequest(RequestModel):
     checkout_data: Optional[CheckoutData]
 
     def add_currency(
-        self,
+        self: "RefundOrderRequest",
         currency: Union[Currency, str],
     ) -> "RefundOrderRequest":
         """
@@ -56,7 +56,10 @@ class RefundOrderRequest(RequestModel):
         self.currency = currency.get()
         return self
 
-    def add_amount(self, amount: Union[Amount, int]) -> "RefundOrderRequest":
+    def add_amount(
+        self: "RefundOrderRequest",
+        amount: Union[Amount, int],
+    ) -> "RefundOrderRequest":
         """
         Adds the amount to the refund request.
 
@@ -75,7 +78,7 @@ class RefundOrderRequest(RequestModel):
         return self
 
     def add_description(
-        self,
+        self: "RefundOrderRequest",
         description: Union[Description, str],
     ) -> "RefundOrderRequest":
         """
@@ -96,7 +99,7 @@ class RefundOrderRequest(RequestModel):
         return self
 
     def add_checkout_data(
-        self,
+        self: "RefundOrderRequest",
         checkout_data: CheckoutData,
     ) -> "RefundOrderRequest":
         """

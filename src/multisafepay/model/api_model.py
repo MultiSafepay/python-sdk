@@ -35,7 +35,7 @@ class ApiModel(ExtraModel):
 
         extra = "allow"
 
-    def to_dict(self) -> dict:
+    def to_dict(self: "ApiModel") -> dict:
         """
         Convert the model to a dictionary, removing null values recursively.
 

@@ -21,7 +21,7 @@ class UnitPrice(InmutableModel):
 
     unit_price: float
 
-    def get(self) -> float:
+    def get(self: "UnitPrice") -> float:
         """
         Get the unit price of the item.
 

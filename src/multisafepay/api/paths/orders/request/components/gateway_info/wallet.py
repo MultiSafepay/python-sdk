@@ -23,7 +23,7 @@ class Wallet(RequestModel):
 
     payment_token: Optional[str]
 
-    def add_payment_token(self, payment_token: str) -> "Wallet":
+    def add_payment_token(self: "Wallet", payment_token: str) -> "Wallet":
         """
         Adds the payment token to the Wallet object.
 

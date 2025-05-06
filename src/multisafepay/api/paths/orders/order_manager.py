@@ -48,7 +48,7 @@ class OrderManager(AbstractManager):
     Manages operations related to orders, such as creating, updating, capturing, and refunding orders.
     """
 
-    def __init__(self, client: Client):
+    def __init__(self: "OrderManager", client: Client):
         """
         Initialize the OrderManager with a client.
 
@@ -89,7 +89,7 @@ class OrderManager(AbstractManager):
 
         return CustomApiResponse(**args)
 
-    def get(self, order_id: str) -> CustomApiResponse:
+    def get(self: "OrderManager", order_id: str) -> CustomApiResponse:
         """
         Retrieve an order by its ID.
 
@@ -110,7 +110,10 @@ class OrderManager(AbstractManager):
         )
         return OrderManager.__custom_api_response(response)
 
-    def create(self, request_order: OrderRequest) -> CustomApiResponse:
+    def create(
+        self: "OrderManager",
+        request_order: OrderRequest,
+    ) -> CustomApiResponse:
         """
         Create a new order.
 
@@ -131,7 +134,7 @@ class OrderManager(AbstractManager):
         return OrderManager.__custom_api_response(response)
 
     def update(
-        self,
+        self: "OrderManager",
         order_id: str,
         update_request: UpdateOrderRequest,
     ) -> CustomApiResponse:
@@ -160,7 +163,7 @@ class OrderManager(AbstractManager):
         return CustomApiResponse(**args)
 
     def capture(
-        self,
+        self: "OrderManager",
         order_id: str,
         capture_request: CaptureOrderRequest,
     ) -> CustomApiResponse:
@@ -200,7 +203,7 @@ class OrderManager(AbstractManager):
         return CustomApiResponse(**args)
 
     def refund(
-        self,
+        self: "OrderManager",
         order_id: str,
         request_refund: RefundOrderRequest,
     ) -> CustomApiResponse:
@@ -239,7 +242,7 @@ class OrderManager(AbstractManager):
         return CustomApiResponse(**args)
 
     def refund_by_item(
-        self,
+        self: "OrderManager",
         order: Order,
         merchant_item_id: Union[str, int],
         quantity: int = 0,

@@ -22,7 +22,7 @@ class Cvc(BaseModel):
 
     cvc: str
 
-    def get(self) -> str:
+    def get(self: "Cvc") -> str:
         """
         Get the credit card CVC.
 
@@ -34,7 +34,7 @@ class Cvc(BaseModel):
         return self.cvc
 
     @validator("cvc")
-    def validate(cls, cvc: str) -> str:
+    def validate(cls: "Cvc", cvc: str) -> str:
         """
         Validate the credit card CVC.
 

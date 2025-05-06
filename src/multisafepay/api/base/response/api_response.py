@@ -65,7 +65,7 @@ class ApiResponse(ExtraModel):
             raw=json_data.__str__(),
         )
 
-    def get_body_data(self) -> Optional[Any]:
+    def get_body_data(self: "ApiResponse") -> Optional[Any]:
         """
         Get the data from the body of the response.
 
@@ -76,7 +76,7 @@ class ApiResponse(ExtraModel):
         """
         return self.body.get("data", None)
 
-    def get_body_success(self) -> Optional[bool]:
+    def get_body_success(self: "ApiResponse") -> Optional[bool]:
         """
         Get the success status from the body of the response.
 
@@ -87,7 +87,7 @@ class ApiResponse(ExtraModel):
         """
         return self.body.get("success", None)
 
-    def get_body_error_code(self) -> Optional[int]:
+    def get_body_error_code(self: "ApiResponse") -> Optional[int]:
         """
         Get the error code from the body of the response.
 
@@ -98,7 +98,7 @@ class ApiResponse(ExtraModel):
         """
         return self.body.get("error_code", None)
 
-    def get_body_error_info(self) -> Optional[str]:
+    def get_body_error_info(self: "ApiResponse") -> Optional[str]:
         """
         Get the error information from the body of the response.
 
@@ -109,7 +109,7 @@ class ApiResponse(ExtraModel):
         """
         return self.body.get("error_info", None)
 
-    def get_context(self) -> dict:
+    def get_context(self: "ApiResponse") -> dict:
         """
         Get the context of the response.
 
@@ -120,7 +120,7 @@ class ApiResponse(ExtraModel):
         """
         return self.context
 
-    def get_headers(self) -> dict:
+    def get_headers(self: "ApiResponse") -> dict:
         """
         Get the headers of the response.
 
@@ -131,7 +131,7 @@ class ApiResponse(ExtraModel):
         """
         return self.headers
 
-    def get_status_code(self) -> int:
+    def get_status_code(self: "ApiResponse") -> int:
         """
         Get the status code of the response.
 
@@ -142,7 +142,7 @@ class ApiResponse(ExtraModel):
         """
         return self.status_code
 
-    def get_raw(self) -> str:
+    def get_raw(self: "ApiResponse") -> str:
         """
         Get the raw response data as a string.
 
@@ -153,7 +153,7 @@ class ApiResponse(ExtraModel):
         """
         return self.raw
 
-    def get_pager(self) -> Optional[Pager]:
+    def get_pager(self: "ApiResponse") -> Optional[Pager]:
         """
         Get the pager object from the body of the response.
 

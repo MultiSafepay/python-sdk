@@ -36,7 +36,7 @@ class Creditcard(RequestModel):
     term_url: Optional[str]
 
     def add_card_number(
-        self,
+        self: "Creditcard",
         card_number: Union[CardNumber, str],
     ) -> "Creditcard":
         """
@@ -56,7 +56,10 @@ class Creditcard(RequestModel):
         self.card_number = card_number.get_card_number()
         return self
 
-    def add_card_holder_name(self, card_holder_name: str) -> "Creditcard":
+    def add_card_holder_name(
+        self: "Creditcard",
+        card_holder_name: str,
+    ) -> "Creditcard":
         """
         Adds a card holder name to the credit card.
 
@@ -72,7 +75,10 @@ class Creditcard(RequestModel):
         self.card_holder_name = card_holder_name
         return self
 
-    def add_card_expiry_date(self, card_expiry_date: str) -> "Creditcard":
+    def add_card_expiry_date(
+        self: "Creditcard",
+        card_expiry_date: str,
+    ) -> "Creditcard":
         """
         Adds a card expiry date to the credit card.
 
@@ -88,7 +94,7 @@ class Creditcard(RequestModel):
         self.card_expiry_date = card_expiry_date
         return self
 
-    def add_cvc(self, cvc: Union[Cvc, str]) -> "Creditcard":
+    def add_cvc(self: "Creditcard", cvc: Union[Cvc, str]) -> "Creditcard":
         """
         Adds a CVC code to the credit card.
 
@@ -106,7 +112,7 @@ class Creditcard(RequestModel):
         self.cvc = cvc.get()
         return self
 
-    def add_flexible_3d(self, flexible_3d: bool) -> "Creditcard":
+    def add_flexible_3d(self: "Creditcard", flexible_3d: bool) -> "Creditcard":
         """
         Adds a flexible 3D secure option to the credit card.
 
@@ -122,7 +128,7 @@ class Creditcard(RequestModel):
         self.flexible_3d = flexible_3d
         return self
 
-    def add_term_url(self, term_url: str) -> "Creditcard":
+    def add_term_url(self: "Creditcard", term_url: str) -> "Creditcard":
         """
         Adds a term URL to the credit card.
 

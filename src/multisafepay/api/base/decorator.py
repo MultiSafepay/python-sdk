@@ -14,13 +14,13 @@ class Decorator:
 
     Attributes
     ----------
-    dependencies (Optional[dict]): A dictionary of dependencies to be used by the decorator.
+    dependencies (Optional[Dict]): A dictionary of dependencies to be used by the decorator.
 
     """
 
-    dependencies: Optional[dict]
+    dependencies: Optional[Dict]
 
-    def __init__(self, dependencies: dict = {}) -> None:
+    def __init__(self: "Decorator", dependencies: Dict = {}) -> None:
         """
         Initialize the Decorator with optional dependencies.
 
@@ -32,7 +32,7 @@ class Decorator:
         self.dependencies = dependencies
 
     def adapt_checkout_options(
-        self,
+        self: "Decorator",
         checkout_options: Optional[Dict],
     ) -> "Decorator":
         """
@@ -57,7 +57,7 @@ class Decorator:
             )
         return self
 
-    def adapt_costs(self, costs: Optional[Dict]) -> "Decorator":
+    def adapt_costs(self: "Decorator", costs: Optional[Dict]) -> "Decorator":
         """
         Adapt the costs and update the dependencies.
 
@@ -78,7 +78,10 @@ class Decorator:
             ]
         return self
 
-    def adapt_custom_info(self, custom_info: Optional[Dict]) -> "Decorator":
+    def adapt_custom_info(
+        self: "Decorator",
+        custom_info: Optional[Dict],
+    ) -> "Decorator":
         """
         Adapt the custom information and update the dependencies.
 
@@ -100,7 +103,10 @@ class Decorator:
 
         return self
 
-    def adapt_customer(self, customer: Optional[Dict]) -> "Decorator":
+    def adapt_customer(
+        self: "Decorator",
+        customer: Optional[Dict],
+    ) -> "Decorator":
         """
         Adapt the customer information and update the dependencies.
 
@@ -121,7 +127,7 @@ class Decorator:
         return self
 
     def adapt_order_adjustment(
-        self,
+        self: "Decorator",
         order_adjustment: Optional[Dict],
     ) -> "Decorator":
         """
@@ -148,7 +154,7 @@ class Decorator:
         return self
 
     def adapt_payment_details(
-        self,
+        self: "Decorator",
         payment_details: Optional[Dict],
     ) -> "Decorator":
         """
@@ -175,7 +181,7 @@ class Decorator:
         return self
 
     def adapt_payment_methods(
-        self,
+        self: "Decorator",
         payment_methods: Optional[Dict],
     ) -> "Decorator":
         """
@@ -200,7 +206,7 @@ class Decorator:
         return self
 
     def adapt_shopping_cart(
-        self,
+        self: "Decorator",
         shopping_cart: Optional[Dict],
     ) -> "Decorator":
         """
@@ -224,7 +230,7 @@ class Decorator:
         return self
 
     def adapt_related_transactions(
-        self,
+        self: "Decorator",
         related_transactions: Optional[Dict],
     ) -> "Decorator":
         """
@@ -250,7 +256,7 @@ class Decorator:
             ]
         return self
 
-    def adapt_apps(self, apps: Optional[Dict]) -> "Decorator":
+    def adapt_apps(self: "Decorator", apps: Optional[Dict]) -> "Decorator":
         """
         Adapt the apps and update the dependencies.
 
@@ -273,7 +279,7 @@ class Decorator:
         return self
 
     def adapt_brands(
-        self,
+        self: "Decorator",
         brands: Optional[List[Optional[Dict]]],
     ) -> "Decorator":
         """
@@ -298,7 +304,10 @@ class Decorator:
             ]
         return self
 
-    def adapt_icon_urls(self, icon_urls: Optional[Dict]) -> "Decorator":
+    def adapt_icon_urls(
+        self: "Decorator",
+        icon_urls: Optional[Dict],
+    ) -> "Decorator":
         """
         Adapt the icon URLs and update the dependencies.
 
@@ -320,7 +329,10 @@ class Decorator:
 
         return self
 
-    def adapt_tokenization(self, tokenization: Optional[Dict]) -> "Decorator":
+    def adapt_tokenization(
+        self: "Decorator",
+        tokenization: Optional[Dict],
+    ) -> "Decorator":
         """
         Adapt the tokenization and update the dependencies.
 
@@ -345,7 +357,7 @@ class Decorator:
         return self
 
     def adapt_allowed_amount(
-        self,
+        self: "Decorator",
         allowed_amount: Optional[Dict],
     ) -> "Decorator":
         """
@@ -370,7 +382,7 @@ class Decorator:
             )
         return self
 
-    def get_dependencies(self) -> Dict[str, Any]:
+    def get_dependencies(self: "Decorator") -> Dict[str, Any]:
         """
         Get the current dependencies.
 

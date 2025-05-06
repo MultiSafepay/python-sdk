@@ -33,7 +33,7 @@ class AuthManager(AbstractManager):
         """
         super().__init__(client)
 
-    def get_api_token(self) -> CustomApiResponse:
+    def get_api_token(self: "AuthManager") -> CustomApiResponse:
         """
         Retrieve the API token.
 

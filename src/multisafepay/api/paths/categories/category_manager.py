@@ -31,7 +31,7 @@ class CategoryManager(AbstractManager):
         """
         super().__init__(client)
 
-    def get_categories(self) -> CustomApiResponse:
+    def get_categories(self: "CategoryManager") -> CustomApiResponse:
         """
         Retrieve the list of categories.
 

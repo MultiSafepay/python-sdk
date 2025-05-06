@@ -32,7 +32,7 @@ class Customer(Delivery):
     user_agent: Optional[str]
     reference: Optional[str]
 
-    def add_locale(self, locale: str) -> "Customer":
+    def add_locale(self: "Customer", locale: str) -> "Customer":
         """
         Add a locale to the customer.
 
@@ -48,7 +48,10 @@ class Customer(Delivery):
         self.locale = locale
         return self
 
-    def add_ip_address(self, ip_address: Union[IpAddress, str]) -> "Customer":
+    def add_ip_address(
+        self: "Customer",
+        ip_address: Union[IpAddress, str],
+    ) -> "Customer":
         """
         Add an IP address to the customer.
 
@@ -67,7 +70,7 @@ class Customer(Delivery):
         return self
 
     def add_forwarded_ip(
-        self,
+        self: "Customer",
         forwarded_ip: Union[IpAddress, str],
     ) -> "Customer":
         """
@@ -87,7 +90,7 @@ class Customer(Delivery):
         self.forwarded_ip = forwarded_ip.get()
         return self
 
-    def add_referrer(self, referrer: str) -> "Customer":
+    def add_referrer(self: "Customer", referrer: str) -> "Customer":
         """
         Add a referrer URL to the customer.
 
@@ -103,7 +106,7 @@ class Customer(Delivery):
         self.referrer = referrer
         return self
 
-    def add_user_agent(self, user_agent: str) -> "Customer":
+    def add_user_agent(self: "Customer", user_agent: str) -> "Customer":
         """
         Add a user agent string to the customer.
 
@@ -119,7 +122,7 @@ class Customer(Delivery):
         self.user_agent = user_agent
         return self
 
-    def add_reference(self, reference: str) -> "Customer":
+    def add_reference(self: "Customer", reference: str) -> "Customer":
         """
         Add a reference to the customer.
 

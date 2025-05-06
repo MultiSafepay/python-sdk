@@ -30,7 +30,7 @@ class PaymentMethodManager(AbstractManager):
     A class representing the PaymentMethodManager.
     """
 
-    def __init__(self, client: Client):
+    def __init__(self: "PaymentMethodManager", client: Client):
         """
         Initialize the CaptureManager with a client.
 
@@ -42,7 +42,7 @@ class PaymentMethodManager(AbstractManager):
         super().__init__(client)
 
     def get_payment_methods_request(
-        self,
+        self: "PaymentMethodManager",
         include_coupons: bool = True,
         options: dict = None,
     ) -> ApiResponse:
@@ -68,7 +68,7 @@ class PaymentMethodManager(AbstractManager):
         return self.client.create_get_request("json/payment-methods", options)
 
     def get_payment_methods(
-        self,
+        self: "PaymentMethodManager",
         include_coupons: bool = True,
         options: dict = None,
     ) -> CustomApiResponse:
@@ -106,7 +106,7 @@ class PaymentMethodManager(AbstractManager):
         return CustomApiResponse(**args)
 
     def get_by_gateway_code(
-        self,
+        self: "PaymentMethodManager",
         gateway_code: str,
         options: dict = None,
     ) -> CustomApiResponse:

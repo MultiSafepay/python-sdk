@@ -32,7 +32,7 @@ class Plugin(RequestModel):
     shop_root_url: Optional[str]
 
     def add_plugin_version(
-        self,
+        self: "Plugin",
         plugin_version: Optional[str],
     ) -> "Plugin":
         """
@@ -51,7 +51,7 @@ class Plugin(RequestModel):
         return self
 
     def add_shop(
-        self,
+        self: "Plugin",
         shop: Optional[str],
     ) -> "Plugin":
         """
@@ -69,7 +69,10 @@ class Plugin(RequestModel):
         self.shop = shop
         return self
 
-    def add_shop_version(self, shop_version: Optional[str]) -> "Plugin":
+    def add_shop_version(
+        self: "Plugin",
+        shop_version: Optional[str],
+    ) -> "Plugin":
         """
         Adds the shop version to the Plugin object.
 
@@ -85,7 +88,7 @@ class Plugin(RequestModel):
         self.shop_version = shop_version
         return self
 
-    def add_partner(self, partner: Optional[str]) -> "Plugin":
+    def add_partner(self: "Plugin", partner: Optional[str]) -> "Plugin":
         """
         Adds the partner to the Plugin object.
 
@@ -102,7 +105,7 @@ class Plugin(RequestModel):
         return self
 
     def add_shop_root_url(
-        self,
+        self: "Plugin",
         shop_root_url: Optional[str],
     ) -> "Plugin":
         """

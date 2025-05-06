@@ -33,7 +33,7 @@ class DestinationHolder(RequestModel):
     iban: Optional[str]
     swift: Optional[str]
 
-    def add_name(self, name: str) -> "DestinationHolder":
+    def add_name(self: "DestinationHolder", name: str) -> "DestinationHolder":
         """
         Adds a name to the destination holder.
 
@@ -49,7 +49,7 @@ class DestinationHolder(RequestModel):
         self.name = name
         return self
 
-    def add_city(self, city: str) -> "DestinationHolder":
+    def add_city(self: "DestinationHolder", city: str) -> "DestinationHolder":
         """
         Adds a city to the destination holder.
 
@@ -66,7 +66,7 @@ class DestinationHolder(RequestModel):
         return self
 
     def add_country(
-        self,
+        self: "DestinationHolder",
         country: Union[Country, str],
     ) -> "DestinationHolder":
         """
@@ -86,7 +86,10 @@ class DestinationHolder(RequestModel):
         self.country = country.get_code()
         return self
 
-    def add_iban(self, iban: Union[IbanNumber, str]) -> "DestinationHolder":
+    def add_iban(
+        self: "DestinationHolder",
+        iban: Union[IbanNumber, str],
+    ) -> "DestinationHolder":
         """
         Adds an IBAN to the destination holder.
 
@@ -104,7 +107,10 @@ class DestinationHolder(RequestModel):
         self.iban = iban.get()
         return self
 
-    def add_swift(self, swift: str) -> "DestinationHolder":
+    def add_swift(
+        self: "DestinationHolder",
+        swift: str,
+    ) -> "DestinationHolder":
         """
         Adds a SWIFT code to the destination holder.
 

@@ -23,7 +23,10 @@ class GoogleAnalytics(RequestModel):
 
     account_id: Optional[str]
 
-    def add_account_id(self, account_id: str) -> "GoogleAnalytics":
+    def add_account_id(
+        self: "GoogleAnalytics",
+        account_id: str,
+    ) -> "GoogleAnalytics":
         """
         Adds the account ID to the Google Analytics information.
 

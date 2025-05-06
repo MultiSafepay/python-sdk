@@ -35,7 +35,7 @@ class Sdk:
     """
 
     def __init__(
-        self,
+        self: "Sdk",
         api_key: str,
         is_production: bool,
         http_client: Optional[Client] = None,
@@ -64,7 +64,7 @@ class Sdk:
         )
         self.recurring_manager = RecurringManager(self.client)
 
-    def get_transaction_manager(self) -> TransactionManager:
+    def get_transaction_manager(self: "Sdk") -> TransactionManager:
         """
         Get the transaction manager.
 
@@ -76,7 +76,7 @@ class Sdk:
         """
         return TransactionManager(self.client)
 
-    def get_gateway_manager(self) -> GatewayManager:
+    def get_gateway_manager(self: "Sdk") -> GatewayManager:
         """
         Get the gateway manager.
 
@@ -88,7 +88,7 @@ class Sdk:
         """
         return GatewayManager(self.client)
 
-    def get_payment_method_manager(self) -> PaymentMethodManager:
+    def get_payment_method_manager(self: "Sdk") -> PaymentMethodManager:
         """
         Get the payment method manager.
 
@@ -100,7 +100,7 @@ class Sdk:
         """
         return PaymentMethodManager(self.client)
 
-    def get_issuer_manager(self) -> IssuerManager:
+    def get_issuer_manager(self: "Sdk") -> IssuerManager:
         """
         Get the issuer manager.
 
@@ -112,7 +112,7 @@ class Sdk:
         """
         return IssuerManager(self.client)
 
-    def get_recurring_manager(self) -> RecurringManager:
+    def get_recurring_manager(self: "Sdk") -> RecurringManager:
         """
         Get the recurring manager.
 
@@ -124,7 +124,7 @@ class Sdk:
         """
         return self.recurring_manager
 
-    def get_auth_manager(self) -> AuthManager:
+    def get_auth_manager(self: "Sdk") -> AuthManager:
         """
         Get the auth manager.
 
@@ -136,7 +136,7 @@ class Sdk:
         """
         return AuthManager(self.client)
 
-    def get_me_manager(self) -> MeManager:
+    def get_me_manager(self: "Sdk") -> MeManager:
         """
         Get the me manager.
 
@@ -148,7 +148,7 @@ class Sdk:
         """
         return MeManager(self.client)
 
-    def get_category_manager(self) -> CategoryManager:
+    def get_category_manager(self: "Sdk") -> CategoryManager:
         """
         Get the category manager.
 
@@ -160,7 +160,7 @@ class Sdk:
         """
         return CategoryManager(self.client)
 
-    def get_order_manager(self) -> OrderManager:
+    def get_order_manager(self: "Sdk") -> OrderManager:
         """
         Get the order manager.
 
@@ -172,7 +172,7 @@ class Sdk:
         """
         return OrderManager(self.client)
 
-    def get_capture_manager(self) -> CaptureManager:
+    def get_capture_manager(self: "Sdk") -> CaptureManager:
         """
         Get the capture manager.
 
@@ -184,7 +184,7 @@ class Sdk:
         """
         return CaptureManager(self.client)
 
-    def get_client(self) -> Client:
+    def get_client(self: "Sdk") -> Client:
         """
         Get the client instance.
 

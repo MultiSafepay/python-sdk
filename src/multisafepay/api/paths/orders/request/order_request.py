@@ -108,7 +108,7 @@ class OrderRequest(RequestModel):
     var2: Optional[str]
     var3: Optional[str]
 
-    def add_type(self, order_type: str) -> "OrderRequest":
+    def add_type(self: "OrderRequest", order_type: str) -> "OrderRequest":
         """
         Adds the type of the order request.
 
@@ -131,7 +131,10 @@ class OrderRequest(RequestModel):
         self.type = order_type
         return self
 
-    def add_recurring_model(self, recurring_model: str) -> "OrderRequest":
+    def add_recurring_model(
+        self: "OrderRequest",
+        recurring_model: str,
+    ) -> "OrderRequest":
         """
         Adds the recurring model of the order request.
 
@@ -154,7 +157,7 @@ class OrderRequest(RequestModel):
         self.recurring_model = recurring_model
         return self
 
-    def add_order_id(self, order_id: str) -> "OrderRequest":
+    def add_order_id(self: "OrderRequest", order_id: str) -> "OrderRequest":
         """
         Adds the order ID to the order request.
 
@@ -170,7 +173,10 @@ class OrderRequest(RequestModel):
         self.order_id = order_id
         return self
 
-    def add_currency(self, currency: Union[Currency, str]) -> "OrderRequest":
+    def add_currency(
+        self: "OrderRequest",
+        currency: Union[Currency, str],
+    ) -> "OrderRequest":
         """
         Adds the currency to the order request.
 
@@ -188,7 +194,10 @@ class OrderRequest(RequestModel):
         self.currency = currency.get()
         return self
 
-    def add_amount(self, amount: Union[Amount, int]) -> "OrderRequest":
+    def add_amount(
+        self: "OrderRequest",
+        amount: Union[Amount, int],
+    ) -> "OrderRequest":
         """
         Adds the amount to the order request.
 
@@ -206,7 +215,7 @@ class OrderRequest(RequestModel):
         self.amount = amount.get()
         return self
 
-    def add_capture(self, capture: str) -> "OrderRequest":
+    def add_capture(self: "OrderRequest", capture: str) -> "OrderRequest":
         """
         Adds the capture type to the order request.
 
@@ -223,7 +232,7 @@ class OrderRequest(RequestModel):
         return self
 
     def add_payment_options(
-        self,
+        self: "OrderRequest",
         payment_options: PaymentOptions,
     ) -> "OrderRequest":
         """
@@ -241,7 +250,10 @@ class OrderRequest(RequestModel):
         self.payment_options = payment_options
         return self
 
-    def add_customer(self, customer: Customer) -> "OrderRequest":
+    def add_customer(
+        self: "OrderRequest",
+        customer: Customer,
+    ) -> "OrderRequest":
         """
         Adds the customer to the order request.
 
@@ -257,7 +269,7 @@ class OrderRequest(RequestModel):
         self.customer = customer
         return self
 
-    def add_gateway(self, gateway: str) -> "OrderRequest":
+    def add_gateway(self: "OrderRequest", gateway: str) -> "OrderRequest":
         """
         Adds the gateway to the order request.
 
@@ -273,7 +285,10 @@ class OrderRequest(RequestModel):
         self.gateway = gateway
         return self
 
-    def add_gateway_info(self, gateway_info: dict) -> "OrderRequest":
+    def add_gateway_info(
+        self: "OrderRequest",
+        gateway_info: dict,
+    ) -> "OrderRequest":
         """
         Adds the gateway information to the order request.
 
@@ -290,7 +305,7 @@ class OrderRequest(RequestModel):
         return self
 
     def add_description(
-        self,
+        self: "OrderRequest",
         description: Union[Description, str],
     ) -> "OrderRequest":
         """
@@ -311,7 +326,7 @@ class OrderRequest(RequestModel):
         return self
 
     def add_plugin(
-        self,
+        self: "OrderRequest",
         plugin: Plugin,
     ) -> "OrderRequest":
         """
@@ -329,7 +344,10 @@ class OrderRequest(RequestModel):
         self.plugin = plugin
         return self
 
-    def add_recurring_id(self, recurring_id: str) -> "OrderRequest":
+    def add_recurring_id(
+        self: "OrderRequest",
+        recurring_id: str,
+    ) -> "OrderRequest":
         """
         Adds the recurring ID to the order request.
 
@@ -345,7 +363,10 @@ class OrderRequest(RequestModel):
         self.recurring_id = recurring_id
         return self
 
-    def add_second_chance(self, second_chance: SecondChance) -> "OrderRequest":
+    def add_second_chance(
+        self: "OrderRequest",
+        second_chance: SecondChance,
+    ) -> "OrderRequest":
         """
         Adds the second chance information to the order request.
 
@@ -362,7 +383,7 @@ class OrderRequest(RequestModel):
         return self
 
     def add_google_analytics(
-        self,
+        self: "OrderRequest",
         google_analytics: GoogleAnalytics,
     ) -> "OrderRequest":
         """
@@ -380,7 +401,10 @@ class OrderRequest(RequestModel):
         self.google_analytics = google_analytics
         return self
 
-    def add_shopping_cart(self, shopping_cart: ShoppingCart) -> "OrderRequest":
+    def add_shopping_cart(
+        self: "OrderRequest",
+        shopping_cart: ShoppingCart,
+    ) -> "OrderRequest":
         """
         Adds the shopping cart to the order request.
 
@@ -396,7 +420,10 @@ class OrderRequest(RequestModel):
         self.shopping_cart = shopping_cart
         return self
 
-    def add_delivery(self, delivery: Delivery) -> "OrderRequest":
+    def add_delivery(
+        self: "OrderRequest",
+        delivery: Delivery,
+    ) -> "OrderRequest":
         """
         Adds the delivery information to the order request.
 
@@ -413,7 +440,7 @@ class OrderRequest(RequestModel):
         return self
 
     def add_checkout_options(
-        self,
+        self: "OrderRequest",
         checkout_options: CheckoutOptions,
     ) -> "OrderRequest":
         """
@@ -431,7 +458,10 @@ class OrderRequest(RequestModel):
         self.checkout_options = checkout_options
         return self
 
-    def add_seconds_active(self, seconds: int) -> "OrderRequest":
+    def add_seconds_active(
+        self: "OrderRequest",
+        seconds: int,
+    ) -> "OrderRequest":
         """
         Adds the seconds active to the order request.
 
@@ -447,7 +477,7 @@ class OrderRequest(RequestModel):
         self.seconds_active = seconds
         return self
 
-    def add_days_active(self, days: int) -> "OrderRequest":
+    def add_days_active(self: "OrderRequest", days: int) -> "OrderRequest":
         """
         Adds the days active to the order request.
 
@@ -463,7 +493,10 @@ class OrderRequest(RequestModel):
         self.days_active = days
         return self
 
-    def add_custom_info(self, custom_info: CustomInfo) -> "OrderRequest":
+    def add_custom_info(
+        self: "OrderRequest",
+        custom_info: CustomInfo,
+    ) -> "OrderRequest":
         """
         Adds the custom information to the order request.
 
@@ -479,7 +512,7 @@ class OrderRequest(RequestModel):
         self.custom_info = custom_info
         return self
 
-    def add_var1(self, var1: str) -> "OrderRequest":
+    def add_var1(self: "OrderRequest", var1: str) -> "OrderRequest":
         """
         Adds the first custom variable to the order request.
 
@@ -495,7 +528,7 @@ class OrderRequest(RequestModel):
         self.var1 = var1
         return self
 
-    def add_var2(self, var2: str) -> "OrderRequest":
+    def add_var2(self: "OrderRequest", var2: str) -> "OrderRequest":
         """
         Adds the second custom variable to the order request.
 
@@ -511,7 +544,7 @@ class OrderRequest(RequestModel):
         self.var2 = var2
         return self
 
-    def add_var3(self, var3: str) -> "OrderRequest":
+    def add_var3(self: "OrderRequest", var3: str) -> "OrderRequest":
         """
         Adds the third custom variable to the order request.
 
@@ -527,7 +560,7 @@ class OrderRequest(RequestModel):
         self.var3 = var3
         return self
 
-    def validate_amount(self) -> "OrderRequest":
+    def validate_amount(self: "OrderRequest") -> "OrderRequest":
         """
         Validates the total amount of the order request and the shopping cart.
 

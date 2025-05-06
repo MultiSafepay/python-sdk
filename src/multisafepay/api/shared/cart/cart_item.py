@@ -48,7 +48,7 @@ class CartItem(ApiModel):
     unit_price: Optional[float]
     weight: Optional[Weight]
 
-    def add_cashback(self, cashback: str) -> "CartItem":
+    def add_cashback(self: "CartItem", cashback: str) -> "CartItem":
         """
         Add cashback to the cart item.
 
@@ -64,7 +64,7 @@ class CartItem(ApiModel):
         self.cashback = cashback
         return self
 
-    def add_currency(self, currency: str) -> "CartItem":
+    def add_currency(self: "CartItem", currency: str) -> "CartItem":
         """
         Add currency to the cart item.
 
@@ -80,7 +80,7 @@ class CartItem(ApiModel):
         self.currency = currency
         return self
 
-    def add_description(self, description: str) -> "CartItem":
+    def add_description(self: "CartItem", description: str) -> "CartItem":
         """
         Add description to the cart item.
 
@@ -96,7 +96,7 @@ class CartItem(ApiModel):
         self.description = description
         return self
 
-    def add_image(self, image: str) -> "CartItem":
+    def add_image(self: "CartItem", image: str) -> "CartItem":
         """
         Add image URL to the cart item.
 
@@ -112,7 +112,10 @@ class CartItem(ApiModel):
         self.image = image
         return self
 
-    def add_merchant_item_id(self, merchant_item_id: str) -> "CartItem":
+    def add_merchant_item_id(
+        self: "CartItem",
+        merchant_item_id: str,
+    ) -> "CartItem":
         """
         Add merchant item ID to the cart item.
 
@@ -128,7 +131,7 @@ class CartItem(ApiModel):
         self.merchant_item_id = merchant_item_id
         return self
 
-    def add_name(self, name: str) -> "CartItem":
+    def add_name(self: "CartItem", name: str) -> "CartItem":
         """
         Add name to the cart item.
 
@@ -144,7 +147,7 @@ class CartItem(ApiModel):
         self.name = name
         return self
 
-    def add_options(self, options: List[Dict]) -> "CartItem":
+    def add_options(self: "CartItem", options: List[Dict]) -> "CartItem":
         """
         Add options to the cart item.
 
@@ -160,7 +163,7 @@ class CartItem(ApiModel):
         self.options = options
         return self
 
-    def add_product_url(self, product_url: str) -> "CartItem":
+    def add_product_url(self: "CartItem", product_url: str) -> "CartItem":
         """
         Add product URL to the cart item.
 
@@ -176,7 +179,7 @@ class CartItem(ApiModel):
         self.product_url = product_url
         return self
 
-    def add_quantity(self, quantity: int) -> "CartItem":
+    def add_quantity(self: "CartItem", quantity: int) -> "CartItem":
         """
         Add quantity to the cart item.
 
@@ -192,7 +195,10 @@ class CartItem(ApiModel):
         self.quantity = quantity
         return self
 
-    def add_tax_table_selector(self, tax_table_selector: str) -> "CartItem":
+    def add_tax_table_selector(
+        self: "CartItem",
+        tax_table_selector: str,
+    ) -> "CartItem":
         """
         Add tax table selector to the cart item.
 
@@ -208,7 +214,7 @@ class CartItem(ApiModel):
         self.tax_table_selector = tax_table_selector
         return self
 
-    def add_unit_price(self, unit_price: float) -> "CartItem":
+    def add_unit_price(self: "CartItem", unit_price: float) -> "CartItem":
         """
         Add unit price to the cart item.
 
@@ -224,7 +230,7 @@ class CartItem(ApiModel):
         self.unit_price = unit_price
         return self
 
-    def add_weight(self, weight: Weight) -> "CartItem":
+    def add_weight(self: "CartItem", weight: Weight) -> "CartItem":
         """
         Add weight to the cart item.
 
@@ -241,7 +247,7 @@ class CartItem(ApiModel):
         return self
 
     def add_tax_rate_percentage(
-        self,
+        self: "CartItem",
         tax_rate_percentage: float,
     ) -> "CartItem":
         """
@@ -281,7 +287,7 @@ class CartItem(ApiModel):
 
         return self
 
-    def add_tax_rate(self, tax_rate: float) -> "CartItem":
+    def add_tax_rate(self: "CartItem", tax_rate: float) -> "CartItem":
         """
         Add tax rate to the cart item.
 
@@ -317,7 +323,7 @@ class CartItem(ApiModel):
 
         return self
 
-    def clone(self) -> "CartItem":
+    def clone(self: "CartItem") -> "CartItem":
         """
         Create a deep copy of the cart item.
 

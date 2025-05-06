@@ -23,7 +23,7 @@ class Description(RequestModel):
 
     description: Optional[str]
 
-    def get(self) -> Optional[str]:
+    def get(self: "Description") -> Optional[str]:
         """
         Get the description text.
 
@@ -34,7 +34,10 @@ class Description(RequestModel):
         """
         return self.description
 
-    def add_description(self, description: Optional[str]) -> "Description":
+    def add_description(
+        self: "Description",
+        description: Optional[str],
+    ) -> "Description":
         """
         Add a description text.
 

@@ -21,7 +21,7 @@ class BankAccount(InmutableModel):
 
     bank_account: str
 
-    def get(self) -> str:
+    def get(self: "BankAccount") -> str:
         """
         Get the bank account number.
 
