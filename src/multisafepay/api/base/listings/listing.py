@@ -5,7 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-from typing import Any, Generic, List, TypeVar
+from typing import Any, Dict, Generic, List, TypeVar
 
 from pydantic.main import BaseModel
 
@@ -24,7 +24,12 @@ class Listing(Generic[T], BaseModel):
 
     data: List[T]
 
-    def __init__(self, data: List[Any], class_type: type, **kwargs):
+    def __init__(
+        self,
+        data: List[Any],
+        class_type: type,
+        **kwargs: Dict[str, Any],
+    ):
         """
         Initialize the Listing with data and a class type.
 
