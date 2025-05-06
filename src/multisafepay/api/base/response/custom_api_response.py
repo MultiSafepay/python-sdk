@@ -5,7 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-from typing import Any, Optional
+from typing import Any, Dict, Optional
 
 from multisafepay.api.base.response.api_response import ApiResponse
 
@@ -22,14 +22,18 @@ class CustomApiResponse(ApiResponse):
 
     data: Optional[Any]
 
-    def __init__(self: "CustomApiResponse", data: Optional[Any], **kwargs):
+    def __init__(
+        self: "CustomApiResponse",
+        data: Optional[Any],
+        **kwargs: Dict[str, Any],
+    ):
         """
         Initialize the CustomApiResponse with optional data and additional keyword arguments.
 
         Parameters
         ----------
         data: (Any, optional) The data to be included in the response, by default None.
-        **kwargs: (dict) Additional keyword arguments to be set as attributes of the response.
+        **kwargs: Additional keyword arguments to be set as attributes of the response.
 
         """
         super().__init__(**kwargs)
