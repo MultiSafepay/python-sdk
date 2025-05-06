@@ -17,7 +17,7 @@ class ShoppingCart(ApiModel):
 
     Attributes
     ----------
-    items: (Optional[list[CartItem]]) The list of items in the shopping cart.
+    items: (Optional[List[CartItem]]) The list of items in the shopping cart.
 
     """
 
@@ -29,7 +29,7 @@ class ShoppingCart(ApiModel):
 
         Returns
         -------
-        list[CartItem]: The list of items in the shopping cart.
+        List[CartItem]: The list of items in the shopping cart.
 
         """
         return self.items
@@ -40,7 +40,7 @@ class ShoppingCart(ApiModel):
 
         Parameters
         ----------
-        items: (list[CartItem]) The list of items to be added to the shopping cart.
+        items: (List[CartItem]) The list of items to be added to the shopping cart.
 
         Returns
         -------

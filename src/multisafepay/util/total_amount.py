@@ -85,7 +85,7 @@ def __get_tax_rate_by_item(
 
     Returns
     -------
-    int | list[int | Any] | Any: The tax rate for the item, or 0 if no tax rate is found.
+    int | List[int | Any] | Any: The tax rate for the item, or 0 if no tax rate is found.
 
     """
     if "tax_table_selector" not in item or not item["tax_table_selector"]:

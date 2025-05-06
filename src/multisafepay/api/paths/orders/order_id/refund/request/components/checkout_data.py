@@ -20,19 +20,19 @@ class CheckoutData(RequestModel):
 
     Attributes
     ----------
-    items (Optional[list[CartItem]]): The list of cart items.
+    items (Optional[List[CartItem]]): The list of cart items.
 
     """
 
     items: Optional[List[CartItem]]
 
-    def add_items(self, items=[]):
+    def add_items(self, items: List[CartItem] = ()):
         """
         Adds multiple items to the checkout data.
 
         Parameters
         ----------
-        items (list[CartItem]): The list of items to add.
+        items (List[CartItem]): The list of items to add.
 
         Returns
         -------
@@ -45,7 +45,7 @@ class CheckoutData(RequestModel):
             self.add_item(item)
         return self
 
-    def add_item(self, item):
+    def add_item(self, item: CartItem):
         """
         Adds a single item to the checkout data.
 
@@ -69,7 +69,7 @@ class CheckoutData(RequestModel):
 
         Returns
         -------
-        list[CartItem]: The list of items.
+        List[CartItem]: The list of items.
 
         """
         return self.items
@@ -92,7 +92,7 @@ class CheckoutData(RequestModel):
     def generate_from_shopping_cart(
         self,
         shopping_cart: ShoppingCart,
-        tax_table_selector="",
+        tax_table_selector: str = "",
     ):
         """
         Generates checkout data from a shopping cart.
@@ -110,13 +110,17 @@ class CheckoutData(RequestModel):
                 shopping_cart_item.add_tax_table_selector(tax_table_selector)
             self.add_item(shopping_cart_item)
 
-    def refund_by_merchant_item_id(self, merchant_item_id, quantity=0):
+    def refund_by_merchant_item_id(
+        self,
+        merchant_item_id: str,
+        quantity: int = 0,
+    ):
         """
         Processes a refund by merchant item ID.
 
         Parameters
         ----------
-        merchant_item_id: The merchant item ID to refund.
+        merchant_item_id (str): The merchant item ID to refund.
         quantity (int): The quantity to refund.
 
         Raises
@@ -139,13 +143,13 @@ class CheckoutData(RequestModel):
 
         self.add_item(refund_item)
 
-    def get_item_by_merchant_item_id(self, merchant_item_id):
+    def get_item_by_merchant_item_id(self, merchant_item_id: str):
         """
         Retrieves an item by its merchant item ID.
 
         Parameters
         ----------
-        merchant_item_id: The merchant item ID to search for.
+        merchant_item_id (str): The merchant item ID to search for.
 
         Returns
         -------

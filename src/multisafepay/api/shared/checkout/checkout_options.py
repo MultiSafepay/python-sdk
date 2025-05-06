@@ -20,7 +20,7 @@ class CheckoutOptions(ApiModel):
     Attributes
     ----------
     default (Optional[DefaultTaxRate]): The default tax rate.
-    alternate (Optional[list[TaxRate]]): A list of alternate tax rates.
+    alternate (Optional[List[TaxRate]]): A list of alternate tax rates.
 
     """
 
@@ -49,7 +49,7 @@ class CheckoutOptions(ApiModel):
 
         Parameters
         ----------
-        alternate (list[TaxRule]): The list of alternate tax rates to be added.
+        alternate (List[TaxRule]): The list of alternate tax rates to be added.
 
         Returns
         -------

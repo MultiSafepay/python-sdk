@@ -26,7 +26,7 @@ class CartItem(ApiModel):
     image: (Optional[str]) The image URL.
     merchant_item_id: (Optional[str]) The merchant item ID.
     name: (Optional[str]) The name.
-    options: (Optional[list[dict]]) The list of options.
+    options: (Optional[List[dict]]) The list of options.
     product_url: (Optional[str]) The product URL.
     quantity: (Optional[int]) The quantity.
     tax_table_selector: (Optional[str]) The tax table selector.
@@ -150,7 +150,7 @@ class CartItem(ApiModel):
 
         Parameters
         ----------
-        options: (list[dict]) The list of options to be added.
+        options: (List[dict]) The list of options to be added.
 
         Returns
         -------

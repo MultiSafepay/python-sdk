@@ -42,7 +42,7 @@ def order_manager() -> OrderManager:
     return multisafepay_sdk.get_order_manager()
 
 
-def test_refund(order_manager):
+def test_refund(order_manager: OrderManager):
     """
     Test the refund method of the OrderManager.
 

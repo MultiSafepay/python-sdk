@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 from dotenv import load_dotenv
 
@@ -27,6 +28,6 @@ if __name__ == "__main__":
     # print(get_categories_response)
 
     # Print the API response containing the categories
-    categories: list[Category] = get_categories_response.get_data()
+    categories: List[Category] = get_categories_response.get_data()
 
     print(categories)

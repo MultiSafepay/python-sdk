@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 from dotenv import load_dotenv
 
@@ -28,6 +29,6 @@ if __name__ == "__main__":
     # print(get_gateways_response)
 
     # Extract the listing of gateways from the response
-    gatewayListing: list[Gateway] = get_gateways_response.get_data()
+    gatewayListing: List[Gateway] = get_gateways_response.get_data()
 
     print(gatewayListing)

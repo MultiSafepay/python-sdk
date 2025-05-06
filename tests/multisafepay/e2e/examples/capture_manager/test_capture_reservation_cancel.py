@@ -53,7 +53,7 @@ def sdk() -> Sdk:
     return Sdk(api_key, False)
 
 
-def test_capture_reservation_cancel(sdk):
+def test_capture_reservation_cancel(sdk: Sdk):
     """
     Test the capture reservation cancel method of the CaptureManager.
 

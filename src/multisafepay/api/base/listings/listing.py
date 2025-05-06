@@ -30,7 +30,7 @@ class Listing(Generic[T], BaseModel):
 
         Parameters
         ----------
-        data (list[Any]): A list of data to be converted into items of type T.
+        data (List[Any]): A list of data to be converted into items of type T.
         class_type (type): The class type to convert the data into.
         **kwargs: Additional keyword arguments to pass to the class type constructor.
 
@@ -59,7 +59,7 @@ class Listing(Generic[T], BaseModel):
         """
         return iter(self.data)
 
-    def __getitem__(self, index):
+    def __getitem__(self: "Listing", index: int) -> T:
         """
         Get an item by index.
 

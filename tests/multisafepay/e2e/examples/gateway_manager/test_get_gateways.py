@@ -25,7 +25,7 @@ def gateway_manager() -> GatewayManager:
     return multisafepay_sdk.get_gateway_manager()
 
 
-def test_get_gateways(gateway_manager):
+def test_get_gateways(gateway_manager: GatewayManager):
     """
     Test the get_gateways method of the GatewayManager.
 

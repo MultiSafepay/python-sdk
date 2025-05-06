@@ -23,7 +23,7 @@ class Transaction(ResponseModel):
     ----------
     amount (Optional[int]): The amount of the transaction.
     completed (Optional[str]): The completion date of the transaction.
-    costs (Optional[list[Costs]]): The costs of the transaction.
+    costs (Optional[List[Costs]]): The costs of the transaction.
     created (Optional[str]): The creation date of the transaction.
     modified (Optional[str]): The modification date of the transaction.
     currency (Optional[str]): The currency of the transaction.
@@ -36,7 +36,7 @@ class Transaction(ResponseModel):
     net (Optional[int]): The net amount of the transaction.
     order_id (Optional[str]): The order ID of the transaction.
     payment_method (Optional[str]): The payment method of the transaction.
-    payment_methods (Optional[list[PaymentMethod]]): The payment methods of the transaction.
+    payment_methods (Optional[List[PaymentMethod]]): The payment methods of the transaction.
     reason (Optional[str]): The reason for the transaction.
     reason_code (Optional[str]): The reason code for the transaction.
     site_id (Optional[str]): The site ID of the transaction.

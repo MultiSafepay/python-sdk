@@ -9,7 +9,6 @@
 import os
 import pytest
 from dotenv import load_dotenv
-from typing import TYPE_CHECKING
 
 from multisafepay.api.paths.me.response.me import Me
 
@@ -19,9 +18,7 @@ from multisafepay.api.base.response.custom_api_response import (
 )
 from multisafepay.sdk import Sdk
 
-
-if TYPE_CHECKING:
-    from multisafepay.api.paths.me.me_manager import MeManager
+from multisafepay.api.paths.me.me_manager import MeManager
 
 
 @pytest.fixture(scope="module")
@@ -32,7 +29,7 @@ def me_manager() -> "MeManager":
     return multisafepay_sdk.get_me_manager()
 
 
-def test_get_me(me_manager):
+def test_get_me(me_manager: MeManager):
     """
     Test the get_me method of the MeManager.
 

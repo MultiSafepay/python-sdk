@@ -15,6 +15,9 @@ from multisafepay.api.base.response.custom_api_response import (
 from multisafepay.api.paths.payment_methods.response.payment_method import (
     PaymentMethod,
 )
+from multisafepay.api.paths.payment_methods.payment_method_manager import (
+    PaymentMethodManager,
+)
 from multisafepay.sdk import Sdk
 
 
@@ -26,7 +29,7 @@ def payment_method_manager():
     return multisafepay_sdk.get_payment_method_manager()
 
 
-def test_get_payment_methods(payment_method_manager):
+def test_get_payment_methods(payment_method_manager: PaymentMethodManager):
     """
     Test the get_payment_methods method of the PaymentMethodManager.
 

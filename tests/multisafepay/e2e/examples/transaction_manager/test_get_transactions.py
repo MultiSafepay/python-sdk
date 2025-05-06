@@ -17,6 +17,9 @@ from multisafepay.api.base.response.custom_api_response import (
 from multisafepay.api.paths.transactions.response.transaction import (
     Transaction,
 )
+from multisafepay.api.paths.transactions.transaction_manager import (
+    TransactionManager,
+)
 from multisafepay.sdk import Sdk
 
 
@@ -28,7 +31,7 @@ def transaction_manager():
     return multisafepay_sdk.get_transaction_manager()
 
 
-def test_retrieves_all_transactions(transaction_manager):
+def test_retrieves_all_transactions(transaction_manager: TransactionManager):
     """
     Test the get_transactions method of the TransactionManager.
 

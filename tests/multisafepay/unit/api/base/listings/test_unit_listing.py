@@ -5,12 +5,13 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+from typing import Any
 
 from multisafepay.api.base.listings.listing import Listing
 
 
 class MockItem:
-    def __init__(self, value):
+    def __init__(self, value: Any):
         self.value = value
 
 

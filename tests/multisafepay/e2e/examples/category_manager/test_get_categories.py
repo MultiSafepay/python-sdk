@@ -9,7 +9,6 @@
 import os
 import pytest
 from dotenv import load_dotenv
-from typing import TYPE_CHECKING
 
 from multisafepay.api.base.response.custom_api_response import (
     CustomApiResponse,
@@ -17,10 +16,9 @@ from multisafepay.api.base.response.custom_api_response import (
 from multisafepay.api.paths.categories.response.category import Category
 from multisafepay.sdk import Sdk
 
-if TYPE_CHECKING:
-    from multisafepay.api.paths.categories.category_manager import (
-        CategoryManager,
-    )
+from multisafepay.api.paths.categories.category_manager import (
+    CategoryManager,
+)
 
 
 @pytest.fixture(scope="module")
@@ -31,7 +29,7 @@ def category_manager() -> "CategoryManager":
     return multisafepay_sdk.get_category_manager()
 
 
-def test_get_categories(category_manager):
+def test_get_categories(category_manager: CategoryManager):
     """
     Test the get_categories method of the CategoryManager.
 

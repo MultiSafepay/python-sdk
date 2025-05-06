@@ -39,7 +39,7 @@ def sdk() -> Sdk:
     return Sdk(api_key, False)
 
 
-def test_recurring(sdk):
+def test_recurring(sdk: Sdk):
     """
     Test the recurring manager.
 

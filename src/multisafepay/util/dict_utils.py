@@ -5,10 +5,10 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-from typing import Any, Optional, Union
+from typing import Any, Optional
 
 
-def merge_recursive(dict1, dict2):
+def merge_recursive(dict1: dict, dict2: dict):
     """
     Recursively merge two dictionaries.
 
@@ -66,7 +66,7 @@ def remove_null_recursive(input_data: dict) -> dict:
 
     """
 
-    def process_value(value) -> Optional[Union[dict, list, Any]]:
+    def process_value(value: Any) -> Optional[Any]:
         if isinstance(value, dict):
             processed_dict = remove_null_recursive(value)
             return processed_dict if processed_dict else None
@@ -85,7 +85,7 @@ def remove_null_recursive(input_data: dict) -> dict:
     }
 
 
-def dict_empty(value) -> bool:
+def dict_empty(value: Any) -> bool:
     """
     Check if the given value is an empty dictionary.
 

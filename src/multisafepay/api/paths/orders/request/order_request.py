@@ -257,13 +257,13 @@ class OrderRequest(RequestModel):
         self.customer = customer
         return self
 
-    def add_gateway(self, gateway) -> "OrderRequest":
+    def add_gateway(self, gateway: str) -> "OrderRequest":
         """
         Adds the gateway to the order request.
 
         Parameters
         ----------
-        gateway: The gateway.
+        gateway (str): The gateway.
 
         Returns
         -------

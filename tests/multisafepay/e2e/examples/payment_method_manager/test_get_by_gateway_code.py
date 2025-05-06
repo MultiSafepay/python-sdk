@@ -30,7 +30,7 @@ def payment_method_manager() -> PaymentMethodManager:
     return multisafepay_sdk.get_payment_method_manager()
 
 
-def test_get_by_gateway_code(payment_method_manager):
+def test_get_by_gateway_code(payment_method_manager: PaymentMethodManager):
     """
     Test the get_by_gateway_code method of the PaymentMethodManager.
 
