@@ -26,7 +26,7 @@ class IbanNumber(InmutableModel):
     iban_number: str
 
     @validator("iban_number")
-    def validate(cls, value: str):
+    def validate(cls: "IbanNumber", value: str):
         """
         Validate the IBAN number.
 
@@ -50,7 +50,7 @@ class IbanNumber(InmutableModel):
 
         return value
 
-    def get(self) -> str:
+    def get(self: "IbanNumber") -> str:
         """
         Get the IBAN number.
 

@@ -81,7 +81,7 @@ class GatewayManager(AbstractManager):
         return CustomApiResponse(**args)
 
     def get_by_code(
-        self,
+        self: "GatewayManager",
         gateway_code: str,
         options: dict = None,
     ) -> CustomApiResponse:

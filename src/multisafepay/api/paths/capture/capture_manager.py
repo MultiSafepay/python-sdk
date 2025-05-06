@@ -38,7 +38,7 @@ class CaptureManager(AbstractManager):
         super().__init__(client)
 
     def capture_reservation_cancel(
-        self,
+        self: "CaptureManager",
         order_id: str,
         capture_request: CaptureRequest,
     ) -> CustomApiResponse:

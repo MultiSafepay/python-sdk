@@ -11,7 +11,7 @@ from multisafepay.api.base.listings.listing import Listing
 
 
 class MockItem:
-    def __init__(self, value: Any):
+    def __init__(self: "MockItem", value: Any):
         self.value = value
 
 

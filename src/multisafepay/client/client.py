@@ -40,7 +40,7 @@ class Client:
     METHOD_DELETE = "DELETE"
 
     def __init__(
-        self,
+        self: "Client",
         api_key: str,
         is_production: bool,
         http_client: Optional[Session] = None,
@@ -66,7 +66,7 @@ class Client:
         self.locale = locale
 
     def create_get_request(
-        self,
+        self: "Client",
         endpoint: str,
         params: Dict[str, Any] = None,
         context: Dict[str, Any] = None,
@@ -94,7 +94,7 @@ class Client:
         )
 
     def create_post_request(
-        self,
+        self: "Client",
         endpoint: str,
         params: Dict[str, Any] = None,
         request_body: str = None,
@@ -124,7 +124,7 @@ class Client:
         )
 
     def create_patch_request(
-        self,
+        self: "Client",
         endpoint: str,
         params: Dict[str, Any] = None,
         request_body: str = None,
@@ -154,7 +154,7 @@ class Client:
         )
 
     def create_delete_request(
-        self,
+        self: "Client",
         endpoint: str,
         params: Dict[str, Any] = None,
         context: Dict[str, Any] = None,
@@ -177,7 +177,7 @@ class Client:
         return self._create_request(self.METHOD_DELETE, url, context=context)
 
     def _build_url(
-        self,
+        self: "Client",
         endpoint: str,
         params: Optional[Dict[str, Any]] = None,
     ) -> str:
@@ -204,7 +204,7 @@ class Client:
         return f"{self.url}{endpoint}?{query_string}"
 
     def _create_request(
-        self,
+        self: "Client",
         method: str,
         url: str,
         params: Optional[Dict[str, Any]] = None,

@@ -28,7 +28,7 @@ class TaxRule(ApiModel):
     rules: Optional[List[TaxRate]]
     standalone: Optional[Any]
 
-    def add_name(self, name: str) -> "TaxRule":
+    def add_name(self: "TaxRule", name: str) -> "TaxRule":
         """
         Add a name to the tax rule.
 
@@ -44,7 +44,7 @@ class TaxRule(ApiModel):
         self.name = name
         return self
 
-    def add_rules(self, rules: List[TaxRate]) -> "TaxRule":
+    def add_rules(self: "TaxRule", rules: List[TaxRate]) -> "TaxRule":
         """
         Add a list of tax rates to the tax rule.
 
@@ -60,7 +60,10 @@ class TaxRule(ApiModel):
         self.rules = rules
         return self
 
-    def add_standalone(self, standalone: Union[bool, str]) -> "TaxRule":
+    def add_standalone(
+        self: "TaxRule",
+        standalone: Union[bool, str],
+    ) -> "TaxRule":
         """
         Add standalone information to the tax rule.
 
@@ -76,7 +79,7 @@ class TaxRule(ApiModel):
         self.standalone = standalone
         return self
 
-    def add_rule(self, rule: TaxRate) -> "TaxRule":
+    def add_rule(self: "TaxRule", rule: TaxRate) -> "TaxRule":
         """
         Add a single tax rate to the tax rule.
 

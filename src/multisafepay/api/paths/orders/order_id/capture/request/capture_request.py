@@ -38,7 +38,10 @@ class CaptureOrderRequest(RequestModel):
     tracktrace_code: Optional[str]
     description: Optional[str]
 
-    def add_amount(self, amount: Union[Amount, int]) -> "CaptureOrderRequest":
+    def add_amount(
+        self: "CaptureOrderRequest",
+        amount: Union[Amount, int],
+    ) -> "CaptureOrderRequest":
         """
         Adds the amount to the capture request.
 
@@ -56,7 +59,10 @@ class CaptureOrderRequest(RequestModel):
         self.amount = amount.get()
         return self
 
-    def add_new_order_id(self, new_order_id: str) -> "CaptureOrderRequest":
+    def add_new_order_id(
+        self: "CaptureOrderRequest",
+        new_order_id: str,
+    ) -> "CaptureOrderRequest":
         """
         Adds the new order ID to the capture request.
 
@@ -73,7 +79,7 @@ class CaptureOrderRequest(RequestModel):
         return self
 
     def add_new_order_status(
-        self,
+        self: "CaptureOrderRequest",
         new_order_status: str,
     ) -> "CaptureOrderRequest":
         """
@@ -91,7 +97,10 @@ class CaptureOrderRequest(RequestModel):
         self.new_order_status = new_order_status
         return self
 
-    def add_invoice_id(self, invoice_id: str) -> "CaptureOrderRequest":
+    def add_invoice_id(
+        self: "CaptureOrderRequest",
+        invoice_id: str,
+    ) -> "CaptureOrderRequest":
         """
         Adds the invoice ID to the capture request.
 
@@ -107,7 +116,10 @@ class CaptureOrderRequest(RequestModel):
         self.invoice_id = invoice_id
         return self
 
-    def add_carrier(self, carrier: str) -> "CaptureOrderRequest":
+    def add_carrier(
+        self: "CaptureOrderRequest",
+        carrier: str,
+    ) -> "CaptureOrderRequest":
         """
         Adds the carrier information to the capture request.
 
@@ -123,7 +135,10 @@ class CaptureOrderRequest(RequestModel):
         self.carrier = carrier
         return self
 
-    def add_reason(self, reason: str) -> "CaptureOrderRequest":
+    def add_reason(
+        self: "CaptureOrderRequest",
+        reason: str,
+    ) -> "CaptureOrderRequest":
         """
         Adds the reason for the capture to the capture request.
 
@@ -140,7 +155,7 @@ class CaptureOrderRequest(RequestModel):
         return self
 
     def add_tracktrace_code(
-        self,
+        self: "CaptureOrderRequest",
         tracktrace_code: str,
     ) -> "CaptureOrderRequest":
         """
@@ -158,7 +173,10 @@ class CaptureOrderRequest(RequestModel):
         self.tracktrace_code = tracktrace_code
         return self
 
-    def add_description(self, description: str) -> "CaptureOrderRequest":
+    def add_description(
+        self: "CaptureOrderRequest",
+        description: str,
+    ) -> "CaptureOrderRequest":
         """
         Adds a description to the capture request.
 

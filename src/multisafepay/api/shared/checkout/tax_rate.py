@@ -25,7 +25,7 @@ class TaxRate(ApiModel):
     rate: Optional[float]
     country: Optional[str] = ""
 
-    def add_rate(self, rate: float) -> "TaxRate":
+    def add_rate(self: "TaxRate", rate: float) -> "TaxRate":
         """
         Add a tax rate.
 
@@ -41,7 +41,7 @@ class TaxRate(ApiModel):
         self.rate = rate
         return self
 
-    def add_country(self, country: str) -> "TaxRate":
+    def add_country(self: "TaxRate", country: str) -> "TaxRate":
         """
         Add shipping taxed information.
 

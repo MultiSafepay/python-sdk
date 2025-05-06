@@ -27,7 +27,7 @@ class CustomInfo(ApiModel):
     custom_2: Optional[str]
     custom_3: Optional[str]
 
-    def add_custom_1(self, custom_1: str) -> "CustomInfo":
+    def add_custom_1(self: "CustomInfo", custom_1: str) -> "CustomInfo":
         """
         Add custom information to the first field.
 
@@ -43,7 +43,7 @@ class CustomInfo(ApiModel):
         self.custom_1 = custom_1
         return self
 
-    def add_custom_2(self, custom_2: str) -> "CustomInfo":
+    def add_custom_2(self: "CustomInfo", custom_2: str) -> "CustomInfo":
         """
         Add custom information to the second field.
 
@@ -59,7 +59,7 @@ class CustomInfo(ApiModel):
         self.custom_2 = custom_2
         return self
 
-    def add_custom_3(self, custom_3: str) -> "CustomInfo":
+    def add_custom_3(self: "CustomInfo", custom_3: str) -> "CustomInfo":
         """
         Add custom information to the third field.
 

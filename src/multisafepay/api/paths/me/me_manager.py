@@ -21,7 +21,7 @@ class MeManager(AbstractManager):
     A manager class for handling 'me' related API requests.
     """
 
-    def __init__(self, client: Client):
+    def __init__(self: "MeManager", client: Client):
         """
         Initialize the MeManager with a client.
 
@@ -32,7 +32,7 @@ class MeManager(AbstractManager):
         """
         super().__init__(client)
 
-    def get(self) -> CustomApiResponse:
+    def get(self: "MeManager") -> CustomApiResponse:
         """
         Retrieve the 'me' data.
 

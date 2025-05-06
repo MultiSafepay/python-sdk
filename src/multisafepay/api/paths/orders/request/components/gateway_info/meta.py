@@ -36,7 +36,7 @@ class Meta(RequestModel):
     email_address: Optional[str]
     gender: Optional[str]
 
-    def add_birthday(self, birthday: Union[Date, str]) -> "Meta":
+    def add_birthday(self: "Meta", birthday: Union[Date, str]) -> "Meta":
         """
         Adds a birthday to the Meta object.
 
@@ -55,7 +55,7 @@ class Meta(RequestModel):
         return self
 
     def add_bank_account(
-        self,
+        self: "Meta",
         bank_account: Union[BankAccount, str],
     ) -> "Meta":
         """
@@ -75,7 +75,7 @@ class Meta(RequestModel):
         self.bank_account = bank_account.get()
         return self
 
-    def add_phone(self, phone: Union[PhoneNumber, str]) -> "Meta":
+    def add_phone(self: "Meta", phone: Union[PhoneNumber, str]) -> "Meta":
         """
         Adds a phone number to the Meta object.
 
@@ -92,7 +92,7 @@ class Meta(RequestModel):
         return self
 
     def add_email_address(
-        self,
+        self: "Meta",
         email_address: Union[EmailAddress, str],
     ) -> "Meta":
         """
@@ -112,7 +112,7 @@ class Meta(RequestModel):
         self.email_address = email_address.get()
         return self
 
-    def add_gender(self, gender: Union[Gender, str]) -> "Meta":
+    def add_gender(self: "Meta", gender: Union[Gender, str]) -> "Meta":
         """
         Adds a gender to the Meta object.
 

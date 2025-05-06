@@ -20,7 +20,7 @@ class CardNumber(BaseModel):
 
     card_number: str
 
-    def get_card_number(self) -> str:
+    def get_card_number(self: "CardNumber") -> str:
         """
         Get the credit card number.
 

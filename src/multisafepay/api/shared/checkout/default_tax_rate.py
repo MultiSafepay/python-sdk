@@ -25,7 +25,7 @@ class DefaultTaxRate(ApiModel):
     rate: Optional[float]
     shipping_taxed: Optional[bool]
 
-    def add_rate(self, rate: float) -> "DefaultTaxRate":
+    def add_rate(self: "DefaultTaxRate", rate: float) -> "DefaultTaxRate":
         """
         Add a tax rate.
 
@@ -41,7 +41,10 @@ class DefaultTaxRate(ApiModel):
         self.rate = rate
         return self
 
-    def add_shipping_taxed(self, shipping_taxed: bool) -> "DefaultTaxRate":
+    def add_shipping_taxed(
+        self: "DefaultTaxRate",
+        shipping_taxed: bool,
+    ) -> "DefaultTaxRate":
         """
         Add shipping taxed information.
 

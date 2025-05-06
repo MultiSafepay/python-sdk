@@ -21,7 +21,7 @@ class PhoneNumber(InmutableModel):
 
     phone_number: str
 
-    def get(self) -> str:
+    def get(self: "PhoneNumber") -> str:
         """
         Get the phone number.
 

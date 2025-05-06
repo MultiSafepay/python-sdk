@@ -23,7 +23,7 @@ class Terminal(RequestModel):
 
     terminal_id: Optional[str]
 
-    def add_terminal_id(self, terminal_id: str) -> "Terminal":
+    def add_terminal_id(self: "Terminal", terminal_id: str) -> "Terminal":
         """
         Adds the terminal ID to the Terminal object.
 

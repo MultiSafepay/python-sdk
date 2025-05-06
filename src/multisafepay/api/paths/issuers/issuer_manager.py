@@ -36,7 +36,7 @@ class IssuerManager(AbstractManager):
         super().__init__(client)
 
     def get_issuers_by_gateway_code(
-        self,
+        self: "IssuerManager",
         gateway_code: str,
     ) -> CustomApiResponse:
         """

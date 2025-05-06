@@ -35,7 +35,7 @@ class RecurringManager(AbstractManager):
     CREDIT_CARD_GATEWAY_CODE = "CREDITCARD"
     CREDIT_CARD_GATEWAYS = ["VISA", "MASTERCARD", "AMEX", "MAESTRO"]
 
-    def __init__(self, client: Client):
+    def __init__(self: "RecurringManager", client: Client):
         """
         Initializes the RecurringManager with a client.
 
@@ -48,7 +48,7 @@ class RecurringManager(AbstractManager):
         self.tokens: Any = {}
 
     def get_list(
-        self,
+        self: "RecurringManager",
         reference: str,
         force_api_call: bool = False,
     ) -> CustomApiResponse:
@@ -92,7 +92,11 @@ class RecurringManager(AbstractManager):
 
         return CustomApiResponse(**args)
 
-    def get(self, token: str, reference: str) -> CustomApiResponse:
+    def get(
+        self: "RecurringManager",
+        token: str,
+        reference: str,
+    ) -> CustomApiResponse:
         """
         Retrieves a specific recurring token for a given customer reference.
 
@@ -123,7 +127,11 @@ class RecurringManager(AbstractManager):
 
         return CustomApiResponse(**args)
 
-    def delete(self, reference: str, token: str) -> CustomApiResponse:
+    def delete(
+        self: "RecurringManager",
+        reference: str,
+        token: str,
+    ) -> CustomApiResponse:
         """
         Deletes a specific recurring token for a given customer reference.
 

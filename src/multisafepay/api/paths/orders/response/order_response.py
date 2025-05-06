@@ -106,7 +106,7 @@ class Order(ResponseModel):
     event_url: Optional[str]
     event_stream_url: Optional[str]
 
-    def get_order_id(self) -> str:
+    def get_order_id(self: "Order") -> str:
         """
         Returns the order ID.
 

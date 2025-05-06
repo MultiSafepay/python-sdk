@@ -26,7 +26,7 @@ class CheckoutData(RequestModel):
 
     items: Optional[List[CartItem]]
 
-    def add_items(self, items: List[CartItem] = ()):
+    def add_items(self: "CheckoutData", items: List[CartItem] = ()):
         """
         Adds multiple items to the checkout data.
 
@@ -45,7 +45,7 @@ class CheckoutData(RequestModel):
             self.add_item(item)
         return self
 
-    def add_item(self, item: CartItem):
+    def add_item(self: "CheckoutData", item: CartItem):
         """
         Adds a single item to the checkout data.
 
@@ -63,7 +63,7 @@ class CheckoutData(RequestModel):
         self.items.append(item)
         return self
 
-    def get_items(self):
+    def get_items(self: "CheckoutData"):
         """
         Retrieves all items from the checkout data.
 
@@ -74,7 +74,7 @@ class CheckoutData(RequestModel):
         """
         return self.items
 
-    def get_item(self, index: int):
+    def get_item(self: "CheckoutData", index: int):
         """
         Retrieves an item by its index from the checkout data.
 
@@ -90,7 +90,7 @@ class CheckoutData(RequestModel):
         return self.items[index]
 
     def generate_from_shopping_cart(
-        self,
+        self: "CheckoutData",
         shopping_cart: ShoppingCart,
         tax_table_selector: str = "",
     ):
@@ -111,7 +111,7 @@ class CheckoutData(RequestModel):
             self.add_item(shopping_cart_item)
 
     def refund_by_merchant_item_id(
-        self,
+        self: "CheckoutData",
         merchant_item_id: str,
         quantity: int = 0,
     ):
@@ -143,7 +143,10 @@ class CheckoutData(RequestModel):
 
         self.add_item(refund_item)
 
-    def get_item_by_merchant_item_id(self, merchant_item_id: str):
+    def get_item_by_merchant_item_id(
+        self: "CheckoutData",
+        merchant_item_id: str,
+    ):
         """
         Retrieves an item by its merchant item ID.
 

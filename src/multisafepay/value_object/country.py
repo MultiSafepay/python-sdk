@@ -22,7 +22,7 @@ class Country(BaseModel):
     code: str
 
     @validator("code")
-    def validate_country(cls, value: str):
+    def validate_country(cls: "Country", value: str):
         """
         Validate the country code.
 
@@ -45,7 +45,7 @@ class Country(BaseModel):
             )
         return value
 
-    def get_code(self) -> str:
+    def get_code(self: "Country") -> str:
         """
         Get the country code in uppercase.
 

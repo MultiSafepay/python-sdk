@@ -23,7 +23,7 @@ class Issuer(RequestModel):
 
     issuer_id: Optional[str]
 
-    def add_issuer_id(self, issuer_id: str) -> "Issuer":
+    def add_issuer_id(self: "Issuer", issuer_id: str) -> "Issuer":
         """
         Adds an issuer ID to the Issuer object.
 

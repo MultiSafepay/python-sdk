@@ -26,7 +26,7 @@ class Date(InmutableModel):
     timestamp: float
     str_date: str
 
-    def __init__(self, date: str):
+    def __init__(self: "Date", date: str):
         """
         Initialize a Date object.
 
@@ -50,7 +50,7 @@ class Date(InmutableModel):
                 f'Value "{date}" is an invalid date format',
             )
 
-    def get(self, date_format: str = "%Y-%m-%d") -> str:
+    def get(self: "Date", date_format: str = "%Y-%m-%d") -> str:
         """
         Get the date as a string in the specified format.
 

@@ -25,7 +25,7 @@ class ApiKey(BaseModel):
     api_key: str
 
     @validator("api_key")
-    def validate_api_key(cls, api_key: str):
+    def validate_api_key(cls: "ApiKey", api_key: str):
         """
         Validate the API key.
 
@@ -46,7 +46,7 @@ class ApiKey(BaseModel):
             raise InvalidApiKeyException("Invalid API key")
         return api_key
 
-    def get(self) -> str:
+    def get(self: "ApiKey") -> str:
         """
         Get the API key.
 

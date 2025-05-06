@@ -33,7 +33,7 @@ class Costs(ApiModel):
     currency: Optional[str]
     status: Optional[str]
 
-    def add_transaction_id(self, transaction_id: int) -> "Costs":
+    def add_transaction_id(self: "Costs", transaction_id: int) -> "Costs":
         """
         Add a transaction ID to the Costs instance.
 
@@ -49,7 +49,7 @@ class Costs(ApiModel):
         self.transaction_id = transaction_id
         return self
 
-    def add_description(self, description: str) -> "Costs":
+    def add_description(self: "Costs", description: str) -> "Costs":
         """
         Add a description to the Costs instance.
 
@@ -65,7 +65,7 @@ class Costs(ApiModel):
         self.description = description
         return self
 
-    def add_type(self, type_: str) -> "Costs":
+    def add_type(self: "Costs", type_: str) -> "Costs":
         """
         Add a type to the Costs instance.
 
@@ -81,7 +81,7 @@ class Costs(ApiModel):
         self.type = type_
         return self
 
-    def add_amount(self, amount: float) -> "Costs":
+    def add_amount(self: "Costs", amount: float) -> "Costs":
         """
         Add an amount to the Costs instance.
 
@@ -97,7 +97,7 @@ class Costs(ApiModel):
         self.amount = amount
         return self
 
-    def add_currency(self, currency: str) -> "Costs":
+    def add_currency(self: "Costs", currency: str) -> "Costs":
         """
         Add a currency to the Costs instance.
 
@@ -113,7 +113,7 @@ class Costs(ApiModel):
         self.currency = currency
         return self
 
-    def add_status(self, status: str) -> "Costs":
+    def add_status(self: "Costs", status: str) -> "Costs":
         """
         Add a status to the Costs instance.
 

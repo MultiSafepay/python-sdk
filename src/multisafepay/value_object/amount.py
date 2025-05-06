@@ -21,7 +21,7 @@ class Amount(InmutableModel):
 
     amount: int
 
-    def get(self) -> int:
+    def get(self: "Amount") -> int:
         """
         Get the amount value.
 

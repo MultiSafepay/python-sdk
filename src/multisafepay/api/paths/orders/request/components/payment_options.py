@@ -34,7 +34,10 @@ class PaymentOptions(RequestModel):
     cancel_url: Optional[str]
     close_window: Optional[bool]
 
-    def add_notification_url(self, notification_url: str) -> "PaymentOptions":
+    def add_notification_url(
+        self: "PaymentOptions",
+        notification_url: str,
+    ) -> "PaymentOptions":
         """
         Adds the notification URL to the PaymentOptions object.
 
@@ -50,7 +53,10 @@ class PaymentOptions(RequestModel):
         self.notification_url = notification_url
         return self
 
-    def add_settings(self, settings: list) -> "PaymentOptions":
+    def add_settings(
+        self: "PaymentOptions",
+        settings: list,
+    ) -> "PaymentOptions":
         """
         Adds the settings to the PaymentOptions object.
 
@@ -67,7 +73,7 @@ class PaymentOptions(RequestModel):
         return self
 
     def add_notification_method(
-        self,
+        self: "PaymentOptions",
         notification_method: str = "POST",
     ) -> "PaymentOptions":
         """
@@ -93,7 +99,10 @@ class PaymentOptions(RequestModel):
         self.notification_method = notification_method
         return self
 
-    def add_redirect_url(self, redirect_url: str) -> "PaymentOptions":
+    def add_redirect_url(
+        self: "PaymentOptions",
+        redirect_url: str,
+    ) -> "PaymentOptions":
         """
         Adds the redirect URL to the PaymentOptions object.
 
@@ -109,7 +118,10 @@ class PaymentOptions(RequestModel):
         self.redirect_url = redirect_url
         return self
 
-    def add_cancel_url(self, cancel_url: str) -> "PaymentOptions":
+    def add_cancel_url(
+        self: "PaymentOptions",
+        cancel_url: str,
+    ) -> "PaymentOptions":
         """
         Adds the cancel URL to the PaymentOptions object.
 
@@ -125,7 +137,10 @@ class PaymentOptions(RequestModel):
         self.cancel_url = cancel_url
         return self
 
-    def add_close_window(self, close_window: bool) -> "PaymentOptions":
+    def add_close_window(
+        self: "PaymentOptions",
+        close_window: bool,
+    ) -> "PaymentOptions":
         """
         Adds the close window option to the PaymentOptions object.
 
@@ -141,7 +156,7 @@ class PaymentOptions(RequestModel):
         self.close_window = close_window
         return self
 
-    def is_close_window(self) -> bool:
+    def is_close_window(self: "PaymentOptions") -> bool:
         """
         Checks if the close window option is set.
 

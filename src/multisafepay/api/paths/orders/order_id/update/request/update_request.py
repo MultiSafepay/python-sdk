@@ -44,7 +44,7 @@ class UpdateOrderRequest(RequestModel):
     extend_expiration: Optional[bool]
 
     def add_tracktrace_code(
-        self,
+        self: "UpdateOrderRequest",
         tracktrace_code: str,
     ) -> "UpdateOrderRequest":
         """
@@ -62,7 +62,10 @@ class UpdateOrderRequest(RequestModel):
         self.tracktrace_code = tracktrace_code
         return self
 
-    def add_tracktrace_url(self, tracktrace_url: str) -> "UpdateOrderRequest":
+    def add_tracktrace_url(
+        self: "UpdateOrderRequest",
+        tracktrace_url: str,
+    ) -> "UpdateOrderRequest":
         """
         Adds a tracking URL to the order request.
 
@@ -78,7 +81,10 @@ class UpdateOrderRequest(RequestModel):
         self.tracktrace_url = tracktrace_url
         return self
 
-    def add_carrier(self, carrier: str) -> "UpdateOrderRequest":
+    def add_carrier(
+        self: "UpdateOrderRequest",
+        carrier: str,
+    ) -> "UpdateOrderRequest":
         """
         Adds a carrier to the order request.
 
@@ -94,7 +100,10 @@ class UpdateOrderRequest(RequestModel):
         self.carrier = carrier
         return self
 
-    def add_ship_date(self, ship_date: str) -> "UpdateOrderRequest":
+    def add_ship_date(
+        self: "UpdateOrderRequest",
+        ship_date: str,
+    ) -> "UpdateOrderRequest":
         """
         Adds a shipping date to the order request.
 
@@ -110,7 +119,10 @@ class UpdateOrderRequest(RequestModel):
         self.ship_date = ship_date
         return self
 
-    def add_reason(self, reason: str) -> "UpdateOrderRequest":
+    def add_reason(
+        self: "UpdateOrderRequest",
+        reason: str,
+    ) -> "UpdateOrderRequest":
         """
         Adds a reason for updating the order request.
 
@@ -126,7 +138,10 @@ class UpdateOrderRequest(RequestModel):
         self.reason = reason
         return self
 
-    def add_invoice_id(self, invoice_id: str) -> "UpdateOrderRequest":
+    def add_invoice_id(
+        self: "UpdateOrderRequest",
+        invoice_id: str,
+    ) -> "UpdateOrderRequest":
         """
         Adds an invoice ID to the order request.
 
@@ -142,7 +157,10 @@ class UpdateOrderRequest(RequestModel):
         self.invoice_id = invoice_id
         return self
 
-    def add_invoice_url(self, invoice_url: str) -> "UpdateOrderRequest":
+    def add_invoice_url(
+        self: "UpdateOrderRequest",
+        invoice_url: str,
+    ) -> "UpdateOrderRequest":
         """
         Adds an invoice URL to the order request.
 
@@ -158,7 +176,10 @@ class UpdateOrderRequest(RequestModel):
         self.invoice_url = invoice_url
         return self
 
-    def add_po_number(self, po_number: str) -> "UpdateOrderRequest":
+    def add_po_number(
+        self: "UpdateOrderRequest",
+        po_number: str,
+    ) -> "UpdateOrderRequest":
         """
         Adds a purchase order number to the order request.
 
@@ -174,7 +195,10 @@ class UpdateOrderRequest(RequestModel):
         self.po_number = po_number
         return self
 
-    def add_status(self, status: str) -> "UpdateOrderRequest":
+    def add_status(
+        self: "UpdateOrderRequest",
+        status: str,
+    ) -> "UpdateOrderRequest":
         """
         Adds a status to the order request.
 
@@ -190,7 +214,10 @@ class UpdateOrderRequest(RequestModel):
         self.status = status
         return self
 
-    def add_exclude_order(self, exclude_order: bool) -> "UpdateOrderRequest":
+    def add_exclude_order(
+        self: "UpdateOrderRequest",
+        exclude_order: bool,
+    ) -> "UpdateOrderRequest":
         """
         Adds an exclusion for the order request.
 
@@ -207,7 +234,7 @@ class UpdateOrderRequest(RequestModel):
         return self
 
     def add_extend_expiration(
-        self,
+        self: "UpdateOrderRequest",
         extend_expiration: bool,
     ) -> "UpdateOrderRequest":
         """

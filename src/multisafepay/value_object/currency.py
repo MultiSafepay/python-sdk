@@ -24,7 +24,7 @@ class Currency(InmutableModel):
     currency: str
 
     @validator("currency")
-    def validate_currency(cls, value: str):
+    def validate_currency(cls: "Currency", value: str):
         """
         Validate the currency code.
 
@@ -48,7 +48,7 @@ class Currency(InmutableModel):
 
         return value
 
-    def get(self) -> str:
+    def get(self: "Currency") -> str:
         """
         Get the currency code.
 

@@ -23,7 +23,7 @@ class QrEnabled(RequestModel):
 
     qr_enabled: Optional[bool]
 
-    def add_qr_enabled(self, qr_enabled: bool) -> "QrEnabled":
+    def add_qr_enabled(self: "QrEnabled", qr_enabled: bool) -> "QrEnabled":
         """
         Adds the QR enabled status to the QrEnabled object.
 

@@ -19,7 +19,7 @@ class AbstractManager:
 
     """
 
-    def __init__(self, client: Client):
+    def __init__(self: "AbstractManager", client: Client):
         """
         Initialize the AbstractManager with a Client instance.
 

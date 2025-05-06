@@ -27,7 +27,10 @@ class CheckoutOptions(ApiModel):
     default: Optional[DefaultTaxRate]
     alternate: Optional[List[TaxRule]]
 
-    def add_default(self, default: DefaultTaxRate) -> "CheckoutOptions":
+    def add_default(
+        self: "CheckoutOptions",
+        default: DefaultTaxRate,
+    ) -> "CheckoutOptions":
         """
         Add a default tax rate to the checkout options.
 
@@ -43,7 +46,10 @@ class CheckoutOptions(ApiModel):
         self.default = default
         return self
 
-    def add_alternate(self, alternate: List[TaxRule]) -> "CheckoutOptions":
+    def add_alternate(
+        self: "CheckoutOptions",
+        alternate: List[TaxRule],
+    ) -> "CheckoutOptions":
         """
         Add alternate tax rates to the checkout options.
 
@@ -59,7 +65,10 @@ class CheckoutOptions(ApiModel):
         self.alternate = alternate
         return self
 
-    def add_tax_rule(self, tax_rule: TaxRule) -> "CheckoutOptions":
+    def add_tax_rule(
+        self: "CheckoutOptions",
+        tax_rule: TaxRule,
+    ) -> "CheckoutOptions":
         """
         Add a tax rule to the checkout options.
 

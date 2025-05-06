@@ -37,7 +37,10 @@ class PaymentMethod(ApiModel):
     status: Optional[str]
     type: Optional[str]
 
-    def add_account_id(self, account_id: Optional[str]) -> "PaymentMethod":
+    def add_account_id(
+        self: "PaymentMethod",
+        account_id: Optional[str],
+    ) -> "PaymentMethod":
         """
         Add an account ID to the PaymentMethod instance.
 
@@ -53,7 +56,10 @@ class PaymentMethod(ApiModel):
         self.account_id = account_id
         return self
 
-    def add_amount(self, amount: Optional[str]) -> "PaymentMethod":
+    def add_amount(
+        self: "PaymentMethod",
+        amount: Optional[str],
+    ) -> "PaymentMethod":
         """
         Add an amount to the PaymentMethod instance.
 
@@ -69,7 +75,10 @@ class PaymentMethod(ApiModel):
         self.amount = amount
         return self
 
-    def add_currency(self, currency: Optional[str]) -> "PaymentMethod":
+    def add_currency(
+        self: "PaymentMethod",
+        currency: Optional[str],
+    ) -> "PaymentMethod":
         """
         Add a currency to the PaymentMethod instance.
 
@@ -85,7 +94,10 @@ class PaymentMethod(ApiModel):
         self.currency = currency
         return self
 
-    def add_description(self, description: Optional[str]) -> "PaymentMethod":
+    def add_description(
+        self: "PaymentMethod",
+        description: Optional[str],
+    ) -> "PaymentMethod":
         """
         Add a description to the PaymentMethod instance.
 
@@ -102,7 +114,7 @@ class PaymentMethod(ApiModel):
         return self
 
     def add_external_transaction_id(
-        self,
+        self: "PaymentMethod",
         external_transaction_id: Optional[str],
     ) -> "PaymentMethod":
         """
@@ -121,7 +133,7 @@ class PaymentMethod(ApiModel):
         return self
 
     def add_payment_description(
-        self,
+        self: "PaymentMethod",
         payment_description: Optional[str],
     ) -> "PaymentMethod":
         """
@@ -139,7 +151,10 @@ class PaymentMethod(ApiModel):
         self.payment_description = payment_description
         return self
 
-    def add_status(self, status: Optional[str]) -> "PaymentMethod":
+    def add_status(
+        self: "PaymentMethod",
+        status: Optional[str],
+    ) -> "PaymentMethod":
         """
         Add a status to the PaymentMethod instance.
 
@@ -155,7 +170,10 @@ class PaymentMethod(ApiModel):
         self.status = status
         return self
 
-    def add_type(self, type_: Optional[str]) -> "PaymentMethod":
+    def add_type(
+        self: "PaymentMethod",
+        type_: Optional[str],
+    ) -> "PaymentMethod":
         """
         Add a type to the PaymentMethod instance.
 

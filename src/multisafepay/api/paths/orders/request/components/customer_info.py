@@ -27,7 +27,7 @@ class CustomInfo(RequestModel):
     custom2: Optional[str]
     custom3: Optional[str]
 
-    def add_custom1(self, custom1: str) -> "CustomInfo":
+    def add_custom1(self: "CustomInfo", custom1: str) -> "CustomInfo":
         """
         Adds the first custom field to the CustomInfo object.
 
@@ -43,7 +43,7 @@ class CustomInfo(RequestModel):
         self.custom1 = custom1
         return self
 
-    def add_custom2(self, custom2: str) -> "CustomInfo":
+    def add_custom2(self: "CustomInfo", custom2: str) -> "CustomInfo":
         """
         Adds the second custom field to the CustomInfo object.
 
@@ -59,7 +59,7 @@ class CustomInfo(RequestModel):
         self.custom2 = custom2
         return self
 
-    def add_custom3(self, custom3: str) -> "CustomInfo":
+    def add_custom3(self: "CustomInfo", custom3: str) -> "CustomInfo":
         """
         Adds the third custom field to the CustomInfo object.
 

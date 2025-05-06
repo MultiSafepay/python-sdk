@@ -20,7 +20,7 @@ class ApiException(Exception):
 
     """
 
-    def __init__(self, message: str, context: dict = {}):
+    def __init__(self: "ApiException", message: str, context: dict = {}):
         """
         Initialize the ApiException.
 
@@ -33,7 +33,7 @@ class ApiException(Exception):
         self.message = message
         self.context = context if context else {}
 
-    def add_message(self, message: str) -> "ApiException":
+    def add_message(self: "ApiException", message: str) -> "ApiException":
         """
         Add a message to the exception.
 
@@ -49,7 +49,7 @@ class ApiException(Exception):
         self.message = message
         return self
 
-    def add_context(self, context: dict) -> "ApiException":
+    def add_context(self: "ApiException", context: dict) -> "ApiException":
         """
         Add additional context to the exception.
 
@@ -65,7 +65,7 @@ class ApiException(Exception):
         self.context.update(context)
         return self
 
-    def get_details(self) -> str:
+    def get_details(self: "ApiException") -> str:
         """
         Get a detailed string representation of the exception.
 
@@ -78,7 +78,7 @@ class ApiException(Exception):
         lines.extend(self.get_context_as_array())
         return "\n".join(lines)
 
-    def get_message(self) -> str:
+    def get_message(self: "ApiException") -> str:
         """
         Get the error message.
 
@@ -89,7 +89,7 @@ class ApiException(Exception):
         """
         return self.message
 
-    def get_context_as_array(self) -> list:
+    def get_context_as_array(self: "ApiException") -> list:
         """
         Get the context as an array of strings.
 
@@ -110,7 +110,7 @@ class ApiException(Exception):
             lines.append(f"{context_name}: {debug_value}")
         return lines
 
-    def get_context_value(self, name: str):
+    def get_context_value(self: "ApiException", name: str):
         """
         Get a specific context value by name.
 
