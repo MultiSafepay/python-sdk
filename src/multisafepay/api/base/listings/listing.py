@@ -101,7 +101,7 @@ class Listing(Generic[T], BaseModel):
         """
         return self.data
 
-    def append(self: "Listing", item: T):
+    def append(self: "Listing", item: T) -> None:
         """
         Append an item to the listing.
 

@@ -8,7 +8,7 @@
 from typing import Any, Optional
 
 
-def merge_recursive(dict1: dict, dict2: dict):
+def merge_recursive(dict1: dict, dict2: dict) -> dict:
     """
     Recursively merge two dictionaries.
 

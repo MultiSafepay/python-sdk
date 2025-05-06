@@ -7,6 +7,7 @@
 
 
 import json
+from typing import Any
 
 
 class ApiException(Exception):
@@ -110,7 +111,7 @@ class ApiException(Exception):
             lines.append(f"{context_name}: {debug_value}")
         return lines
 
-    def get_context_value(self: "ApiException", name: str):
+    def get_context_value(self: "ApiException", name: str) -> Any:
         """
         Get a specific context value by name.
 

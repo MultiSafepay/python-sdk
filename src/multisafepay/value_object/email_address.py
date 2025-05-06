@@ -26,7 +26,7 @@ class EmailAddress(InmutableModel):
     email_address: str
 
     @validator("email_address")
-    def validate_email_address(cls: "EmailAddress", value: str):
+    def validate_email_address(cls: "EmailAddress", value: str) -> str:
         """
         Validate the email address value.
 

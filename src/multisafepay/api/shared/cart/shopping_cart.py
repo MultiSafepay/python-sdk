@@ -34,7 +34,10 @@ class ShoppingCart(ApiModel):
         """
         return self.items
 
-    def add_items(self: "ShoppingCart", items: List[CartItem]):
+    def add_items(
+        self: "ShoppingCart",
+        items: List[CartItem],
+    ) -> "ShoppingCart":
         """
         Add multiple items to the shopping cart.
 
@@ -50,7 +53,7 @@ class ShoppingCart(ApiModel):
         self.items = items
         return self
 
-    def add_item(self: "ShoppingCart", item: CartItem):
+    def add_item(self: "ShoppingCart", item: CartItem) -> "ShoppingCart":
         """
         Add a single item to the shopping cart.
 

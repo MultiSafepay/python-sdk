@@ -26,7 +26,7 @@ class Gender(InmutableModel):
     gender: str
 
     @validator("gender")
-    def validate_ip_address(cls: "Gender", value: str):
+    def validate_ip_address(cls: "Gender", value: str) -> str:
         """
         Validate the gender value.
 
