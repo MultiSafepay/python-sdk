@@ -16,6 +16,7 @@ from multisafepay.api.base.response.custom_api_response import (
 from multisafepay.api.paths.transactions.response.transaction import (
     Transaction,
 )
+from multisafepay.client.client import Client
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
 
 ALLOWED_OPTIONS = {
@@ -40,13 +41,13 @@ class TransactionManager(AbstractManager):
     A class representing the TransactionManager.
     """
 
-    def __init__(self, client):
+    def __init__(self, client: Client):
         """
         Initialize the CaptureManager with a client.
 
         Parameters
         ----------
-        client: The client used to make API requests.
+        client (Client): The client used to make API requests.
 
         """
         super().__init__(client)

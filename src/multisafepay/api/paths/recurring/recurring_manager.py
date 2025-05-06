@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+from typing import Any
 
 from multisafepay.api.base.abstract_manager import AbstractManager
 from multisafepay.api.base.response.api_response import ApiResponse
@@ -14,6 +15,7 @@ from multisafepay.api.base.response.custom_api_response import (
 from multisafepay.api.paths.recurring.customer_reference.token.token import (
     Token,
 )
+from multisafepay.client.client import Client
 from multisafepay.util.dict_utils import dict_empty
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
 
@@ -33,7 +35,7 @@ class RecurringManager(AbstractManager):
     CREDIT_CARD_GATEWAY_CODE = "CREDITCARD"
     CREDIT_CARD_GATEWAYS = ["VISA", "MASTERCARD", "AMEX", "MAESTRO"]
 
-    def __init__(self, client):
+    def __init__(self, client: Client):
         """
         Initializes the RecurringManager with a client.
 
@@ -43,7 +45,7 @@ class RecurringManager(AbstractManager):
 
         """
         super().__init__(client)
-        self.tokens = {}
+        self.tokens: Any = {}
 
     def get_list(
         self,

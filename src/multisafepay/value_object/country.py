@@ -22,7 +22,7 @@ class Country(BaseModel):
     code: str
 
     @validator("code")
-    def validate_country(cls, value):
+    def validate_country(cls, value: str):
         """
         Validate the country code.
 

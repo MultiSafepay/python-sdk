@@ -19,7 +19,7 @@ class TaxRule(ApiModel):
     Attributes
     ----------
     name (Optional[str]): The name of the tax rule.
-    rules (Optional[list[TaxRate]]): A list of tax rates associated with the tax rule.
+    rules (Optional[List[TaxRate]]): A list of tax rates associated with the tax rule.
     standalone (Optional[bool]): Indicates if the tax rule is standalone.
 
     """
@@ -50,7 +50,7 @@ class TaxRule(ApiModel):
 
         Parameters
         ----------
-        rules (list[TaxRate]): The list of tax rates to be added.
+        rules (List[TaxRate]): The list of tax rates to be added.
 
         Returns
         -------

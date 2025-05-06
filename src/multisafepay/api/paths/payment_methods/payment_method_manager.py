@@ -13,7 +13,7 @@ from multisafepay.api.base.response.custom_api_response import (
 from multisafepay.api.paths.payment_methods.response.payment_method import (
     PaymentMethod,
 )
-from multisafepay.client.client import ApiResponse
+from multisafepay.client.client import ApiResponse, Client
 from multisafepay.util.dict_utils import dict_empty
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
 
@@ -30,13 +30,13 @@ class PaymentMethodManager(AbstractManager):
     A class representing the PaymentMethodManager.
     """
 
-    def __init__(self, client):
+    def __init__(self, client: Client):
         """
         Initialize the CaptureManager with a client.
 
         Parameters
         ----------
-        client: The client used to make API requests.
+        client (Client): The client used to make API requests.
 
         """
         super().__init__(client)

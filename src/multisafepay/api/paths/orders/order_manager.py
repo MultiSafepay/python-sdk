@@ -36,6 +36,7 @@ from multisafepay.api.paths.orders.request.order_request import OrderRequest
 from multisafepay.api.paths.orders.response.order_response import Order
 from multisafepay.api.shared.cart.shopping_cart import ShoppingCart
 from multisafepay.api.shared.description import Description
+from multisafepay.client.client import Client
 from multisafepay.util.dict_utils import dict_empty
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
 from multisafepay.value_object.amount import Amount
@@ -47,13 +48,13 @@ class OrderManager(AbstractManager):
     Manages operations related to orders, such as creating, updating, capturing, and refunding orders.
     """
 
-    def __init__(self, client):
+    def __init__(self, client: Client):
         """
         Initialize the OrderManager with a client.
 
         Parameters
         ----------
-        client: The client used to make API requests.
+        client (Client): The client used to make API requests.
 
         """
         super().__init__(client)

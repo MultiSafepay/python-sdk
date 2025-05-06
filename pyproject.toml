@@ -98,7 +98,6 @@ extend-safe-fixes = [
     "D415", # docstrings should end with a period, question mark, or exclamation point
 ]
 ignore = [
-    "ANN001",
     "ANN003",
     "ANN101", # missing type annotation for self
     "ANN102", # missing type annotation for cls

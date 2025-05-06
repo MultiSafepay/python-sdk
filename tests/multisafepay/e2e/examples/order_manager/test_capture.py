@@ -50,7 +50,7 @@ def order_manager() -> OrderManager:
     return multisafepay_sdk.get_order_manager()
 
 
-def test_capture(order_manager):
+def test_capture(order_manager: OrderManager):
     """
     Test the capture method of the OrderManager.
 

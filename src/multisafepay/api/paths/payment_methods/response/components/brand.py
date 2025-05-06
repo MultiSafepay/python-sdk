@@ -20,7 +20,7 @@ class Brand(ResponseModel):
 
     Attributes
     ----------
-    allowed_countries (Optional[list[str]]): The allowed countries for the brand.
+    allowed_countries (Optional[List[str]]): The allowed countries for the brand.
     icon_urls (Optional[IconUrls]): The icon URLs for the brand.
     id (Optional[str]): The ID of the brand.
     name (Optional[str]): The name of the brand.

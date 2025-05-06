@@ -35,17 +35,17 @@ class PaymentMethod(ResponseModel):
     ----------
     additional_data (Optional[dict]): Additional data for the payment method.
     allowed_amount (Optional[AllowedAmount]): The allowed amount for the payment method.
-    allowed_countries (Optional[list[str]]): The allowed countries for the payment method.
-    allowed_currencies (Optional[list[str]]): The allowed currencies for the payment method.
+    allowed_countries (Optional[List[str]]): The allowed countries for the payment method.
+    allowed_currencies (OptionalList[str]]): The allowed currencies for the payment method.
     apps (Optional[Apps]): The apps associated with the payment method.
-    brands (Optional[list[Brand]]): The brands associated with the payment method.
+    brands (Optional[List[Brand]]): The brands associated with the payment method.
     description (Optional[str]): The description of the payment method.
     icon_urls (Optional[IconUrls]): The icon URLs for the payment method.
     id (Optional[str]): The ID of the payment method.
     label (Optional[str]): The label of the payment method.
     name (Optional[str]): The name of the payment method.
-    preferred_countries (Optional[list[str]]): The preferred countries for the payment method.
-    required_customer_data (Optional[list[str]]): The required customer data for the payment method.
+    preferred_countries (Optional[List[str]]): The preferred countries for the payment method.
+    required_customer_data (Optional[List[str]]): The required customer data for the payment method.
     tokenization (Optional[Tokenization]): The tokenization support information for the payment method.
     type (Optional[str]): The type of the payment method.
     shopping_cart_required (Optional[bool]): Whether a shopping cart is required for the payment method.

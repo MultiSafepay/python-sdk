@@ -26,7 +26,7 @@ def issuer_manager() -> IssuerManager:
     return multisafepay_sdk.get_issuer_manager()
 
 
-def test_get_issuers_by_gateway_code(issuer_manager):
+def test_get_issuers_by_gateway_code(issuer_manager: IssuerManager):
     """
     Test the get_issuers_by_gateway_code method of the IssuerManager.
 

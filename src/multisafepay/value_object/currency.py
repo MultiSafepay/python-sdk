@@ -24,7 +24,7 @@ class Currency(InmutableModel):
     currency: str
 
     @validator("currency")
-    def validate_currency(cls, value):
+    def validate_currency(cls, value: str):
         """
         Validate the currency code.
 

@@ -16,6 +16,7 @@ from multisafepay.api.paths.capture.request.capture_request import (
     CaptureRequest,
 )
 from multisafepay.api.paths.capture.response.capture import CancelReservation
+from multisafepay.client.client import Client
 from multisafepay.util.dict_utils import dict_empty
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
 
@@ -25,13 +26,13 @@ class CaptureManager(AbstractManager):
     A class to manage capture operations.
     """
 
-    def __init__(self, client):
+    def __init__(self: "CaptureManager", client: Client):
         """
         Initialize the CaptureManager with a client.
 
         Parameters
         ----------
-        client: The client used to make API requests.
+        client (Client): The client used to make API requests.
 
         """
         super().__init__(client)

@@ -281,7 +281,7 @@ class Decorator:
 
         Parameters
         ----------
-        brands (Optional[list[Optional[dict]]]): A list of dictionaries containing brand information, by default None.
+        brands (Optional[List[Optional[dict]]]): A list of dictionaries containing brand information, by default None.
 
         Returns
         -------

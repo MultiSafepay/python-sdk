@@ -14,6 +14,7 @@ from multisafepay.api.paths.issuers.response.issuer import (
     ALLOWED_GATEWAY_CODES,
     Issuer,
 )
+from multisafepay.client.client import Client
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
 
@@ -23,13 +24,13 @@ class IssuerManager(AbstractManager):
     Manager class for handling issuer-related operations.
     """
 
-    def __init__(self, client):
+    def __init__(self: "IssuerManager", client: Client):
         """
         Initialize the IssuerManager with a client.
 
         Parameters
         ----------
-        client: The client used to make API requests.
+        client (Client): The client used to make API requests.
 
         """
         super().__init__(client)

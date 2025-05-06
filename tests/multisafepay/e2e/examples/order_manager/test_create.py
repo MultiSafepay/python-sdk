@@ -10,7 +10,6 @@ import os
 import time
 import pytest
 from dotenv import load_dotenv
-from typing import TYPE_CHECKING
 
 from multisafepay.value_object.weight import Weight
 from multisafepay.api.shared.cart.cart_item import CartItem
@@ -38,8 +37,7 @@ from multisafepay.api.base.response.custom_api_response import (
 from multisafepay.api.paths.orders.response.order_response import Order
 
 
-if TYPE_CHECKING:
-    from multisafepay.api.paths.orders.order_manager import OrderManager
+from multisafepay.api.paths.orders.order_manager import OrderManager
 
 
 @pytest.fixture(scope="module")
@@ -50,7 +48,7 @@ def order_manager() -> "OrderManager":
     return multisafepay_sdk.get_order_manager()
 
 
-def test_create_order(order_manager):
+def test_create_order(order_manager: OrderManager):
     """
     Test the create method of the OrderManager.
 

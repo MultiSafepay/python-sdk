@@ -26,7 +26,7 @@ class IpAddress(InmutableModel):
     ip_address: str
 
     @validator("ip_address")
-    def validate(cls, value):
+    def validate(cls, value: str):
         """
         Validate the IP address.
 

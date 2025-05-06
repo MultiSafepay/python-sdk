@@ -45,7 +45,7 @@ def order_manager() -> OrderManager:
     return multisafepay_sdk.get_order_manager()
 
 
-def test_get_order(order_manager):
+def test_get_order(order_manager: OrderManager):
     """
     Test the retrieval of an order.
 

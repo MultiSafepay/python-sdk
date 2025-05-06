@@ -22,7 +22,7 @@ class CustomApiResponse(ApiResponse):
 
     data: Optional[Any]
 
-    def __init__(self, data, **kwargs):
+    def __init__(self: "CustomApiResponse", data: Optional[Any], **kwargs):
         """
         Initialize the CustomApiResponse with optional data and additional keyword arguments.
 

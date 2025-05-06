@@ -36,7 +36,7 @@ class Order(ResponseModel):
     amount (Optional[int]): The amount of the order.
     amount_refunded (Optional[int]): The amount refunded.
     checkout_options (Optional[CheckoutOptions]): The checkout options.
-    costs (Optional[list[Costs]]): The costs of the order.
+    costs (Optional[List[Costs]]): The costs of the order.
     created (Optional[str]): The creation date of the order.
     modified (Optional[str]): The modification date of the order.
     currency (Optional[str]): The currency of the order.
@@ -50,10 +50,10 @@ class Order(ResponseModel):
     order_id (Optional[str]): The ID of the order.
     order_total (Optional[float]): The total amount of the order.
     payment_details (Optional[PaymentDetails]): The payment details.
-    payment_method (Optional[list[PaymentMethod]]): The payment methods.
+    payment_method (Optional[List[PaymentMethod]]): The payment methods.
     reason (Optional[str]): The reason for the order.
     reason_code (Optional[str]): The reason code for the order.
-    related_transactions (Optional[list[Transaction]]): The related transactions.
+    related_transactions (Optional[List[Transaction]]): The related transactions.
     shopping_cart (Optional[ShoppingCart]): The shopping cart.
     status (Optional[str]): The status of the order.
     transaction_id (Optional[str]): The ID of the transaction.

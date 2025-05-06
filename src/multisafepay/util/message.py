@@ -47,7 +47,7 @@ class MessageList(BaseModel):
         """
         return iter(self.__root__)
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int):
         """
         Get a message by index.
 
