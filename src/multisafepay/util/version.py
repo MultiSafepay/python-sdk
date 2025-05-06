@@ -34,7 +34,7 @@ class Version(BaseModel):
         """
         return self.plugin_version
 
-    def set_plugin_version(self: "Version", version: Optional[str]):
+    def set_plugin_version(self: "Version", version: Optional[str]) -> None:
         """
         Set the plugin version.
 

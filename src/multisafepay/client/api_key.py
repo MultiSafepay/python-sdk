@@ -25,7 +25,7 @@ class ApiKey(BaseModel):
     api_key: str
 
     @validator("api_key")
-    def validate_api_key(cls: "ApiKey", api_key: str):
+    def validate_api_key(cls: "ApiKey", api_key: str) -> str:
         """
         Validate the API key.
 

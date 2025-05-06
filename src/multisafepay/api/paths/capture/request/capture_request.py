@@ -25,7 +25,7 @@ class CaptureRequest(RequestModel):
     status: Optional[str]
     reason: Optional[str]
 
-    def add_status(self: "CaptureRequest", status: str):
+    def add_status(self: "CaptureRequest", status: str) -> "CaptureRequest":
         """
         Add a status to the capture request.
 
@@ -41,7 +41,7 @@ class CaptureRequest(RequestModel):
         self.status = status
         return self
 
-    def add_reason(self: "CaptureRequest", reason: str):
+    def add_reason(self: "CaptureRequest", reason: str) -> "CaptureRequest":
         """
         Add a reason to the capture request.
 
