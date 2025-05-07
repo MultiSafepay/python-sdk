@@ -20,7 +20,7 @@ class CategoryManager(AbstractManager):
     A manager class for handling category-related API requests.
     """
 
-    def __init__(self: "CategoryManager", client: Client):
+    def __init__(self: "CategoryManager", client: Client) -> None:
         """
         Initialize the CategoryManager with a client.
 

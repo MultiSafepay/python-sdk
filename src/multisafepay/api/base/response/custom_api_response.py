@@ -26,7 +26,7 @@ class CustomApiResponse(ApiResponse):
         self: "CustomApiResponse",
         data: Optional[Any],
         **kwargs: Dict[str, Any],
-    ):
+    ) -> None:
         """
         Initialize the CustomApiResponse with optional data and additional keyword arguments.
 

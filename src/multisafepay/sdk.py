@@ -40,7 +40,7 @@ class Sdk:
         is_production: bool,
         http_client: Optional[Client] = None,
         locale: str = "en_US",
-    ):
+    ) -> None:
         """
         Initialize the SDK with the provided configuration.
 

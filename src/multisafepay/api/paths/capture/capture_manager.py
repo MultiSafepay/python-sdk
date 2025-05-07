@@ -26,7 +26,7 @@ class CaptureManager(AbstractManager):
     A class to manage capture operations.
     """
 
-    def __init__(self: "CaptureManager", client: Client):
+    def __init__(self: "CaptureManager", client: Client) -> None:
         """
         Initialize the CaptureManager with a client.
 

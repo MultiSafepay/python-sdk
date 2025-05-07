@@ -35,7 +35,7 @@ class RecurringManager(AbstractManager):
     CREDIT_CARD_GATEWAY_CODE = "CREDITCARD"
     CREDIT_CARD_GATEWAYS = ["VISA", "MASTERCARD", "AMEX", "MAESTRO"]
 
-    def __init__(self: "RecurringManager", client: Client):
+    def __init__(self: "RecurringManager", client: Client) -> None:
         """
         Initializes the RecurringManager with a client.
 

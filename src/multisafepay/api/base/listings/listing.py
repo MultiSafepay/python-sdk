@@ -5,7 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-from typing import Any, Dict, Generic, List, TypeVar
+from typing import Any, Dict, Generic, Iterator, List, TypeVar
 
 from pydantic.main import BaseModel
 
@@ -29,7 +29,7 @@ class Listing(Generic[T], BaseModel):
         data: List[Any],
         class_type: type,
         **kwargs: Dict[str, Any],
-    ):
+    ) -> None:
         """
         Initialize the Listing with data and a class type.
 
@@ -53,7 +53,7 @@ class Listing(Generic[T], BaseModel):
 
         super().__init__(data=elements)
 
-    def __iter__(self: "Listing"):
+    def __iter__(self: "Listing") -> Iterator[T]:
         """
         Return an iterator over the items in the listing.
 
@@ -79,7 +79,7 @@ class Listing(Generic[T], BaseModel):
         """
         return self.data[index]
 
-    def __len__(self: "Listing"):
+    def __len__(self: "Listing") -> int:
         """
         Get the number of items in the listing.
 

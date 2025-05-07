@@ -28,7 +28,7 @@ class ListingPager(Listing):
         data: list,
         pager: Optional[Pager],
         class_type: type,
-    ):
+    ) -> None:
         """
         Initialize the ListingPager with data, pager, and class type.
 

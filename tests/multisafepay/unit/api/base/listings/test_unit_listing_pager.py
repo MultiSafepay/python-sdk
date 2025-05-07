@@ -11,7 +11,7 @@ from multisafepay.api.base.listings.listing_pager import ListingPager
 
 
 class MockItem:
-    def __init__(self: "MockItem", value: Any):
+    def __init__(self: "MockItem", value: Any) -> None:
         """
         Initialize a MockItem with a given value.
 

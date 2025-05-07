@@ -30,7 +30,7 @@ class PaymentMethodManager(AbstractManager):
     A class representing the PaymentMethodManager.
     """
 
-    def __init__(self: "PaymentMethodManager", client: Client):
+    def __init__(self: "PaymentMethodManager", client: Client) -> None:
         """
         Initialize the CaptureManager with a client.
 

@@ -26,7 +26,7 @@ class Date(InmutableModel):
     timestamp: float
     str_date: str
 
-    def __init__(self: "Date", date: str):
+    def __init__(self: "Date", date: str) -> None:
         """
         Initialize a Date object.
 
