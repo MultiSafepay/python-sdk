@@ -5,7 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
 from multisafepay.api.base.response.api_response import ApiResponse
 
@@ -20,11 +20,11 @@ class CustomApiResponse(ApiResponse):
 
     """
 
-    data: Optional[Any]
+    data: Optional[Union[dict, list]]
 
     def __init__(
         self: "CustomApiResponse",
-        data: Optional[Any],
+        data: Optional[Union[dict, list]],
         **kwargs: Dict[str, Any],
     ) -> None:
         """
@@ -41,7 +41,7 @@ class CustomApiResponse(ApiResponse):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def get_data(self: "CustomApiResponse") -> Optional[Any]:
+    def get_data(self: "CustomApiResponse") -> Optional[Union[dict, list]]:
         """
         Get the data contained in the response.
 

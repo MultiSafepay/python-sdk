@@ -7,7 +7,6 @@
 
 
 import json
-from typing import Any
 
 from multisafepay.exception.invalid_total_amount import (
     InvalidTotalAmountException,
@@ -74,7 +73,7 @@ def __calculate_totals(data: dict) -> float:
 def __get_tax_rate_by_item(
     item: dict,
     data: dict,
-) -> Any:
+) -> object:
     """
     Get the tax rate for a specific item in the shopping cart.
 
@@ -85,7 +84,7 @@ def __get_tax_rate_by_item(
 
     Returns
     -------
-    int | List[int | Any] | Any: The tax rate for the item, or 0 if no tax rate is found.
+    object: The tax rate for the item, or 0 if no tax rate is found.
 
     """
     if "tax_table_selector" not in item or not item["tax_table_selector"]:

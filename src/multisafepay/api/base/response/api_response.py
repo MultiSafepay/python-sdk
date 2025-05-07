@@ -6,7 +6,7 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
-from typing import Any, Optional
+from typing import Optional, Union
 
 from multisafepay.api.base.listings.pager import Pager
 from multisafepay.model.extra_model import ExtraModel
@@ -65,7 +65,7 @@ class ApiResponse(ExtraModel):
             raw=json_data.__str__(),
         )
 
-    def get_body_data(self: "ApiResponse") -> Optional[Any]:
+    def get_body_data(self: "ApiResponse") -> Optional[Union[dict, list]]:
         """
         Get the data from the body of the response.
 
