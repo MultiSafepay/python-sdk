@@ -5,7 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-from typing import Any, Optional
+from typing import Optional
 
 
 def merge_recursive(dict1: dict, dict2: dict) -> dict:
@@ -66,7 +66,7 @@ def remove_null_recursive(input_data: dict) -> dict:
 
     """
 
-    def process_value(value: Any) -> Optional[Any]:
+    def process_value(value: object) -> Optional[object]:
         if isinstance(value, dict):
             processed_dict = remove_null_recursive(value)
             return processed_dict if processed_dict else None
@@ -85,7 +85,7 @@ def remove_null_recursive(input_data: dict) -> dict:
     }
 
 
-def dict_empty(value: Any) -> bool:
+def dict_empty(value: object) -> bool:
     """
     Check if the given value is an empty dictionary.
 

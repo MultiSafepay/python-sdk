@@ -6,15 +6,13 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
-from typing import Any
-
 from multisafepay.api.base.listings.listing_pager import ListingPager
 from multisafepay.api.base.listings.pager import Pager
 from multisafepay.api.base.listings.cursor import Cursor
 
 
 class MockItem:
-    def __init__(self: "MockItem", value: Any) -> None:
+    def __init__(self: "MockItem", value: object) -> None:
         """
         Initialize a MockItem with a given value.
 

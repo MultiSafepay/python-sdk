@@ -7,7 +7,7 @@
 
 
 import json
-from typing import Any
+from typing import Dict, List, Optional, Union
 
 
 class ApiException(Exception):
@@ -115,7 +115,10 @@ class ApiException(Exception):
             lines.append(f"{context_name}: {debug_value}")
         return lines
 
-    def get_context_value(self: "ApiException", name: str) -> Any:
+    def get_context_value(
+        self: "ApiException",
+        name: str,
+    ) -> Optional[Union[str, int, float, bool, Dict, List]]:
         """
         Get a specific context value by name.
 
@@ -125,7 +128,8 @@ class ApiException(Exception):
 
         Returns
         -------
-        The value associated with the given name, or None if the name is not found.
+        Optional[Union[str, int, float, bool, Dict, List]]: The value associated with the given name,
+            or None if the name is not found.
 
         """
         return self.context.get(name)
