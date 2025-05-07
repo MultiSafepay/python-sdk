@@ -50,7 +50,6 @@ class RecurringManager(AbstractManager):
     def get_list(
         self: "RecurringManager",
         reference: str,
-        force_api_call: bool = False,
     ) -> CustomApiResponse:
         """
         Retrieves a list of recurring tokens for a given customer reference.
