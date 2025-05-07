@@ -45,10 +45,10 @@ class Date(InmutableModel):
             else:
                 timestamp = datetime.strptime(date, "%Y-%m-%d").timestamp()
             super().__init__(timestamp=timestamp, str_date=date)
-        except ValueError:
+        except ValueError as e:
             raise InvalidArgumentException(
                 f'Value "{date}" is an invalid date format',
-            )
+            ) from e
 
     def get(self: "Date", date_format: str = "%Y-%m-%d") -> str:
         """
