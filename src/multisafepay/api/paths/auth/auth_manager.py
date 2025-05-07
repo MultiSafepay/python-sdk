@@ -22,7 +22,7 @@ class AuthManager(AbstractManager):
     A manager class for handling authentication-related operations.
     """
 
-    def __init__(self: "AuthManager", client: Client):
+    def __init__(self: "AuthManager", client: Client) -> None:
         """
         Initialize the CaptureManager with a client.
 

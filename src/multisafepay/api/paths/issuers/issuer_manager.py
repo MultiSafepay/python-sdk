@@ -24,7 +24,7 @@ class IssuerManager(AbstractManager):
     Manager class for handling issuer-related operations.
     """
 
-    def __init__(self: "IssuerManager", client: Client):
+    def __init__(self: "IssuerManager", client: Client) -> None:
         """
         Initialize the IssuerManager with a client.
 

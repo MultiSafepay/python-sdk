@@ -6,7 +6,7 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
-from typing import Dict, List
+from typing import Dict, Iterator, List
 
 from pydantic import BaseModel, Field
 
@@ -36,7 +36,7 @@ class MessageList(BaseModel):
 
     __root__: List[Message] = Field(default_factory=list)
 
-    def __iter__(self: "MessageList"):
+    def __iter__(self: "MessageList") -> Iterator[Message]:
         """
         Iterate over the messages in the list.
 
@@ -47,7 +47,7 @@ class MessageList(BaseModel):
         """
         return iter(self.__root__)
 
-    def __getitem__(self: "MessageList", index: int):
+    def __getitem__(self: "MessageList", index: int) -> "Message":
         """
         Get a message by index.
 
@@ -62,7 +62,7 @@ class MessageList(BaseModel):
         """
         return self.__root__[index]
 
-    def __len__(self: "MessageList"):
+    def __len__(self: "MessageList") -> int:
         """
         Get the number of messages in the list.
 

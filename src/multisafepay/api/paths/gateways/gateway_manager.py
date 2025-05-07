@@ -28,7 +28,7 @@ class GatewayManager(AbstractManager):
     Manages gateway-related operations.
     """
 
-    def __init__(self: "GatewayManager", client: Client):
+    def __init__(self: "GatewayManager", client: Client) -> None:
         """
         Initialize the CategoryManager with a client.
 

@@ -45,7 +45,7 @@ class Client:
         is_production: bool,
         http_client: Optional[Session] = None,
         locale: str = "en_US",
-    ):
+    ) -> None:
         """
         Initialize the Client.
 
