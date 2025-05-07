@@ -20,7 +20,7 @@ class Decorator:
 
     dependencies: Optional[Dict]
 
-    def __init__(self: "Decorator", dependencies: Dict = {}) -> None:
+    def __init__(self: "Decorator", dependencies: Dict = None) -> None:
         """
         Initialize the Decorator with optional dependencies.
 
@@ -29,7 +29,7 @@ class Decorator:
         dependencies (dict): A dictionary of dependencies to be used by the decorator, by default {}.
 
         """
-        self.dependencies = dependencies
+        self.dependencies = dependencies if dependencies is not None else {}
 
     def adapt_checkout_options(
         self: "Decorator",

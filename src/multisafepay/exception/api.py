@@ -24,7 +24,7 @@ class ApiException(Exception):
     def __init__(
         self: "ApiException",
         message: str,
-        context: dict = {},
+        context: dict = None,
     ) -> None:
         """
         Initialize the ApiException.
