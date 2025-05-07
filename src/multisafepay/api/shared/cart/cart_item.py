@@ -280,10 +280,10 @@ class CartItem(ApiModel):
 
         try:
             self.tax_table_selector = str(tax_rate_percentage / 100)
-        except (ValueError, TypeError):
+        except (ValueError, TypeError) as e:
             raise InvalidArgumentException(
                 "Tax rate percentage cannot be converted to a string.",
-            )
+            ) from e
 
         return self
 
@@ -316,10 +316,10 @@ class CartItem(ApiModel):
 
         try:
             self.tax_table_selector = str(tax_rate)
-        except (ValueError, TypeError):
+        except (ValueError, TypeError) as e:
             raise InvalidArgumentException(
                 "Tax rate cannot be converted to a string.",
-            )
+            ) from e
 
         return self
 

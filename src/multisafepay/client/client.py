@@ -246,7 +246,7 @@ class Client:
             response.raise_for_status()
         except RequestException as e:
             if 500 <= response.status_code < 600:
-                raise ApiException(f"Request failed: {e}")
+                raise ApiException(f"Request failed: {e}") from e
 
         context = context or {}
         context.update(

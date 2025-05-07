@@ -60,10 +60,10 @@ class Webhook:
                 transaction_json,
                 separators=(",", ":"),
             )
-        except json.JSONDecodeError:
+        except json.JSONDecodeError as e:
             raise InvalidArgumentException(
                 "Request must be a valid JSON string",
-            )
+            ) from e
 
         if validation_time_in_seconds < 0:
             raise InvalidArgumentException(
