@@ -9,10 +9,11 @@ repository = "https://github.com/MultiSafepay/python-sdk"
 homepage = "https://multisafepay.com"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.14"
-requests = "^2.32.3"
+python = ">=3.9,<3.14"
+requests = "^2.32.4"
 pydantic = "^1.10.0"
 python-dotenv = "^1.0.1"
+urllib3 = ">=2.5.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
