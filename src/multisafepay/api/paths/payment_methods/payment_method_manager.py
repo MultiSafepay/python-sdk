@@ -126,8 +126,9 @@ class PaymentMethodManager(AbstractManager):
         if options is None:
             options = {}
         options = {k: v for k, v in options.items() if k in ALLOWED_OPTIONS}
+        encoded_gateway_code = self.encode_path_segment(gateway_code)
         response = self.client.create_get_request(
-            f"json/payment-methods/{gateway_code}",
+            f"json/payment-methods/{encoded_gateway_code}",
             options,
         )
         args: dict = {

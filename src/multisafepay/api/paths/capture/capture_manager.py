@@ -59,8 +59,9 @@ class CaptureManager(AbstractManager):
 
         """
         json_data = json.dumps(capture_request.dict())
+        encoded_order_id = self.encode_path_segment(order_id)
         response = self.client.create_patch_request(
-            f"json/capture/{order_id}",
+            f"json/capture/{encoded_order_id}",
             request_body=json_data,
         )
         args: dict = {
