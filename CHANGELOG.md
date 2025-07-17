@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-07-17
+
+## Added
+- PTHMINT-75: Remove unsupported attribute in delivery object (#26)
+- PTHMINT-74: Encode dinamic path segment (#25)
+- PTHMINT-72: Fix dependabot report (#22)
+- PTHMINT-50: Fix ruff B904
+- PTHMINT-49: Fix ruff B006
+- PTHMINT-48: Fix ruff ARG002 
+- PTHMINT-47: Fix ruff ANN401
+- PTHMINT-46: Fix ruff ANN204
+- PTHMINT-45: Fix ruff error code ANN201
+- PTHMINT-44: Remove code ANN102 from ruff ignore
+- PTHMINT-42: Fix ruff error ANN101 occurrences
+- PTHMINT-41: Fix error ANN003 occurences
+- PTHMINT-38: Fix ruff problems code ANN001
+- PTHMINT-37: Remove A002 code to ruff lint (#11)
+
 ## [1.0.1] - 2025-04-23
 
 ### Added
