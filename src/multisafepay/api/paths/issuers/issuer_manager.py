@@ -59,8 +59,9 @@ class IssuerManager(AbstractManager):
         if gateway_code not in ALLOWED_GATEWAY_CODES:
             raise InvalidArgumentException("Gateway code is not allowed")
 
+        encoded_gateway_code = self.encode_path_segment(gateway_code)
         response = self.client.create_get_request(
-            f"json/issuers/{gateway_code}",
+            f"json/issuers/{encoded_gateway_code}",
         )
         args: dict = {
             **response.dict(),

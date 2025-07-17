@@ -102,8 +102,9 @@ class GatewayManager(AbstractManager):
             options = {}
         options = {k: v for k, v in options.items() if k in ALLOWED_OPTIONS}
 
+        encoded_gateway_code = self.encode_path_segment(gateway_code)
         response = self.client.create_get_request(
-            f"json/gateways/{gateway_code}",
+            f"json/gateways/{encoded_gateway_code}",
             options,
         )
         args: dict = {
