@@ -25,9 +25,6 @@ def test_initializes_with_valid_values():
         country="USA",
         phone="555-1234",
         email="example@multisafepay.com",
-        street_name="Main St",
-        street_name_additional="Near the park",
-        house_number_suffix="A",
     )
     assert delivery.first_name == "John"
     assert delivery.last_name == "Doe"
@@ -40,9 +37,6 @@ def test_initializes_with_valid_values():
     assert delivery.country == "USA"
     assert delivery.phone == "555-1234"
     assert delivery.email == "example@multisafepay.com"
-    assert delivery.street_name == "Main St"
-    assert delivery.street_name_additional == "Near the park"
-    assert delivery.house_number_suffix == "A"
 
 
 def test_initializes_with_default_values():
@@ -61,9 +55,6 @@ def test_initializes_with_default_values():
     assert delivery.country is None
     assert delivery.phone is None
     assert delivery.email is None
-    assert delivery.street_name is None
-    assert delivery.street_name_additional is None
-    assert delivery.house_number_suffix is None
 
 
 def test_adds_first_name():
@@ -130,38 +121,6 @@ def test_adds_state():
     assert delivery.state == "CA"
 
 
-def test_adds_street_name():
-    """
-    Test that a street name is added to the Delivery instance.
-    """
-    delivery = Delivery().add_street_name("Main St")
-    assert delivery.street_name == "Main St"
-
-
-def test_adds_street_name_as_string():
-    """
-    Test that a street name as a string is added to the Delivery instance.
-    """
-    delivery = Delivery().add_street_name("Main St")
-    assert delivery.street_name == "Main St"
-
-
-def test_adds_street_name_additional():
-    """
-    Test that additional street name information is added to the Delivery instance.
-    """
-    delivery = Delivery().add_street_name_additional("Near the park")
-    assert delivery.street_name_additional == "Near the park"
-
-
-def test_adds_house_number_suffix():
-    """
-    Test that a house number suffix is added to the Delivery instance.
-    """
-    delivery = Delivery().add_house_number_suffix("A")
-    assert delivery.house_number_suffix == "A"
-
-
 def test_creates_from_dict_with_all_fields():
     """
     Test that a Delivery instance is created from a dictionary with all fields.
@@ -178,9 +137,6 @@ def test_creates_from_dict_with_all_fields():
         "country": "USA",
         "phone": "555-1234",
         "email": "john.doe@example.com",
-        "street_name": "Main St",
-        "street_name_additional": "Near the park",
-        "house_number_suffix": "A",
     }
     delivery = Delivery.from_dict(data)
     assert delivery.first_name == "John"
@@ -194,9 +150,6 @@ def test_creates_from_dict_with_all_fields():
     assert delivery.country == "USA"
     assert delivery.phone == "555-1234"
     assert delivery.email == "john.doe@example.com"
-    assert delivery.street_name == "Main St"
-    assert delivery.street_name_additional == "Near the park"
-    assert delivery.house_number_suffix == "A"
 
 
 def test_creates_from_empty_dict():
@@ -216,9 +169,6 @@ def test_creates_from_empty_dict():
     assert delivery.country is None
     assert delivery.phone is None
     assert delivery.email is None
-    assert delivery.street_name is None
-    assert delivery.street_name_additional is None
-    assert delivery.house_number_suffix is None
 
 
 def test_creates_from_none():

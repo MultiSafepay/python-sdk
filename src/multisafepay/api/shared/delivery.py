@@ -31,9 +31,6 @@ class Delivery(ApiModel):
     country (Optional[str]): The country code.
     phone (Optional[str]): The phone number.
     email (Optional[str]): The email address.
-    street_name (Optional[str]): The street name.
-    street_name_additional (Optional[str]): Additional street name information.
-    house_number_suffix (Optional[str]): The house number suffix.
 
     """
 
@@ -48,10 +45,6 @@ class Delivery(ApiModel):
     country: Optional[str]
     phone: Optional[str]
     email: Optional[str]
-    street_name: Optional[str]
-    street_name_additional: Optional[str]
-    house_number_suffix: Optional[str]
-    country_name: Optional[str]
 
     def add_first_name(
         self: "Delivery",
@@ -251,82 +244,6 @@ class Delivery(ApiModel):
         if isinstance(email, str):
             email = EmailAddress(email_address=email)
         self.email = email.get()
-        return self
-
-    def add_street_name(
-        self: "Delivery",
-        street_name: Optional[str],
-    ) -> "Delivery":
-        """
-        Add the street name to the delivery information.
-
-        Parameters
-        ----------
-        street_name (Optional[str]): The street name to add.
-
-        Returns
-        -------
-        Delivery: The updated Delivery instance.
-
-        """
-        self.street_name = street_name
-        return self
-
-    def add_street_name_additional(
-        self: "Delivery",
-        street_name_additional: Optional[str],
-    ) -> "Delivery":
-        """
-        Add additional street name information to the delivery information.
-
-        Parameters
-        ----------
-        street_name_additional (Optional[str]): The additional street name information to add.
-
-        Returns
-        -------
-        Delivery: The updated Delivery instance.
-
-        """
-        self.street_name_additional = street_name_additional
-        return self
-
-    def add_house_number_suffix(
-        self: "Delivery",
-        house_number_suffix: Optional[str],
-    ) -> "Delivery":
-        """
-        Add the house number suffix to the delivery information.
-
-        Parameters
-        ----------
-        house_number_suffix (Optional[str]): The house number suffix to add.
-
-        Returns
-        -------
-        Delivery: The updated Delivery instance.
-
-        """
-        self.house_number_suffix = house_number_suffix
-        return self
-
-    def add_country_name(
-        self: "Delivery",
-        country_name: Optional[str],
-    ) -> "Delivery":
-        """
-        Add the country name to the delivery information.
-
-        Parameters
-        ----------
-        country_name (Optional[str]): The country name to add.
-
-        Returns
-        -------
-        Delivery: The updated Delivery instance.
-
-        """
-        self.country_name = country_name
         return self
 
     @staticmethod
