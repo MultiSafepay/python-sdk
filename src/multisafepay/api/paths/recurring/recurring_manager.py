@@ -64,8 +64,9 @@ class RecurringManager(AbstractManager):
         CustomApiResponse: The response containing the list of tokens.
 
         """
+        encoded_reference = self.encode_path_segment(reference)
         response: ApiResponse = self.client.create_get_request(
-            f"json/recurring/{reference}",
+            f"json/recurring/{encoded_reference}",
         )
         args: dict = {
             **response.dict(),
@@ -109,8 +110,10 @@ class RecurringManager(AbstractManager):
         CustomApiResponse: The response containing the token data.
 
         """
+        encoded_reference = self.encode_path_segment(reference)
+        encoded_token = self.encode_path_segment(token)
         response = self.client.create_get_request(
-            f"json/recurring/{reference}/token/{token}",
+            f"json/recurring/{encoded_reference}/token/{encoded_token}",
         )
         args: dict = {
             **response.dict(),
@@ -144,8 +147,10 @@ class RecurringManager(AbstractManager):
         CustomApiResponse: The response after deleting the token.
 
         """
+        encoded_reference = self.encode_path_segment(reference)
+        encoded_token = self.encode_path_segment(token)
         response = self.client.create_delete_request(
-            f"json/recurring/{reference}/remove/{token}",
+            f"json/recurring/{encoded_reference}/remove/{encoded_token}",
         )
         args: dict = {
             **response.dict(),

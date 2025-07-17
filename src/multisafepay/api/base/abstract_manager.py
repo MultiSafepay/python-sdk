@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+import urllib.parse
 
 from multisafepay.client.client import Client
 
@@ -29,3 +30,19 @@ class AbstractManager:
 
         """
         self.client = client
+
+    @staticmethod
+    def encode_path_segment(segment: str) -> str:
+        """
+        URL encode a path segment to be safely included in a URL.
+
+        Parameters
+        ----------
+        segment (str): The path segment to encode
+
+        Returns
+        -------
+        str: The URL encoded path segment
+
+        """
+        return urllib.parse.quote(str(segment), safe="")
