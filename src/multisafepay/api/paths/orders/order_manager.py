@@ -102,7 +102,8 @@ class OrderManager(AbstractManager):
         CustomApiResponse: The custom API response containing the order data.
 
         """
-        endpoint = f"json/orders/{order_id}"
+        encoded_order_id = self.encode_path_segment(order_id)
+        endpoint = f"json/orders/{encoded_order_id}"
         context = {"order_id": order_id}
         response: ApiResponse = self.client.create_get_request(
             endpoint,
@@ -152,8 +153,9 @@ class OrderManager(AbstractManager):
 
         """
         json_data = json.dumps(update_request.to_dict())
+        encoded_order_id = self.encode_path_segment(order_id)
         response = self.client.create_patch_request(
-            f"json/orders/{order_id}",
+            f"json/orders/{encoded_order_id}",
             request_body=json_data,
         )
         args: dict = {
@@ -181,9 +183,10 @@ class OrderManager(AbstractManager):
 
         """
         json_data = json.dumps(capture_request.to_dict())
+        encoded_order_id = self.encode_path_segment(order_id)
 
         response = self.client.create_post_request(
-            f"json/orders/{order_id}/capture",
+            f"json/orders/{encoded_order_id}/capture",
             request_body=json_data,
         )
         args: dict = {
@@ -221,8 +224,9 @@ class OrderManager(AbstractManager):
 
         """
         json_data = json.dumps(request_refund.to_dict())
+        encoded_order_id = self.encode_path_segment(order_id)
         response = self.client.create_post_request(
-            f"json/orders/{order_id}/refunds",
+            f"json/orders/{encoded_order_id}/refunds",
             request_body=json_data,
         )
         args: dict = {
@@ -267,6 +271,7 @@ class OrderManager(AbstractManager):
             quantity,
         )
 
+        # Encode the order_id before calling refund
         return self.refund(order.order_id, request_refund)
 
     @staticmethod
