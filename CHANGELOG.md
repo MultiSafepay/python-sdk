@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-07-17
+
+### Added
+- PTHMINT-76: Improve coding standards
+- PTHMINT-74: Encode dynamic path segment
+
+### Removed
+- PTHMINT-72: Drop support for Python 3.8
+- PTHMINT-75: Remove unsupported attributes in delivery object
+
 ## [1.0.1] - 2025-04-23
 
 ### Added
