@@ -60,7 +60,7 @@ def test_generate_from_shopping_cart():
     generated_checkout_options = CheckoutOptions.generate_from_shopping_cart(
         shopping_cart,
     )
-    # Ordenar ambas listas antes de comparar
+    # Sort both lists before comparing
     generated_checkout_options.tax_tables.alternate = sorted(
         generated_checkout_options.tax_tables.alternate,
         key=lambda x: x.name,
