@@ -60,22 +60,23 @@ def test_generate_from_shopping_cart():
     generated_checkout_options = CheckoutOptions.generate_from_shopping_cart(
         shopping_cart,
     )
+    # Ordenar ambas listas antes de comparar
+    generated_checkout_options.tax_tables.alternate = sorted(
+        generated_checkout_options.tax_tables.alternate,
+        key=lambda x: x.name,
+    )
+    expected_alternate = sorted(
+        [
+            TaxRule(name="0.21", rules=[TaxRate(rate=0.21)]),
+            TaxRule(name="0.09", rules=[TaxRate(rate=0.09)]),
+            TaxRule(name="0", rules=[TaxRate(rate=0.0)]),
+        ],
+        key=lambda x: x.name,
+    )
+
     test_checkout_options = CheckoutOptions(
         tax_tables=CheckoutOptionsApiModel(
-            alternate=[
-                TaxRule(
-                    name="0.21",
-                    rules=[TaxRate(rate=0.21)],
-                ),
-                TaxRule(
-                    name="0.09",
-                    rules=[TaxRate(rate=0.09)],
-                ),
-                TaxRule(
-                    name="0",
-                    rules=[TaxRate(rate=0)],
-                ),
-            ],
+            alternate=expected_alternate,
         ),
     )
 
@@ -149,3 +150,50 @@ def test_generate_from_shopping_cart_with_no_tax_table_selector():
         tax_tables=CheckoutOptionsApiModel(default=None, alternate=[]),
         validate_cart=None,
     )
+
+
+def test_generate_from_shopping_cart_with_items_with_same_tax_table_selector():
+    """
+    Test the generate_from_shopping_cart method of CheckoutOptions with a shopping cart that has no tax_table_selector.
+
+    This test creates a ShoppingCart with items that have no tax_table_selector and checks if the generated CheckoutOptions is None.
+
+    """
+    shopping_cart = ShoppingCart(
+        items=[
+            CartItem(
+                name="Geometric Candle Holders",
+                description="Geometric Candle Holders description",
+                unit_price=90,
+                quantity=3,
+                merchant_item_id="1111",
+                tax_table_selector=0.21,
+                weight=Weight(value=1.0, unit="kg"),
+            ),
+            CartItem(
+                name="Geometric Candle Holders",
+                description="Geometric Candle Holders description",
+                unit_price=90,
+                quantity=3,
+                merchant_item_id="1111",
+                tax_table_selector=0.21,
+                weight=Weight(value=1.0, unit="kg"),
+            ),
+        ],
+    )
+    generated_checkout_options = CheckoutOptions.generate_from_shopping_cart(
+        shopping_cart,
+    )
+
+    test_checkout_options = CheckoutOptions(
+        tax_tables=CheckoutOptionsApiModel(
+            alternate=[
+                TaxRule(
+                    name="0.21",
+                    rules=[TaxRate(rate=0.21)],
+                ),
+            ],
+        ),
+    )
+
+    assert generated_checkout_options == test_checkout_options
