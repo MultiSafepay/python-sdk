@@ -110,12 +110,18 @@ class CheckoutOptions(RequestModel):
                 )
             ]
 
+            # reduce the array of items to unique tax tables
+            unique_tax_tables = {
+                item.tax_table_selector
+                for item in items_with_tax_table_selector
+            }
+
             tax_rules = [
                 TaxRule(
-                    name=str(item.tax_table_selector),
-                    rules=[TaxRate(rate=item.tax_table_selector)],
+                    name=str(tax_table_selector),
+                    rules=[TaxRate(rate=tax_table_selector)],
                 )
-                for item in items_with_tax_table_selector
+                for tax_table_selector in unique_tax_tables
             ]
             return CheckoutOptions(
                 tax_tables=CheckoutOptionsApiModel(
