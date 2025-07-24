@@ -154,9 +154,9 @@ def test_generate_from_shopping_cart_with_no_tax_table_selector():
 
 def test_generate_from_shopping_cart_with_items_with_same_tax_table_selector():
     """
-    Test the generate_from_shopping_cart method of CheckoutOptions with a shopping cart that has no tax_table_selector.
+    Test the generate_from_shopping_cart method of CheckoutOptions with a shopping cart that has items with the same tax_table_selector.
 
-    This test creates a ShoppingCart with items that have no tax_table_selector and checks if the generated CheckoutOptions is None.
+    This test creates a ShoppingCart with items that all have the same tax_table_selector (0.21) and checks if the generated CheckoutOptions matches the expected output.
 
     """
     shopping_cart = ShoppingCart(
