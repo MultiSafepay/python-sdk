@@ -231,5 +231,25 @@ def test_add_tax_rate_percentage():
 
     """
     item = CartItem()
-    item.add_tax_rate_percentage(21.0)
+    item.add_tax_rate_percentage(21)
     assert item.tax_table_selector == "0.21"
+
+
+def test_add_tax_rate_percentage():
+    """
+    Test that a 0 tax rate percentage is correctly set as the tax table selector in a CartItem.
+
+    """
+    item = CartItem()
+    item.add_tax_rate_percentage(0)
+    assert item.tax_table_selector == "0.0"
+
+
+def test_add_tax_rate_percentage():
+    """
+    Test that a 0.0 tax rate percentage is correctly set as the tax table selector in a CartItem.
+
+    """
+    item = CartItem()
+    item.add_tax_rate_percentage(0.0)
+    assert item.tax_table_selector == "0.0"

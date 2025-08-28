@@ -248,7 +248,7 @@ class CartItem(ApiModel):
 
     def add_tax_rate_percentage(
         self: "CartItem",
-        tax_rate_percentage: float,
+        tax_rate_percentage: int,
     ) -> "CartItem":
         """
         Add tax rate percentage to the cart item.
@@ -261,7 +261,7 @@ class CartItem(ApiModel):
 
         Parameters
         ----------
-        tax_rate_percentage: (float) The tax rate percentage to be added.
+        tax_rate_percentage: (int) The tax rate percentage to be added.
 
         Returns
         -------
@@ -279,7 +279,8 @@ class CartItem(ApiModel):
             )
 
         try:
-            self.tax_table_selector = str(tax_rate_percentage / 100)
+            rating = tax_rate_percentage / 100
+            self.tax_table_selector = str(rating)
         except (ValueError, TypeError) as e:
             raise InvalidArgumentException(
                 "Tax rate percentage cannot be converted to a string.",
