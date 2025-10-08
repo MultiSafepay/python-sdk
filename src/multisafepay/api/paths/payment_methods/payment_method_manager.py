@@ -5,7 +5,6 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-
 from multisafepay.api.base.abstract_manager import AbstractManager
 from multisafepay.api.base.response.custom_api_response import (
     CustomApiResponse,
@@ -16,6 +15,7 @@ from multisafepay.api.paths.payment_methods.response.payment_method import (
 from multisafepay.client.client import ApiResponse, Client
 from multisafepay.util.dict_utils import dict_empty
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
+from pydantic import ValidationError
 
 ALLOWED_OPTIONS = {
     "country": "",
@@ -98,7 +98,7 @@ class PaymentMethodManager(AbstractManager):
                     PaymentMethod.from_dict(payment_method)
                     for payment_method in response.get_body_data().copy()
                 ]
-            except Exception:
+            except ValidationError:
                 args["warnings"] = MessageList().add_message(
                     gen_could_not_created_msg("Listing Payment Method"),
                 )
@@ -140,7 +140,7 @@ class PaymentMethodManager(AbstractManager):
                 args["data"] = PaymentMethod.from_dict(
                     d=response.get_body_data().copy(),
                 )
-            except Exception:
+            except ValidationError:
                 args["warnings"] = MessageList().add_message(
                     gen_could_not_created_msg("Payment Method"),
                 )

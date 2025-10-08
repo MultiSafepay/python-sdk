@@ -5,7 +5,6 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-
 from multisafepay.api.base.abstract_manager import AbstractManager
 from multisafepay.api.base.response.custom_api_response import (
     CustomApiResponse,
@@ -17,6 +16,7 @@ from multisafepay.api.paths.issuers.response.issuer import (
 from multisafepay.client.client import Client
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
+from pydantic import ValidationError
 
 
 class IssuerManager(AbstractManager):
@@ -73,7 +73,7 @@ class IssuerManager(AbstractManager):
                     Issuer.from_dict(issuer)
                     for issuer in response.get_body_data().copy()
                 ]
-            except Exception as e:
+            except ValidationError as e:
                 print(e)
                 args["warnings"] = (
                     MessageList()

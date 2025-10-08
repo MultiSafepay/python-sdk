@@ -5,7 +5,6 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-
 import json
 from typing import Union
 
@@ -41,6 +40,7 @@ from multisafepay.util.dict_utils import dict_empty
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
 from multisafepay.value_object.amount import Amount
 from multisafepay.value_object.currency import Currency
+from pydantic import ValidationError
 
 
 class OrderManager(AbstractManager):
@@ -82,7 +82,7 @@ class OrderManager(AbstractManager):
                 args["data"] = Order.from_dict(
                     d=response.get_body_data().copy(),
                 )
-            except Exception:
+            except ValidationError:
                 args["warnings"] = MessageList().add_message(
                     gen_could_not_created_msg("Order"),
                 )
@@ -198,7 +198,7 @@ class OrderManager(AbstractManager):
                 args["data"] = OrderCapture.from_dict(
                     d=response.get_body_data().copy(),
                 )
-            except Exception:
+            except ValidationError:
                 args["warnings"] = MessageList().add_message(
                     gen_could_not_created_msg("OrderCapture"),
                 )
@@ -238,7 +238,7 @@ class OrderManager(AbstractManager):
                 args["data"] = OrderRefund.from_dict(
                     d=response.get_body_data().copy(),
                 )
-            except Exception:
+            except ValidationError:
                 args["warnings"] = MessageList().add_message(
                     gen_could_not_created_msg("OrderRefund"),
                 )

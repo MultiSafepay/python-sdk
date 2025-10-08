@@ -5,7 +5,6 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-
 from multisafepay.api.base.abstract_manager import AbstractManager
 from multisafepay.api.base.response.api_response import ApiResponse
 from multisafepay.api.base.response.custom_api_response import (
@@ -15,6 +14,7 @@ from multisafepay.api.paths.auth.api_token.response.api_token import ApiToken
 from multisafepay.client.client import Client
 from multisafepay.util.dict_utils import dict_empty
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
+from pydantic import ValidationError
 
 
 class AuthManager(AbstractManager):
@@ -57,7 +57,7 @@ class AuthManager(AbstractManager):
         if not dict_empty(response.get_body_data()):
             try:
                 args["data"] = ApiToken(**response.get_body_data().copy())
-            except Exception as e:
+            except ValidationError as e:
                 args["warnings"] = (
                     MessageList()
                     .add_message(str(e))

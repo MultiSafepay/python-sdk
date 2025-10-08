@@ -5,7 +5,6 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-
 import json
 
 from multisafepay.api.base.abstract_manager import AbstractManager
@@ -19,6 +18,7 @@ from multisafepay.api.paths.capture.response.capture import CancelReservation
 from multisafepay.client.client import Client
 from multisafepay.util.dict_utils import dict_empty
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
+from pydantic import ValidationError
 
 
 class CaptureManager(AbstractManager):
@@ -73,7 +73,7 @@ class CaptureManager(AbstractManager):
                 args["data"] = CancelReservation(
                     **response.get_body_data().copy(),
                 )
-            except Exception as e:
+            except ValidationError as e:
                 args["warnings"] = (
                     MessageList()
                     .add_message(str(e))
