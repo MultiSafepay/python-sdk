@@ -18,6 +18,7 @@ from multisafepay.api.paths.recurring.customer_reference.token.token import (
 from multisafepay.client.client import Client
 from multisafepay.util.dict_utils import dict_empty
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
+from pydantic import ValidationError
 
 
 class RecurringManager(AbstractManager):
@@ -85,7 +86,7 @@ class RecurringManager(AbstractManager):
                     if tokens["tokens"]
                 ]
 
-            except Exception:
+            except ValidationError:
                 args["warnings"] = MessageList().add_message(
                     gen_could_not_created_msg("Listing Tokens"),
                 )
@@ -122,7 +123,7 @@ class RecurringManager(AbstractManager):
         if not dict_empty(response.get_body_data()):
             try:
                 args["data"] = Token(**response.get_body_data().copy())
-            except Exception:
+            except ValidationError:
                 args["warnings"] = MessageList().add_message(
                     gen_could_not_created_msg("Listing Tokens"),
                 )

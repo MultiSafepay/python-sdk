@@ -5,7 +5,6 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-
 from multisafepay.api.base.abstract_manager import AbstractManager
 from multisafepay.api.base.listings.listing_pager import ListingPager
 from multisafepay.api.base.listings.pager import Pager
@@ -18,6 +17,7 @@ from multisafepay.api.paths.transactions.response.transaction import (
 )
 from multisafepay.client.client import Client
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
+from pydantic import ValidationError
 
 ALLOWED_OPTIONS = {
     "site_id": "",
@@ -87,7 +87,7 @@ class TransactionManager(AbstractManager):
                 pager=Pager.from_dict(response.get_pager().copy()),
                 class_type=Transaction,
             )
-        except Exception:
+        except ValidationError:
             args["warnings"] = MessageList().add_message(
                 gen_could_not_created_msg("Listing Transaction"),
             )
