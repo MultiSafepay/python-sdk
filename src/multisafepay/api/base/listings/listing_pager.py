@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Paginated listing implementation combining listings with pagers."""
+
 from typing import Optional
 
 from multisafepay.api.base.listings.listing import Listing

@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Me response model for handling account information and user profile data."""
 
 from typing import Optional
 

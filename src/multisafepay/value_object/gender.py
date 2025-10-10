@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Gender value object for customer demographic information."""
 
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 from multisafepay.model.inmutable_model import InmutableModel

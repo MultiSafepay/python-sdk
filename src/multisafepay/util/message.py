@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Message utilities for handling API error messages and notifications."""
 
 from typing import Dict, Iterator, List
 

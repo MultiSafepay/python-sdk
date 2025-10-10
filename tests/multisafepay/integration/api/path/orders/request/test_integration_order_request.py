@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Test module for integration testing."""
+
 import pytest
 
 from multisafepay.api.paths.orders.request.components.payment_options import (

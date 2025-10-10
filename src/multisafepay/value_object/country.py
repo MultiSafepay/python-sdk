@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Country value object for handling country codes and validation."""
+
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 from pydantic import BaseModel, validator
 

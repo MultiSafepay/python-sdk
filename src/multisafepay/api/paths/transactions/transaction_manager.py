@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Transaction manager for retrieving and listing transaction data."""
+
 from multisafepay.api.base.abstract_manager import AbstractManager
 from multisafepay.api.base.listings.listing_pager import ListingPager
 from multisafepay.api.base.listings.pager import Pager

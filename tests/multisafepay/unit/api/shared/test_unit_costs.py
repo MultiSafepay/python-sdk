@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the shared costs model."""
+
+
 from multisafepay.api.shared.costs import Costs
 
 

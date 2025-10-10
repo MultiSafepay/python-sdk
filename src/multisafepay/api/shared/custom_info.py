@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Custom information model for additional transaction and order metadata."""
 
 from typing import Optional
 

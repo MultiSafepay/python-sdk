@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Checkout options component for order request configuration and settings."""
 
 from typing import Optional
 

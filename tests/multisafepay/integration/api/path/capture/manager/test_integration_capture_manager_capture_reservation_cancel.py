@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Manager class for Test Integration Capture Manager Capture Reservation Cancel.Py API operations."""
+
 from unittest.mock import Mock
 
 from multisafepay.api.base.response.api_response import ApiResponse

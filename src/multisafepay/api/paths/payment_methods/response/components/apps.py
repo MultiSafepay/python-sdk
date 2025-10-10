@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Apps model for payment method mobile applications configuration and information."""
 
 from abc import ABC
 from typing import Optional

@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Category response model for handling payment category information and classification."""
 
 from typing import Optional
 

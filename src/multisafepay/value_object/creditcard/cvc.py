@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Credit card CVC value object for secure verification code handling."""
 
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 from pydantic import BaseModel, validator

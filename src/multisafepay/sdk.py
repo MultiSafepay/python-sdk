@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""MultiSafepay SDK main module providing the primary SDK interface."""
 
 from typing import Optional
 

@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Unit price value object for item pricing in shopping carts."""
 
 from multisafepay.model.inmutable_model import InmutableModel
 

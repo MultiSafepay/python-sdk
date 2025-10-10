@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Shared API models and utilities."""
+
 from multisafepay.api.shared.checkout.default_tax_rate import DefaultTaxRate
 from multisafepay.api.shared.checkout.tax_rate import TaxRate
 from multisafepay.api.shared.checkout.tax_rule import TaxRule

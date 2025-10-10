@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Payment method response model for handling payment method configurations and options."""
 
 from typing import List, Optional
 

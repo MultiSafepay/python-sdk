@@ -1,9 +1,14 @@
 # Copyright (c) MultiSafepay, Inc. All rights reserved.
-from typing import Optional
 
 # This file is licensed under the Open Software License (OSL) version 3.0.
 # For a copy of the license, see the LICENSE.txt file in the project root.
+
 # See the DISCLAIMER.md file for disclaimer details.
+
+"""API token response model for handling authentication token data."""
+
+from typing import Optional
+
 from multisafepay.model.response_model import ResponseModel
 
 

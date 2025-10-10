@@ -1,4 +1,7 @@
 # Copyright (c) MultiSafepay, Inc. All rights reserved.
+
+"""Shared API models and utilities."""
+
 import pytest
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 

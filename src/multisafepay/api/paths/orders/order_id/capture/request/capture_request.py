@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Capture request model for handling order capture operations and parameters."""
 
 from typing import Optional, Union
 

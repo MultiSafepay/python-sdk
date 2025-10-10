@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Wallet model for gateway-specific digital wallet configuration and settings."""
 
 from typing import Optional
 

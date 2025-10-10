@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Customer info model for handling customer information in order requests."""
 
 from typing import Optional
 

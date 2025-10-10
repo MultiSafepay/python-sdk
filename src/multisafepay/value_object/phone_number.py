@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Phone number value object for customer contact information."""
 
 from multisafepay.model.inmutable_model import InmutableModel
 

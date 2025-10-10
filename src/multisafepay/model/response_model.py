@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Response model base class for API response handling and validation."""
 
 from abc import abstractmethod
 from typing import Optional

@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Capture manager for handling reservation capture operations."""
+
 import json
 
 from multisafepay.api.base.abstract_manager import AbstractManager

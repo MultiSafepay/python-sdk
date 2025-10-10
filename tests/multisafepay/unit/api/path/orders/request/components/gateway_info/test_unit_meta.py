@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Test module for unit testing."""
+
 from multisafepay.api.paths.orders.request.components.gateway_info.meta import (
     Meta,
 )

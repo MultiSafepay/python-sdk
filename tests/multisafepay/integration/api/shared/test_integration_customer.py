@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Shared API models and utilities."""
+
 from multisafepay.api.shared.customer import Customer
 from multisafepay.value_object.ip_address import IpAddress
 

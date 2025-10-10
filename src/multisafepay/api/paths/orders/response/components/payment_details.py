@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Payment details model for handling order payment information and transaction details."""
 
 from typing import Optional
 

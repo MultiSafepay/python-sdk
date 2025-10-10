@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Unit tests for the shopping cart model."""
+
 from multisafepay.api.shared.cart.shopping_cart import ShoppingCart
 
 

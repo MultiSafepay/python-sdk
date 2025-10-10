@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the issuer response model."""
+
+
 from multisafepay.api.paths.issuers.response.issuer import Issuer
 
 

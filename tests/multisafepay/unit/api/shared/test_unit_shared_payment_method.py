@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the shared payment method model."""
+
+
 from multisafepay.api.shared.payment_method import PaymentMethod
 
 

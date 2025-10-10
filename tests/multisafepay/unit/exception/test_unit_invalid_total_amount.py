@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Exception classes for test unit invalid total amount errors."""
+
 import pytest
 from multisafepay.exception.invalid_total_amount import (
     InvalidTotalAmountException,

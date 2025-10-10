@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Currency value object for handling currency codes and validation."""
 
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 from multisafepay.model.inmutable_model import InmutableModel

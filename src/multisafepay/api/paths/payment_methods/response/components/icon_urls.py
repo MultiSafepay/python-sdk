@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Icon URLs model for payment method icon resources and image references."""
 
 from typing import Optional
 

@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Test module for integration testing."""
+
 from multisafepay.api.paths.orders.order_id.refund.request.components.checkout_data import (
     CheckoutData,
 )

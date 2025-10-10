@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Abstract base manager class for MultiSafepay API managers."""
+
 import urllib.parse
 
 from multisafepay.client.client import Client

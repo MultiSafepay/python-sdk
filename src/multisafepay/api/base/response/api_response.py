@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""API response wrapper class for handling MultiSafepay API responses."""
 
 from typing import Optional, Union
 

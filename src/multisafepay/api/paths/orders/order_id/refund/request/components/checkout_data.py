@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Checkout data model for refund request checkout information and configuration."""
 
 from typing import List, Optional
 

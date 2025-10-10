@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""IP address value object with validation for customer location tracking."""
 
 import re
 

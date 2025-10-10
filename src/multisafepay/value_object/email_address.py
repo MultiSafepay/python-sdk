@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Email address value object with validation for customer email addresses."""
 
 import re
 

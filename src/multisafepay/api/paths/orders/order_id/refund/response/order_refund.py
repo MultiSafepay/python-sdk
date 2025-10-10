@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Order refund response model for handling successful refund operations."""
 
 from typing import Optional
 

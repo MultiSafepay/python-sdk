@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Decorator class for response model transformations and dependencies."""
+
 from typing import Any, Dict, List, Optional
 
 

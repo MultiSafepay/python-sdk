@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the capture response model."""
+
+
 from multisafepay.api.paths.capture.response.capture import CancelReservation
 
 

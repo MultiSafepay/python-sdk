@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the gateway response model."""
+
+
 from multisafepay.api.paths.gateways.response.gateway import Gateway
 
 

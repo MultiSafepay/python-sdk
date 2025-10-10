@@ -5,6 +5,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Test module for integration testing."""
+
 from multisafepay.api.paths.orders.response.components.order_adjustment import (
     OrderAdjustment,
 )

@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""QR enabled model for gateway-specific QR code enabling and configuration."""
 
 from typing import Optional
 

@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Value object for Test Unit Weight data."""
+
 from pydantic.error_wrappers import ValidationError
 import pytest
 

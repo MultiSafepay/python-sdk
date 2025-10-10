@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Default tax rate model for standard taxation settings."""
 
 from typing import Optional
 

@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Tokenization model for payment method tokenization capabilities and settings."""
 
 from typing import Optional
 

@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for checkout options shared models."""
+
+
 from multisafepay.api.shared.checkout.checkout_options import CheckoutOptions
 
 

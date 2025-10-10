@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Order description model for transaction descriptions and references."""
 
 from typing import Optional
 

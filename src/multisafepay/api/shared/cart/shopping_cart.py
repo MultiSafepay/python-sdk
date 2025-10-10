@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Shopping cart model for managing cart items in order processing."""
+
 from typing import List, Optional
 
 from multisafepay.api.shared.cart.cart_item import CartItem

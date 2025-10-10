@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Brand model for payment method branding information and display settings."""
 
 from typing import List, Optional
 

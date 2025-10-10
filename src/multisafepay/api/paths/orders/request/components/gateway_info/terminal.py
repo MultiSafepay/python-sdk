@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Terminal model for gateway-specific terminal configuration and point-of-sale settings."""
 
 from typing import Optional
 

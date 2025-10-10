@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Amount value object for monetary amounts in MultiSafepay transactions."""
 
 from multisafepay.model.inmutable_model import InmutableModel
 

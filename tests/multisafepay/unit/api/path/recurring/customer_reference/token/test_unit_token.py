@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Test module for unit testing."""
+
 from multisafepay.api.paths.recurring.customer_reference.token.token import (
     Token,
 )

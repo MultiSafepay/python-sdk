@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Test module for unit testing."""
+
 from multisafepay.api.paths.orders.order_id.update.request.update_request import (
     UpdateOrderRequest,
 )

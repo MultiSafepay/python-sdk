@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Issuer response model for handling payment issuer information and configurations."""
 
 from typing import Optional
 

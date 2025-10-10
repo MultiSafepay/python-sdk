@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Custom API response class with generic typing support for flexible response handling."""
+
 from typing import Any, Dict, Optional, Union
 
 from multisafepay.api.base.response.api_response import ApiResponse

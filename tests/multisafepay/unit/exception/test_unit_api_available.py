@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Exception classes for test unit api available errors."""
+
 import pytest
 from multisafepay.exception.api_unavailable import ApiUnavailableException
 from multisafepay.exception.api import ApiException

@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Extended model base class allowing extra fields in Pydantic models."""
 
 from pydantic import BaseModel
 

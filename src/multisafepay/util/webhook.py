@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Webhook validation utilities for secure webhook processing."""
 
 import base64
 import hashlib

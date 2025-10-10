@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Test module for integration testing."""
+
 from multisafepay.api.base.listings.cursor import Cursor
 from multisafepay.api.base.listings.pager import Pager
 

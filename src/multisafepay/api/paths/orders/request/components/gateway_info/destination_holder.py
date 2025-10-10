@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Destination holder model for gateway-specific destination account information."""
 
 from typing import Optional, Union
 

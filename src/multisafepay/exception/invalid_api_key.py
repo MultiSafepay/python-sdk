@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Invalid API key exception for authentication errors."""
+
 
 class InvalidApiKeyException(Exception):
     """

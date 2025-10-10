@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Order adjustment model for handling order modifications and adjustments."""
 
 from typing import Optional
 

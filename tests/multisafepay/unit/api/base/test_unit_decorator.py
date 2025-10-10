@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Unit tests for the base API decorator utilities."""
+
 from multisafepay.api.base.decorator import Decorator
 
 

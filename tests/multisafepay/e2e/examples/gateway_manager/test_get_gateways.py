@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Test module for e2e testing."""
+
 import os
 import pytest
 from dotenv import load_dotenv

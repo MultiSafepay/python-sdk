@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Generic listing container for API response collections."""
+
 from typing import Any, Dict, Generic, Iterator, List, TypeVar
 
 from pydantic.main import BaseModel

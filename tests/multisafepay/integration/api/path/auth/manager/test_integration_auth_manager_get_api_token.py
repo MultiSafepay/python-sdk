@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Manager class for Test Integration Auth Manager Get Api Token.Py API operations."""
+
 from multisafepay.api.paths.auth.api_token.response.api_token import ApiToken
 from multisafepay.api.paths.auth.auth_manager import AuthManager
 from multisafepay.api.base.response.api_response import ApiResponse

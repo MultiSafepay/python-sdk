@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the me response model."""
+
+
 from multisafepay.api.paths.me.response.me import Me
 
 

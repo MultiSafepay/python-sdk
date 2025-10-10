@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for API exception handling."""
+
+
 from multisafepay.exception.api import ApiException
 
 

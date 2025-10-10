@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""API key validation and management module."""
 
 from pydantic import validator
 from pydantic.main import BaseModel

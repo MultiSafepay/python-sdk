@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Customer data model for order and payment customer information."""
+
 from typing import Optional, Union
 
 from multisafepay.api.shared.delivery import Delivery

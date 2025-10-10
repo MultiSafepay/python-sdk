@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Plugin model for handling e-commerce platform plugin information in order requests."""
 
 from typing import Optional
 

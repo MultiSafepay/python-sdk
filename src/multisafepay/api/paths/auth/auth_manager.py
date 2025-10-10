@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Authentication manager for handling API token operations."""
+
 from multisafepay.api.base.abstract_manager import AbstractManager
 from multisafepay.api.base.response.api_response import ApiResponse
 from multisafepay.api.base.response.custom_api_response import (

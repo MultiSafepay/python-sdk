@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Manager class for Test Integration Me Manager Get.Py API operations."""
+
 from unittest.mock import MagicMock
 
 from multisafepay.api.base.response.api_response import ApiResponse

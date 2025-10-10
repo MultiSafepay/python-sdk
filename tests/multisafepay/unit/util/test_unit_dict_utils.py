@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Utility functions for test unit dict utils."""
+
 from multisafepay.util.dict_utils import (
     merge_recursive,
     remove_null,

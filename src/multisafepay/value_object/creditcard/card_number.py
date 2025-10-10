@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Credit card number value object for secure card number handling."""
+
 from pydantic import BaseModel
 
 

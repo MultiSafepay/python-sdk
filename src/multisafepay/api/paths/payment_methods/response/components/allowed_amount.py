@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Allowed amount model for payment method amount restrictions and limits."""
 
 from typing import Optional
 

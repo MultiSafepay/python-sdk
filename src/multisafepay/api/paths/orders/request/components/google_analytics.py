@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Google Analytics component for tracking order analytics and conversions."""
 
 from typing import Optional
 

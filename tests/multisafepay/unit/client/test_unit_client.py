@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Test module for unit testing."""
+
 from unittest.mock import Mock
 from requests import Session
 from multisafepay.client.client import Client

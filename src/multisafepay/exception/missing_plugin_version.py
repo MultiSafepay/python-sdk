@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Missing plugin version exception for plugin configuration errors."""
 
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 

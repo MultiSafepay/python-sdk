@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Exception classes for test unit invalid api key errors."""
+
 import pytest
 from multisafepay.exception.invalid_api_key import InvalidApiKeyException
 

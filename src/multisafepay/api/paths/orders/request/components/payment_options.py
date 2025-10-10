@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Payment options model for configuring payment method settings in order requests."""
 
 from typing import Optional
 
