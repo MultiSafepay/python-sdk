@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the payment method QR component."""
+
+
 from multisafepay.api.paths.payment_methods.response.components.qr import Qr
 
 

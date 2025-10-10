@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Invalid argument exception for parameter validation errors."""
+
 
 class InvalidArgumentException(Exception):
     """

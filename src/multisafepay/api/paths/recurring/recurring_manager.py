@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Recurring payment manager for handling tokenized payments and subscriptions."""
+
 from typing import Any
 
 from multisafepay.api.base.abstract_manager import AbstractManager

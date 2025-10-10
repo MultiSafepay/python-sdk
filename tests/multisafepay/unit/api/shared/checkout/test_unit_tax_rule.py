@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Unit tests for the tax rule shared model."""
+
 from multisafepay.api.shared.checkout.tax_rule import TaxRule
 
 

@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Cursor implementation for pagination in API listings."""
+
 from typing import Optional
 
 from multisafepay.model.response_model import ResponseModel

@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Total amount calculation and validation utilities for order processing."""
 
 import json
 

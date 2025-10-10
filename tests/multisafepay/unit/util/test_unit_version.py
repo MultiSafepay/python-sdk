@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for SDK version utilities."""
+
+
 from multisafepay.util.version import Version
 
 

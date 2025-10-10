@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Tax rate model for defining tax percentages and categories."""
 
 from typing import Optional
 

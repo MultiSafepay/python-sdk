@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""QR code model for payment method QR code generation and configuration."""
+
 from typing import Optional
 
 from multisafepay.model.response_model import ResponseModel

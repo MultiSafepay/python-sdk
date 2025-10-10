@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Transaction response model for handling transaction data and status information."""
+
 from typing import List, Optional
 
 from multisafepay.api.base.decorator import Decorator

@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Exception classes for test unit missing plugin version errors."""
+
 import pytest
 from multisafepay.exception.missing_plugin_version import (
     MissingPluginVersionException,

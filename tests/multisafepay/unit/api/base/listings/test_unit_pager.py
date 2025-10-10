@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Unit tests for the pager listing helper."""
+
 from multisafepay.api.base.listings.pager import Pager
 
 

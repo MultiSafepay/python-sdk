@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Shared API models and utilities."""
+
 from multisafepay.api.shared.cart.cart_item import CartItem
 from multisafepay.value_object.weight import Weight
 

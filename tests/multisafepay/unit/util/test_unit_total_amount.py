@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Utility functions for test unit total amount."""
+
 from multisafepay.util.total_amount import (
     validate_total_amount,
     __get_tax_rate_by_item,

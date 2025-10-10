@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Shared API models and utilities."""
+
 from multisafepay.api.shared.delivery import Delivery
 from multisafepay.value_object.country import Country
 from multisafepay.value_object.email_address import EmailAddress

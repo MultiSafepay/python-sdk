@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Tokenization models for defining various tokenization data structures and configurations."""
 
 from typing import Optional
 

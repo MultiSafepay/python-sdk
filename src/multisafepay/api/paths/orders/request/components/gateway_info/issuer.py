@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Issuer model for gateway-specific issuer information and configuration."""
 
 from typing import Optional
 

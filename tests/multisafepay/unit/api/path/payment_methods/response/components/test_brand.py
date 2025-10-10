@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.v
 
 
+"""Test module for unit testing."""
+
 from multisafepay.api.paths.payment_methods.response.components.brand import (
     Brand,
 )

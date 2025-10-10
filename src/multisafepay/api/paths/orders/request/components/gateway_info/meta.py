@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Meta model for gateway-specific metadata and additional configuration options."""
 
 from typing import Optional, Union
 

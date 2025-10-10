@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""HTTP client module for making API requests to MultiSafepay services."""
 
 from typing import Any, Dict, Optional
 

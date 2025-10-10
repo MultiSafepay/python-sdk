@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Invalid total amount exception for amount validation errors."""
+
 
 class InvalidTotalAmountException(Exception):
     """

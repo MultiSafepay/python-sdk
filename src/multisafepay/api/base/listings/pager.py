@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Pager implementation for handling pagination in API responses."""
+
 
 from typing import Optional
 

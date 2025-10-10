@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Second chance component for abandoned cart recovery email settings."""
 
 from multisafepay.model.request_model import RequestModel
 

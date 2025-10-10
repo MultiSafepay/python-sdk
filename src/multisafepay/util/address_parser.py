@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Address parsing utilities for extracting street and house number information."""
+
 import re
 from typing import List
 

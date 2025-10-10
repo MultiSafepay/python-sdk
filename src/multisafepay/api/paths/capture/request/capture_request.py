@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Capture request model for processing reservation captures."""
 
 from typing import Optional
 

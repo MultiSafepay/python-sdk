@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Refund request model for handling order refund operations and parameters."""
 
 from typing import Optional, Union
 

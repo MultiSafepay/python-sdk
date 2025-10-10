@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Weight value object for item weight specifications in shipping."""
 
 from typing import Optional, Union
 

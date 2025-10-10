@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the cursor listing helper."""
+
+
 from multisafepay.api.base.listings.cursor import Cursor
 
 

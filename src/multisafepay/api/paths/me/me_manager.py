@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Me manager for retrieving account and merchant information."""
+
 from multisafepay.api.base.abstract_manager import AbstractManager
 from multisafepay.api.base.response.custom_api_response import (
     CustomApiResponse,

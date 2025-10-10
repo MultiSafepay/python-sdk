@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Update request model for handling order update operations and parameters."""
 
 from typing import Optional
 

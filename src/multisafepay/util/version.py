@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Version utility for handling SDK and plugin version information."""
 
 from typing import Optional
 

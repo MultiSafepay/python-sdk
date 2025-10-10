@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Capture response model for handling capture operation results and status information."""
+
 from typing import Optional
 
 from multisafepay.model.response_model import ResponseModel

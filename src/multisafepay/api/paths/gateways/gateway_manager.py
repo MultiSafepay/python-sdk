@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Gateway manager for handling payment gateway operations and information."""
+
 from multisafepay.api.base.abstract_manager import AbstractManager
 from multisafepay.api.base.response.custom_api_response import (
     CustomApiResponse,

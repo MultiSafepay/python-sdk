@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Test module for unit testing."""
+
 import pytest
 
 from multisafepay.api.paths.orders.request.order_request import OrderRequest

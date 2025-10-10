@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the credit card number value object."""
+
+
 from multisafepay.value_object.creditcard.card_number import CardNumber
 
 

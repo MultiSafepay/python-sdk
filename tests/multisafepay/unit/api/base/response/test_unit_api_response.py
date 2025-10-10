@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the base API response wrapper."""
+
+
 from multisafepay.api.base.response.api_response import ApiResponse
 
 

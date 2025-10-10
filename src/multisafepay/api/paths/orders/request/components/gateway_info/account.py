@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Account model for gateway-specific account information and configuration."""
 
 from typing import Optional, Union
 

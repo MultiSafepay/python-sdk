@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Cart item model for individual items in shopping cart processing."""
+
 import copy
 import math
 from typing import Dict, List, Optional

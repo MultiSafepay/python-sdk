@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Credit card model for gateway-specific credit card information and processing."""
 
 from typing import Optional, Union
 

@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the gateway manager configuration."""
+
+
 from multisafepay.api.paths.gateways.gateway_manager import ALLOWED_OPTIONS
 
 

@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Payment method model for handling payment gateway and method information."""
 
 from typing import Optional
 

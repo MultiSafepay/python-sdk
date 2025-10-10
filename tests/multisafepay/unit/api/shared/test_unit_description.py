@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the shared description model."""
+
+
 from multisafepay.api.shared.description import Description
 
 

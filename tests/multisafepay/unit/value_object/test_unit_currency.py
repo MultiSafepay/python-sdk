@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Value object for Test Unit Currency data."""
+
 import pytest
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 from multisafepay.value_object.currency import Currency

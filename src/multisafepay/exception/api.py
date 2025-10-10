@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Base API exception classes for MultiSafepay SDK errors."""
 
 import json
 from typing import Dict, List, Optional, Union

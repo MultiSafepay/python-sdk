@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Checkout options model for configuring tax rules and checkout behavior."""
 
 from typing import List, Optional
 

@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Utility functions for test unit message."""
+
 import pytest
 
 from multisafepay.util.message import Message, MessageList

@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Value object for Test Unit Bank Account data."""
+
 import pytest
 from multisafepay.value_object.bank_account import BankAccount
 

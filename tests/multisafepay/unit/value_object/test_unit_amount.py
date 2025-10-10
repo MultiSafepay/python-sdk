@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Value object for Test Unit Amount data."""
+
 import pytest
 from pydantic import ValidationError
 

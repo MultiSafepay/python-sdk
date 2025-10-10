@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Utility functions for test unit address parser."""
+
 import pytest
 from multisafepay.util.address_parser import AddressParser
 

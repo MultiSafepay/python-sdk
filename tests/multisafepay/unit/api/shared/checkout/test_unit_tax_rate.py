@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the tax rate shared model."""
+
+
 from multisafepay.api.shared.checkout.tax_rate import TaxRate
 
 

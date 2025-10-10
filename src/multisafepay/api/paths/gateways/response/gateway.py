@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Gateway response model for handling payment gateway configuration and information."""
 
 from typing import Optional
 

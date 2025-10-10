@@ -6,6 +6,8 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Test module for unit testing."""
+
 from multisafepay.api.paths.payment_methods.response.components.tokenization import (
     Tokenization,
 )

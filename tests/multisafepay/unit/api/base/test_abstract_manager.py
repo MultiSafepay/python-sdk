@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the abstract API manager utilities."""
+
+
 from multisafepay.api.base.abstract_manager import AbstractManager
 
 

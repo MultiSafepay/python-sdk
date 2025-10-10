@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Delivery address and contact information model for shipping details."""
 
 from typing import Optional, Union
 

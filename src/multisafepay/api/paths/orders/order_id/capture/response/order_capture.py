@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Order capture response model for handling successful capture operations."""
 
 from typing import Optional
 

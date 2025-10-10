@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Request model base class for API request data structures."""
 
 from multisafepay.util.dict_utils import remove_null_recursive
 from pydantic import BaseModel

@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Date value object for handling date formatting and validation."""
 
 from datetime import datetime
 

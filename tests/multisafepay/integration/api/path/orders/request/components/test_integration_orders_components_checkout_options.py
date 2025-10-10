@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Test module for integration testing."""
+
 import pytest
 from multisafepay.api.shared.checkout.tax_rate import TaxRate
 from multisafepay.api.shared.checkout.tax_rule import TaxRule

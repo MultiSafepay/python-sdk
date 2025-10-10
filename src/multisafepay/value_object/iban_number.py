@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""IBAN number value object with validation for international bank accounts."""
 
 import re
 

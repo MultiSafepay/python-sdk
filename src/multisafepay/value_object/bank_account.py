@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Bank account value object for customer payment information."""
 
 from multisafepay.model.inmutable_model import InmutableModel
 

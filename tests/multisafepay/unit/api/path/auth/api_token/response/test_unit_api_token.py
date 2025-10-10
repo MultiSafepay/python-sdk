@@ -6,6 +6,9 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 
+"""Unit tests for the auth API token response model."""
+
+
 from multisafepay.api.paths.auth.api_token.response.api_token import ApiToken
 
 

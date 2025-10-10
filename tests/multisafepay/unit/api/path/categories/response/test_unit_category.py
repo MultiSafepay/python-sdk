@@ -5,6 +5,9 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+
+"""Unit tests for the category response model."""
+
 from multisafepay.api.paths.categories.response.category import Category
 
 

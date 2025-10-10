@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""API unavailable exception for when MultiSafepay API is unreachable."""
 
 from multisafepay.exception.api import ApiException
 

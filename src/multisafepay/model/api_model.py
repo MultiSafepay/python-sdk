@@ -5,6 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""API model base class for handling API requests and responses."""
 
 from abc import abstractmethod
 

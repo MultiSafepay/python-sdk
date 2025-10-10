@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Order manager for handling order operations and API endpoints."""
+
 import json
 from typing import Union
 

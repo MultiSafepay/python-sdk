@@ -5,6 +5,8 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
+"""Immutable model base class for read-only data structures."""
+
 from pydantic.main import BaseModel
 
 
