@@ -68,20 +68,22 @@ class CheckoutOptions(ApiModel):
 
     def add_tax_rule(
         self: "CheckoutOptions",
-        tax_rule: TaxRule,
+        tax_rule: Optional[TaxRule],
     ) -> "CheckoutOptions":
         """
         Add a tax rule to the checkout options.
 
         Parameters
         ----------
-        tax_rule (TaxRule): The tax rule to be added.
+        tax_rule (Optional[TaxRule]): The tax rule to be added.
 
         Returns
         -------
         CheckoutOptions: The updated CheckoutOptions instance.
 
         """
+        if tax_rule is None:
+            return self
         if self.alternate is None:
             self.alternate = []
         self.alternate.append(tax_rule)

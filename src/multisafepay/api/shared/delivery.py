@@ -202,7 +202,7 @@ class Delivery(ApiModel):
         """
         if isinstance(country, str):
             country = Country(code=country)
-        self.country = country.get_code()
+        self.country = country.get_code() if country is not None else None
         return self
 
     def add_phone(
@@ -223,7 +223,7 @@ class Delivery(ApiModel):
         """
         if isinstance(phone, str):
             phone = PhoneNumber(phone_number=phone)
-        self.phone = phone.get()
+        self.phone = phone.get() if phone is not None else None
         return self
 
     def add_email(
@@ -244,7 +244,7 @@ class Delivery(ApiModel):
         """
         if isinstance(email, str):
             email = EmailAddress(email_address=email)
-        self.email = email.get()
+        self.email = email.get() if email is not None else None
         return self
 
     @staticmethod

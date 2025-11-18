@@ -34,13 +34,16 @@ class DestinationHolder(RequestModel):
     iban: Optional[str]
     swift: Optional[str]
 
-    def add_name(self: "DestinationHolder", name: str) -> "DestinationHolder":
+    def add_name(
+        self: "DestinationHolder",
+        name: Optional[str],
+    ) -> "DestinationHolder":
         """
         Adds a name to the destination holder.
 
         Parameters
         ----------
-        name (str): The name to add.
+        name (Optional[str]): The name to add.
 
         Returns
         -------
@@ -50,13 +53,16 @@ class DestinationHolder(RequestModel):
         self.name = name
         return self
 
-    def add_city(self: "DestinationHolder", city: str) -> "DestinationHolder":
+    def add_city(
+        self: "DestinationHolder",
+        city: Optional[str],
+    ) -> "DestinationHolder":
         """
         Adds a city to the destination holder.
 
         Parameters
         ----------
-        city (str): The city to add.
+        city (Optional[str]): The city to add.
 
         Returns
         -------
@@ -68,14 +74,14 @@ class DestinationHolder(RequestModel):
 
     def add_country(
         self: "DestinationHolder",
-        country: Union[Country, str],
+        country: Optional[Union[Country, str]],
     ) -> "DestinationHolder":
         """
         Adds a country to the destination holder.
 
         Parameters
         ----------
-        country (Country | str): The country to add. Can be a Country object or a string.
+        country (Optional[Country | str]): The country to add. Can be a Country object or a string.
 
         Returns
         -------
@@ -84,19 +90,19 @@ class DestinationHolder(RequestModel):
         """
         if isinstance(country, str):
             country = Country(code=country)
-        self.country = country.get_code()
+        self.country = country.get_code() if country is not None else None
         return self
 
     def add_iban(
         self: "DestinationHolder",
-        iban: Union[IbanNumber, str],
+        iban: Optional[Union[IbanNumber, str]],
     ) -> "DestinationHolder":
         """
         Adds an IBAN to the destination holder.
 
         Parameters
         ----------
-        iban (IbanNumber | str): The IBAN to add. Can be an IbanNumber object or a string.
+        iban (Optional[IbanNumber | str]): The IBAN to add. Can be an IbanNumber object or a string.
 
         Returns
         -------
@@ -105,19 +111,19 @@ class DestinationHolder(RequestModel):
         """
         if isinstance(iban, str):
             iban = IbanNumber(iban_number=iban)
-        self.iban = iban.get()
+        self.iban = iban.get() if iban is not None else None
         return self
 
     def add_swift(
         self: "DestinationHolder",
-        swift: str,
+        swift: Optional[str],
     ) -> "DestinationHolder":
         """
         Adds a SWIFT code to the destination holder.
 
         Parameters
         ----------
-        swift (str): The SWIFT code to add.
+        swift (Optional[str]): The SWIFT code to add.
 
         Returns
         -------

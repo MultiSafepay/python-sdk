@@ -34,13 +34,13 @@ class Customer(Delivery):
     user_agent: Optional[str]
     reference: Optional[str]
 
-    def add_locale(self: "Customer", locale: str) -> "Customer":
+    def add_locale(self: "Customer", locale: Optional[str]) -> "Customer":
         """
         Add a locale to the customer.
 
         Parameters
         ----------
-        locale (str): The locale to add.
+        locale (Optional[str]): The locale to add.
 
         Returns
         -------
@@ -52,14 +52,14 @@ class Customer(Delivery):
 
     def add_ip_address(
         self: "Customer",
-        ip_address: Union[IpAddress, str],
+        ip_address: Optional[Union[IpAddress, str]],
     ) -> "Customer":
         """
         Add an IP address to the customer.
 
         Parameters
         ----------
-        ip_address (IpAddress | str): The IP address to add.
+        ip_address (Optional[IpAddress] | str): The IP address to add.
 
         Returns
         -------
@@ -68,19 +68,19 @@ class Customer(Delivery):
         """
         if isinstance(ip_address, str):
             ip_address = IpAddress(ip_address=ip_address)
-        self.ip_address = ip_address.get()
+        self.ip_address = ip_address.get() if ip_address is not None else None
         return self
 
     def add_forwarded_ip(
         self: "Customer",
-        forwarded_ip: Union[IpAddress, str],
+        forwarded_ip: Optional[Union[IpAddress, str]],
     ) -> "Customer":
         """
         Add a forwarded IP address to the customer.
 
         Parameters
         ----------
-        forwarded_ip (IpAddress | str): The forwarded IP address to add.
+        forwarded_ip (Optional[IpAddress] | str): The forwarded IP address to add.
 
         Returns
         -------
@@ -89,16 +89,18 @@ class Customer(Delivery):
         """
         if isinstance(forwarded_ip, str):
             forwarded_ip = IpAddress(ip_address=forwarded_ip)
-        self.forwarded_ip = forwarded_ip.get()
+        self.forwarded_ip = (
+            forwarded_ip.get() if forwarded_ip is not None else None
+        )
         return self
 
-    def add_referrer(self: "Customer", referrer: str) -> "Customer":
+    def add_referrer(self: "Customer", referrer: Optional[str]) -> "Customer":
         """
         Add a referrer URL to the customer.
 
         Parameters
         ----------
-        referrer (str): The referrer URL to add.
+        referrer (Optional[str]): The referrer URL to add.
 
         Returns
         -------
@@ -108,13 +110,16 @@ class Customer(Delivery):
         self.referrer = referrer
         return self
 
-    def add_user_agent(self: "Customer", user_agent: str) -> "Customer":
+    def add_user_agent(
+        self: "Customer",
+        user_agent: Optional[str],
+    ) -> "Customer":
         """
         Add a user agent string to the customer.
 
         Parameters
         ----------
-        user_agent (str): The user agent string to add.
+        user_agent (Optional[str]): The user agent string to add.
 
         Returns
         -------
@@ -124,13 +129,16 @@ class Customer(Delivery):
         self.user_agent = user_agent
         return self
 
-    def add_reference(self: "Customer", reference: str) -> "Customer":
+    def add_reference(
+        self: "Customer",
+        reference: Optional[str],
+    ) -> "Customer":
         """
         Add a reference to the customer.
 
         Parameters
         ----------
-        reference (str): The reference to add.
+        reference (Optional[str]): The reference to add.
 
         Returns
         -------

@@ -80,19 +80,21 @@ class TaxRule(ApiModel):
         self.standalone = standalone
         return self
 
-    def add_rule(self: "TaxRule", rule: TaxRate) -> "TaxRule":
+    def add_rule(self: "TaxRule", rule: Optional[TaxRate]) -> None:
         """
         Add a single tax rate to the tax rule.
 
         Parameters
         ----------
-        rule (TaxRate): The tax rate to be added.
+        rule (Optional[TaxRate]): The tax rate to be added.
 
         Returns
         -------
         TaxRule: The updated TaxRule instance.
 
         """
+        if rule is None:
+            return
         if self.rules is None:
             self.rules = []
         self.rules.append(rule)
