@@ -80,7 +80,7 @@ class TaxRule(ApiModel):
         self.standalone = standalone
         return self
 
-    def add_rule(self: "TaxRule", rule: Optional[TaxRate]) -> None:
+    def add_rule(self: "TaxRule", rule: Optional[TaxRate]) -> "TaxRule":
         """
         Add a single tax rate to the tax rule.
 
@@ -94,10 +94,11 @@ class TaxRule(ApiModel):
 
         """
         if rule is None:
-            return
+            return self
         if self.rules is None:
             self.rules = []
         self.rules.append(rule)
+        return self
 
     @staticmethod
     def from_dict(d: Optional[Dict]) -> Optional["TaxRule"]:

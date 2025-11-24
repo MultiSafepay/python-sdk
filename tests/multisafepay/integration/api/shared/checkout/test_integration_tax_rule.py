@@ -70,7 +70,7 @@ def test_adds_rules():
     assert tax_rule.rules[0].country == "NL"
 
 
-def test_adds_single_rule():
+def test_adds_a_single_rule():
     """
     Test that a single rule is added to a TaxRule instance.
 
@@ -81,3 +81,25 @@ def test_adds_single_rule():
     assert len(tax_rule.rules) == 1
     assert tax_rule.rules[0].rate == 21
     assert tax_rule.rules[0].country == "NL"
+
+
+def test_add_rule_method_chaining():
+    """
+    Test that add_rule supports method chaining (fluent interface).
+
+    This verifies that add_rule returns self to enable chaining.
+
+    """
+    tax_rule = TaxRule()
+    tax_rate1 = TaxRate(rate=21, country="NL")
+    tax_rate2 = TaxRate(rate=19, country="DE")
+
+    # Test method chaining
+    result = tax_rule.add_rule(tax_rate1).add_rule(tax_rate2)
+
+    assert result is tax_rule
+    assert len(tax_rule.rules) == 2
+    assert tax_rule.rules[0].rate == 21
+    assert tax_rule.rules[0].country == "NL"
+    assert tax_rule.rules[1].rate == 19
+    assert tax_rule.rules[1].country == "DE"
