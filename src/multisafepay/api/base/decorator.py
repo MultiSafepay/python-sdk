@@ -16,7 +16,8 @@ class Decorator:
 
     Attributes
     ----------
-    dependencies (Optional[Dict]): A dictionary of dependencies to be used by the decorator.
+    dependencies (Optional[Dict]): A dictionary of dependencies to be
+        used by the decorator.
 
     """
 
@@ -28,7 +29,8 @@ class Decorator:
 
         Parameters
         ----------
-        dependencies (dict): A dictionary of dependencies to be used by the decorator, by default {}.
+        dependencies (dict): A dictionary of dependencies to be used
+            by the decorator, by default {}.
 
         """
         self.dependencies = dependencies if dependencies is not None else {}
@@ -42,7 +44,8 @@ class Decorator:
 
         Parameters
         ----------
-        checkout_options (Optional[dict]): A dictionary containing checkout options, by default None.
+        checkout_options (Optional[dict]): A dictionary containing
+            checkout options, by default None.
 
         Returns
         -------
@@ -89,7 +92,8 @@ class Decorator:
 
         Parameters
         ----------
-        custom_info (Optional[dict]): A dictionary containing custom information, by default None.
+        custom_info (Optional[dict]): A dictionary containing custom
+            information, by default None.
 
         Returns
         -------
@@ -114,7 +118,8 @@ class Decorator:
 
         Parameters
         ----------
-        customer (Optional[dict]): A dictionary containing customer information, by default None.
+        customer (Optional[dict]): A dictionary containing customer
+            information, by default None.
 
         Returns
         -------
@@ -137,7 +142,8 @@ class Decorator:
 
         Parameters
         ----------
-        order_adjustment (Optional[dict]): A dictionary containing order adjustment information, by default None.
+        order_adjustment (Optional[dict]): A dictionary containing
+            order adjustment information, by default None.
 
         Returns
         -------
@@ -164,7 +170,8 @@ class Decorator:
 
         Parameters
         ----------
-        payment_details (Optional[dict]): A dictionary containing payment details, by default None.
+        payment_details (Optional[dict]): A dictionary containing
+            payment details, by default None.
 
         Returns
         -------
@@ -191,7 +198,8 @@ class Decorator:
 
         Parameters
         ----------
-        payment_methods (Optional[dict]): A dictionary containing payment methods, by default None.
+        payment_methods (Optional[dict]): A dictionary containing
+            payment methods, by default None.
 
         Returns
         -------
@@ -216,7 +224,8 @@ class Decorator:
 
         Parameters
         ----------
-        shopping_cart (Optional[dict]): A dictionary containing shopping cart information, by default None.
+        shopping_cart (Optional[dict]): A dictionary containing
+            shopping cart information, by default None.
 
         Returns
         -------
@@ -240,7 +249,8 @@ class Decorator:
 
         Parameters
         ----------
-        related_transactions (Optional[dict]): A dictionary containing related transactions, by default None.
+        related_transactions (Optional[dict]): A dictionary containing
+            related transactions, by default None.
 
         Returns
         -------
@@ -264,7 +274,8 @@ class Decorator:
 
         Parameters
         ----------
-        apps (Optional[dict]): A dictionary containing app information, by default None.
+        apps (Optional[dict]): A dictionary containing app information,
+            by default None.
 
         Returns
         -------
@@ -289,7 +300,8 @@ class Decorator:
 
         Parameters
         ----------
-        brands (Optional[List[Optional[dict]]]): A list of dictionaries containing brand information, by default None.
+        brands (Optional[List[Optional[dict]]]): A list of
+            dictionaries containing brand information, by default None.
 
         Returns
         -------
@@ -315,7 +327,8 @@ class Decorator:
 
         Parameters
         ----------
-        icon_urls (Optional[dict]): A dictionary containing icon URL information, by default None.
+        icon_urls (Optional[dict]): A dictionary containing icon URL
+            information, by default None.
 
         Returns
         -------
@@ -340,7 +353,8 @@ class Decorator:
 
         Parameters
         ----------
-        tokenization: (dict, optional) A dictionary containing tokenization information, by default None.
+        tokenization: (dict, optional) A dictionary containing
+            tokenization information, by default None.
 
         Returns
         -------
@@ -367,7 +381,8 @@ class Decorator:
 
         Parameters
         ----------
-        allowed_amount (Optional[dict]): A dictionary containing allowed amount information, by default None.
+        allowed_amount (Optional[dict]): A dictionary containing
+            allowed amount information, by default None.
 
         Returns
         -------

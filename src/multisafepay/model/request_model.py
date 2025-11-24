@@ -32,11 +32,12 @@ class RequestModel(BaseModel):
 
     def to_dict(self: "RequestModel") -> dict:
         """
-        Convert the model to a dictionary, removing null values recursively.
+        Convert the model to a dictionary, removing null values.
 
         Returns
         -------
-        dict: The dictionary representation of the model with null values removed.
+        dict: The dictionary representation of the model with null
+        values removed.
 
         """
         return remove_null_recursive(input_data=self.dict())

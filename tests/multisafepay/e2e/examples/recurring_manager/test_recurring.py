@@ -155,4 +155,4 @@ def test_recurring(sdk: Sdk):
     assert isinstance(delete_response, CustomApiResponse)
     delete_data_response = delete_response.get_body_data()
     assert isinstance(delete_data_response, dict)
-    assert delete_data_response.get("removed") == True
+    assert delete_data_response.get("removed") is True

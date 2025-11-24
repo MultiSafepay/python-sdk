@@ -45,11 +45,13 @@ class Cvc(BaseModel):
 
         Returns
         -------
-        bool: True if the CVC is valid, raises InvalidArgumentException otherwise.
+        bool: True if the CVC is valid, raises
+            InvalidArgumentException otherwise.
 
         Raises
         ------
-        InvalidArgumentException: If the CVC does not have 3 digits or is not numeric.
+        InvalidArgumentException: If the CVC does not have 3 digits
+            or is not numeric.
 
         """
         cvc = cvc.replace(" ", "")

@@ -5,7 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-"""Transaction costs model for handling fees and charges in payment processing."""
+"""Transaction costs model for fees and charges."""
 
 from typing import Optional
 

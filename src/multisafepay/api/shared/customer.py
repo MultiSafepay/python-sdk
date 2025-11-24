@@ -151,7 +151,8 @@ class Customer(Delivery):
 
         Returns
         -------
-        Optional[Customer]: A Customer instance if the dictionary is not None, otherwise None.
+        Optional[Customer]: A Customer instance if the dictionary is
+            not None, otherwise None.
 
         """
         if d is None:

@@ -64,10 +64,12 @@ disable_error_code = [
     "arg-type",
 ]
 
+[tool.pylint]
+max-line-length = 79
+
 [tool.pylint."MESSAGE CONTROL"]
 disable = [
-    "C0114",
-    "C0301",
+    "C0301", # line-too-long
     "C0411",
     "C0415",
     "C2801",
@@ -92,6 +94,9 @@ disable = [
     "W0718",
     "W1514",
 ]
+
+[tool.ruff]
+line-length = 79
 
 [tool.ruff.lint]
 extend-safe-fixes = [

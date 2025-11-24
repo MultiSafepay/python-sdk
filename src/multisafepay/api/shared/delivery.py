@@ -258,7 +258,8 @@ class Delivery(ApiModel):
 
         Returns
         -------
-        Optional[Delivery]: A Delivery instance if the dictionary is not None, otherwise None.
+        Optional[Delivery]: A Delivery instance if the dictionary is
+            not None, otherwise None.
 
         """
         if d is None:

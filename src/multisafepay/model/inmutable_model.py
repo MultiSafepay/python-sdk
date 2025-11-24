@@ -14,7 +14,8 @@ class InmutableModel(BaseModel):
     """
     A base model class that extends Pydantic's BaseModel.
 
-    This class is immutable, meaning its attributes cannot be changed after initialization.
+    This class is immutable, meaning its attributes cannot be
+    changed after initialization.
     """
 
     class Config:
@@ -24,7 +25,8 @@ class InmutableModel(BaseModel):
         Attributes
         ----------
         allow_mutation (bool):
-            Specifies whether mutation of model attributes is allowed. Set to False to make the model immutable.
+            Specifies whether mutation of model attributes is allowed.
+            Set to False to make the model immutable.
 
         """
 

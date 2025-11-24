@@ -1,1 +1,1 @@
-"""Shopping cart components for handling cart items and shopping cart operations."""
+"""Shopping cart components for cart items and operations."""

@@ -570,5 +570,5 @@ class OrderRequest(RequestModel):
         OrderRequest: The validated OrderRequest object.
 
         """
-        validate = validate_total_amount(self.dict())
+        validate_total_amount(self.dict())
         return self

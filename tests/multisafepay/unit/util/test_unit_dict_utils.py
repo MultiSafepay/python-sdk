@@ -180,5 +180,5 @@ def test_dict_empty():
 
 
     """
-    assert dict_empty({}) == True
-    assert dict_empty({"a": 1}) == False
+    assert dict_empty({}) is True
+    assert dict_empty({"a": 1}) is False

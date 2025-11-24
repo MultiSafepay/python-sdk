@@ -24,13 +24,22 @@ def test_valid_api_key_initialization():
     assert api_key.api_key == "valid_api_key"
 
 
-def test_invalid_api_key_initialization():
+def test_invalid_api_key_initialization_no_argument():
     """
-    Test raising InvalidApiKeyException for an invalid API key.
+    Test raising ValidationError for missing API key.
+
+    """
+    with pytest.raises(ValidationError):
+        ApiKey()
+
+
+def test_invalid_api_key_initialization_empty():
+    """
+    Test raising ValidationError for missing API key.
 
     """
     with pytest.raises(InvalidApiKeyException, match="Invalid API key"):
-        ApiKey()
+        ApiKey(api_key="")
 
 
 def test_invalid_api_key_initialization_none():
@@ -42,7 +51,7 @@ def test_invalid_api_key_initialization_none():
         ApiKey(api_key=None)
 
 
-def test_invalid_api_key_initialization():
+def test_invalid_api_key_initialization_short():
     """
     Test raising InvalidApiKeyException for an invalid API key.
 

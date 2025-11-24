@@ -57,7 +57,8 @@ class Date(InmutableModel):
 
         Parameters
         ----------
-        date_format Optional[str]: The format to return the date in (default is "%Y-%m-%d").
+        date_format Optional[str]: The format to return the date in
+            (default is "%Y-%m-%d").
 
         Returns
         -------

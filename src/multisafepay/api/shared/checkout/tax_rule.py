@@ -5,7 +5,7 @@
 
 # See the DISCLAIMER.md file for disclaimer details.
 
-"""Tax rule model for defining taxation rules and rates in checkout processing."""
+"""Tax rule model for taxation rules and rates."""
 
 from typing import Any, Dict, List, Optional, Union
 

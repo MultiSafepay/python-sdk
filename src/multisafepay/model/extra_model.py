@@ -25,7 +25,8 @@ class ExtraModel(BaseModel):
         Attributes
         ----------
         extra (str):
-            Specifies how to handle extra fields. Set to "allow" to include extra fields.
+            Specifies how to handle extra fields. Set to "allow" to
+            include extra fields.
 
         """
 

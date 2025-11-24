@@ -1,1 +1,1 @@
-"""Payment method response components for detailed payment method configurations."""
+"""Payment method response components and configurations."""

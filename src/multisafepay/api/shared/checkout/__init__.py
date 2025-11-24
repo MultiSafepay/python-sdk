@@ -1,1 +1,1 @@
-"""Checkout components for handling checkout options, tax rules, and payment configuration."""
+"""Checkout components: options, tax rules, and configuration."""

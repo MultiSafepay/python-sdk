@@ -228,7 +228,7 @@ def test_add_tax_rate_percentage_infinite():
         item.add_tax_rate_percentage(float("inf"))
 
 
-def test_add_tax_rate_percentage():
+def test_add_tax_rate_percentage_valid():
     """
     Test that a valid tax rate percentage is correctly set as the tax table selector in a CartItem.
 
@@ -238,7 +238,7 @@ def test_add_tax_rate_percentage():
     assert item.tax_table_selector == "0.21"
 
 
-def test_add_tax_rate_percentage():
+def test_add_tax_rate_percentage_zero_int():
     """
     Test that a 0 tax rate percentage is correctly set as the tax table selector in a CartItem.
 
@@ -248,7 +248,7 @@ def test_add_tax_rate_percentage():
     assert item.tax_table_selector == "0.0"
 
 
-def test_add_tax_rate_percentage():
+def test_add_tax_rate_percentage_zero_float():
     """
     Test that a 0.0 tax rate percentage is correctly set as the tax table selector in a CartItem.
 

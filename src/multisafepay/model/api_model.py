@@ -30,7 +30,8 @@ class ApiModel(ExtraModel):
         Attributes
         ----------
         extra (str):
-            Specifies how to handle extra fields. Set to "allow" to include extra fields.
+            Specifies how to handle extra fields. Set to "allow" to
+            include extra fields.
 
         """
 
@@ -38,11 +39,12 @@ class ApiModel(ExtraModel):
 
     def to_dict(self: "ApiModel") -> dict:
         """
-        Convert the model to a dictionary, removing null values recursively.
+        Convert the model to a dictionary, removing null values.
 
         Returns
         -------
-        dict: The dictionary representation of the model with null values removed.
+        dict: The dictionary representation of the model with null
+        values removed.
 
         """
         return remove_null_recursive(self.dict())

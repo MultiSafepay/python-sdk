@@ -170,6 +170,6 @@ def test_capture_reservation_cancel(sdk: Sdk):
 
     assert isinstance(capture_reservation_cancel_response, CustomApiResponse)
     assert capture_reservation_cancel_response.get_status_code() == 200
-    assert capture_reservation_cancel_response.get_body_success() == True
+    assert capture_reservation_cancel_response.get_body_success() is True
     capture_reservation = capture_reservation_cancel_response.get_data()
     assert isinstance(capture_reservation, CancelReservation)

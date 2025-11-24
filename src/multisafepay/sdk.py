@@ -31,8 +31,8 @@ class Sdk:
     """
     SDK class for interacting with the MultiSafePay API.
 
-    This class provides methods to manage various resources such as transactions,
-    gateways, payment methods, issuers, orders, and more.
+    This class provides methods to manage various resources such as
+    transactions, gateways, payment methods, issuers, orders, etc.
     """
 
     def __init__(

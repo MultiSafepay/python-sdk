@@ -15,9 +15,11 @@ from pydantic import BaseModel
 
 class ResponseModel(BaseModel):
     """
-    A base model class for response models that extends Pydantic's BaseModel.
+    A base model class for response models that extends Pydantic's
+    BaseModel.
 
-    This class is immutable and allows extra fields to be included in the model.
+    This class is immutable and allows extra fields to be included
+    in the model.
 
     """
 
@@ -27,9 +29,11 @@ class ResponseModel(BaseModel):
 
         Attributes
         ----------
-        allow_mutation (bool): Specifies whether mutation of model attributes is allowed.
-            Set to False to make the model immutable.
-        extra (str): Specifies how to handle extra fields. Set to "allow" to include extra fields.
+        allow_mutation (bool): Specifies whether mutation of model
+            attributes is allowed. Set to False to make the model
+            immutable.
+        extra (str): Specifies how to handle extra fields. Set to
+            "allow" to include extra fields.
 
         """
 
@@ -48,6 +52,7 @@ class ResponseModel(BaseModel):
 
         Returns
         -------
-        Optional[ResponseModel]: The created model instance or None if the dictionary is invalid.
+        Optional[ResponseModel]: The created model instance or None
+            if the dictionary is invalid.
 
         """
