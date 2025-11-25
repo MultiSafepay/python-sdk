@@ -14,6 +14,8 @@ from multisafepay.api.base.listings.cursor import Cursor
 
 
 class MockItem:
+    """Mock item for testing purposes."""
+
     def __init__(self: "MockItem", value: object) -> None:
         """
         Initialize a MockItem with a given value.
