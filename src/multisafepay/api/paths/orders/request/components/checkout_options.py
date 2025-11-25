@@ -34,14 +34,14 @@ class CheckoutOptions(RequestModel):
 
     def add_tax_tables(
         self: "CheckoutOptions",
-        tax_tables: CheckoutOptionsApiModel,
+        tax_tables: Optional[CheckoutOptionsApiModel],
     ) -> "CheckoutOptions":
         """
         Add tax tables to the checkout options.
 
         Parameters
         ----------
-        tax_tables (CheckoutOptionsApiModel): The tax tables to be added.
+        tax_tables (Optional[CheckoutOptionsApiModel]): The tax tables to be added.
 
         Returns
         -------
@@ -72,7 +72,7 @@ class CheckoutOptions(RequestModel):
 
     @staticmethod
     def generate_from_shopping_cart(
-        shopping_cart: ShoppingCart,
+        shopping_cart: Optional[ShoppingCart],
     ) -> Optional["CheckoutOptions"]:
         """
         Generate checkout options from a shopping cart.
@@ -81,13 +81,15 @@ class CheckoutOptions(RequestModel):
 
         Parameters
         ----------
-        shopping_cart (ShoppingCart): The shopping cart containing items.
+        shopping_cart (Optional[ShoppingCart]): The shopping cart containing items.
 
         Returns
         -------
         Optional[CheckoutOptions]: The generated CheckoutOptions instance or None if no items are present.
 
         """
+        if shopping_cart is None or shopping_cart.items is None:
+            return None
         if shopping_cart.items:
             if not isinstance(shopping_cart.items, list):
                 raise InvalidArgumentException(

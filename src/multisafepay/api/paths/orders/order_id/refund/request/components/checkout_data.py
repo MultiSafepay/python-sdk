@@ -29,56 +29,63 @@ class CheckoutData(RequestModel):
 
     def add_items(
         self: "CheckoutData",
-        items: List[CartItem] = (),
+        items: Optional[List[CartItem]] = None,
     ) -> "CheckoutData":
         """
         Adds multiple items to the checkout data.
 
         Parameters
         ----------
-        items (List[CartItem]): The list of items to add.
+        items (Optional[List[CartItem]]): The list of items to add. Defaults to None.
 
         Returns
         -------
         CheckoutData: The updated checkout data.
 
         """
+        if items is None:
+            return self
         if self.items is None:
             self.items = []
         for item in items:
             self.add_item(item)
         return self
 
-    def add_item(self: "CheckoutData", item: CartItem) -> "CheckoutData":
+    def add_item(
+        self: "CheckoutData",
+        item: Optional[CartItem],
+    ) -> "CheckoutData":
         """
         Adds a single item to the checkout data.
 
         Parameters
         ----------
-        item (CartItem): The item to add.
+        item (Optional[CartItem]): The item to add.
 
         Returns
         -------
         CheckoutData: The updated checkout data.
 
         """
+        if item is None:
+            return self
         if self.items is None:
             self.items = []
         self.items.append(item)
         return self
 
-    def get_items(self: "CheckoutData") -> List[CartItem]:
+    def get_items(self: "CheckoutData") -> Optional[List[CartItem]]:
         """
         Retrieves all items from the checkout data.
 
         Returns
         -------
-        List[CartItem]: The list of items.
+        Optional[List[CartItem]]: The list of items, or None if no items exist.
 
         """
         return self.items
 
-    def get_item(self: "CheckoutData", index: int) -> CartItem:
+    def get_item(self: "CheckoutData", index: int) -> Optional[CartItem]:
         """
         Retrieves an item by its index from the checkout data.
 
@@ -88,28 +95,33 @@ class CheckoutData(RequestModel):
 
         Returns
         -------
-        CartItem: The retrieved item.
+        Optional[CartItem]: The retrieved item, or None if items is None.
 
         """
+        if self.items is None:
+            return None
         return self.items[index]
 
     def generate_from_shopping_cart(
         self: "CheckoutData",
-        shopping_cart: ShoppingCart,
-        tax_table_selector: str = "",
+        shopping_cart: Optional[ShoppingCart],
+        tax_table_selector: Optional[str] = None,
     ) -> None:
         """
         Generates checkout data from a shopping cart.
 
         Parameters
         ----------
-        shopping_cart (ShoppingCart): The shopping cart to generate data from.
-        tax_table_selector (str): The tax table selector to use.
+        shopping_cart (Optional[ShoppingCart]): The shopping cart to generate data from.
+        tax_table_selector (Optional[str]): The tax table selector to use.
 
         """
         if shopping_cart is None:
             return
-        for shopping_cart_item in shopping_cart.get_items():
+        items = shopping_cart.get_items()
+        if items is None:
+            return
+        for shopping_cart_item in items:
             if tax_table_selector:
                 shopping_cart_item.add_tax_table_selector(tax_table_selector)
             self.add_item(shopping_cart_item)
@@ -132,7 +144,7 @@ class CheckoutData(RequestModel):
         InvalidArgumentException: If no items are provided or the item is not found.
 
         """
-        if len(self.items) < 1:
+        if self.items is None or len(self.items) < 1:
             raise InvalidArgumentException(
                 "No items provided in checkout data",
             )
@@ -167,6 +179,11 @@ class CheckoutData(RequestModel):
         InvalidArgumentException: If no item is found with the given merchant item ID.
 
         """
+        if self.items is None:
+            raise InvalidArgumentException(
+                "No items provided in checkout data",
+            )
+
         for item in self.items:
             if item.merchant_item_id == merchant_item_id:
                 return item

@@ -38,14 +38,14 @@ class RefundOrderRequest(RequestModel):
 
     def add_currency(
         self: "RefundOrderRequest",
-        currency: Union[Currency, str],
+        currency: Optional[Union[Currency, str]],
     ) -> "RefundOrderRequest":
         """
         Adds the currency to the refund request.
 
         Parameters
         ----------
-        currency (Currency | str): The currency to add.
+        currency (Optional[Currency | str]): The currency to add.
 
         Returns
         -------
@@ -54,19 +54,19 @@ class RefundOrderRequest(RequestModel):
         """
         if isinstance(currency, str):
             currency = Currency(currency=currency)
-        self.currency = currency.get()
+        self.currency = currency.get() if currency is not None else None
         return self
 
     def add_amount(
         self: "RefundOrderRequest",
-        amount: Union[Amount, int],
+        amount: Optional[Union[Amount, int]],
     ) -> "RefundOrderRequest":
         """
         Adds the amount to the refund request.
 
         Parameters
         ----------
-        amount (Amount | int): The amount to add.
+        amount (Optional[Amount | int]): The amount to add.
 
         Returns
         -------
@@ -75,19 +75,19 @@ class RefundOrderRequest(RequestModel):
         """
         if isinstance(amount, int):
             amount = Amount(amount=amount)
-        self.amount = amount.get()
+        self.amount = amount.get() if amount is not None else None
         return self
 
     def add_description(
         self: "RefundOrderRequest",
-        description: Union[Description, str],
+        description: Optional[Union[Description, str]],
     ) -> "RefundOrderRequest":
         """
         Adds the description to the refund request.
 
         Parameters
         ----------
-        description (Description | str): The description to add.
+        description (Optional[Description | str]): The description to add.
 
         Returns
         -------
@@ -96,19 +96,21 @@ class RefundOrderRequest(RequestModel):
         """
         if isinstance(description, str):
             description = Description(description=description)
-        self.description = description.get()
+        self.description = (
+            description.get() if description is not None else None
+        )
         return self
 
     def add_checkout_data(
         self: "RefundOrderRequest",
-        checkout_data: CheckoutData,
+        checkout_data: Optional[CheckoutData],
     ) -> "RefundOrderRequest":
         """
         Adds the checkout data to the refund request.
 
         Parameters
         ----------
-        checkout_data (CheckoutData): The checkout data to add.
+        checkout_data (Optional[CheckoutData]): The checkout data to add.
 
         Returns
         -------

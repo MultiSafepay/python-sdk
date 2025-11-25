@@ -25,49 +25,55 @@ class ShoppingCart(ApiModel):
 
     items: Optional[List[CartItem]]
 
-    def get_items(self: "ShoppingCart") -> List[CartItem]:
+    def get_items(self: "ShoppingCart") -> Optional[List[CartItem]]:
         """
         Get the list of items in the shopping cart.
 
         Returns
         -------
-        List[CartItem]: The list of items in the shopping cart.
+        Optional[List[CartItem]]: The list of items in the shopping cart, or None if no items exist.
 
         """
         return self.items
 
     def add_items(
         self: "ShoppingCart",
-        items: List[CartItem],
+        items: Optional[List[CartItem]],
     ) -> "ShoppingCart":
         """
         Add multiple items to the shopping cart.
 
         Parameters
         ----------
-        items: (List[CartItem]) The list of items to be added to the shopping cart.
+        items: (Optional[List[CartItem]]) The list of items to be added to the shopping cart.
 
         Returns
         -------
         ShoppingCart: The updated ShoppingCart instance.
 
         """
-        self.items = items
+        if items is not None:
+            self.items = items
         return self
 
-    def add_item(self: "ShoppingCart", item: CartItem) -> "ShoppingCart":
+    def add_item(
+        self: "ShoppingCart",
+        item: Optional[CartItem],
+    ) -> "ShoppingCart":
         """
         Add a single item to the shopping cart.
 
         Parameters
         ----------
-        item: (CartItem) The item to be added to the shopping cart.
+        item: (Optional[CartItem]) The item to be added to the shopping cart.
 
         Returns
         -------
         ShoppingCart: The updated ShoppingCart instance.
 
         """
+        if item is None:
+            return self
         if self.items is None:
             self.items = []
         self.items.append(item)

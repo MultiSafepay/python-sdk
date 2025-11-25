@@ -33,14 +33,14 @@ class Account(RequestModel):
 
     def add_account_id(
         self: "Account",
-        account_id: Union[IbanNumber, str],
+        account_id: Optional[Union[IbanNumber, str]],
     ) -> "Account":
         """
         Adds an account ID to the account.
 
         Parameters
         ----------
-        account_id (IbanNumber | str): The account ID to add. Can be an IbanNumber object or a string.
+        account_id (Optional[IbanNumber] | str): The account ID to add. Can be an IbanNumber object or a string.
 
         Returns
         -------
@@ -49,19 +49,19 @@ class Account(RequestModel):
         """
         if isinstance(account_id, str):
             account_id = IbanNumber(iban_number=account_id)
-        self.account_id = account_id.get()
+        self.account_id = account_id.get() if account_id is not None else None
         return self
 
     def add_account_holder_name(
         self: "Account",
-        account_holder_name: str,
+        account_holder_name: Optional[str],
     ) -> "Account":
         """
         Adds an account holder name to the account.
 
         Parameters
         ----------
-        account_holder_name (str): The account holder name to add.
+        account_holder_name (Optional[str]): The account holder name to add.
 
         Returns
         -------
@@ -73,14 +73,14 @@ class Account(RequestModel):
 
     def add_account_holder_iban(
         self: "Account",
-        account_holder_iban: IbanNumber,
+        account_holder_iban: Optional[Union[IbanNumber, str]],
     ) -> "Account":
         """
         Adds an account holder IBAN to the account.
 
         Parameters
         ----------
-        account_holder_iban (IbanNumber): The account holder IBAN to add. Can be an IbanNumber object or a string.
+        account_holder_iban (Optional[IbanNumber] | str): The account holder IBAN to add. Can be an IbanNumber object or a string.
 
         Returns
         -------
@@ -89,16 +89,20 @@ class Account(RequestModel):
         """
         if isinstance(account_holder_iban, str):
             account_holder_iban = IbanNumber(iban_number=account_holder_iban)
-        self.account_holder_iban = account_holder_iban.get()
+        self.account_holder_iban = (
+            account_holder_iban.get()
+            if account_holder_iban is not None
+            else None
+        )
         return self
 
-    def add_emandate(self: "Account", emandate: str) -> "Account":
+    def add_emandate(self: "Account", emandate: Optional[str]) -> "Account":
         """
         Adds an e-mandate to the account.
 
         Parameters
         ----------
-        emandate (str): The e-mandate to add.
+        emandate (Optional[str]): The e-mandate to add.
 
         Returns
         -------

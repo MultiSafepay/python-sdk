@@ -41,14 +41,14 @@ class CaptureOrderRequest(RequestModel):
 
     def add_amount(
         self: "CaptureOrderRequest",
-        amount: Union[Amount, int],
+        amount: Optional[Union[Amount, int]],
     ) -> "CaptureOrderRequest":
         """
         Adds the amount to the capture request.
 
         Parameters
         ----------
-        amount (Amount | int): The amount to add.
+        amount (Optional[Amount | int]): The amount to add.
 
         Returns
         -------
@@ -57,19 +57,19 @@ class CaptureOrderRequest(RequestModel):
         """
         if isinstance(amount, int):
             amount = Amount(amount=amount)
-        self.amount = amount.get()
+        self.amount = amount.get() if amount is not None else None
         return self
 
     def add_new_order_id(
         self: "CaptureOrderRequest",
-        new_order_id: str,
+        new_order_id: Optional[str],
     ) -> "CaptureOrderRequest":
         """
         Adds the new order ID to the capture request.
 
         Parameters
         ----------
-        new_order_id (str): The new order ID to add.
+        new_order_id (Optional[str]): The new order ID to add.
 
         Returns
         -------
@@ -81,14 +81,14 @@ class CaptureOrderRequest(RequestModel):
 
     def add_new_order_status(
         self: "CaptureOrderRequest",
-        new_order_status: str,
+        new_order_status: Optional[str],
     ) -> "CaptureOrderRequest":
         """
         Adds the new order status to the capture request.
 
         Parameters
         ----------
-        new_order_status (str): The new order status to add.
+        new_order_status (Optional[str]): The new order status to add.
 
         Returns
         -------
@@ -100,14 +100,14 @@ class CaptureOrderRequest(RequestModel):
 
     def add_invoice_id(
         self: "CaptureOrderRequest",
-        invoice_id: str,
+        invoice_id: Optional[str],
     ) -> "CaptureOrderRequest":
         """
         Adds the invoice ID to the capture request.
 
         Parameters
         ----------
-            invoice_id (str): The invoice ID to add.
+            invoice_id (Optional[str]): The invoice ID to add.
 
         Returns
         -------
@@ -119,14 +119,14 @@ class CaptureOrderRequest(RequestModel):
 
     def add_carrier(
         self: "CaptureOrderRequest",
-        carrier: str,
+        carrier: Optional[str],
     ) -> "CaptureOrderRequest":
         """
         Adds the carrier information to the capture request.
 
         Parameters
         ----------
-        carrier (str): The carrier information to add.
+        carrier (Optional[str]): The carrier information to add.
 
         Returns
         -------
@@ -138,14 +138,14 @@ class CaptureOrderRequest(RequestModel):
 
     def add_reason(
         self: "CaptureOrderRequest",
-        reason: str,
+        reason: Optional[str],
     ) -> "CaptureOrderRequest":
         """
         Adds the reason for the capture to the capture request.
 
         Parameters
         ----------
-        reason (str): The reason to add.
+        reason (Optional[str]): The reason to add.
 
         Returns
         -------
@@ -157,14 +157,14 @@ class CaptureOrderRequest(RequestModel):
 
     def add_tracktrace_code(
         self: "CaptureOrderRequest",
-        tracktrace_code: str,
+        tracktrace_code: Optional[str],
     ) -> "CaptureOrderRequest":
         """
         Adds the tracktrace code to the capture request.
 
         Parameters
         ----------
-        tracktrace_code (str): The tracktrace code to add.
+        tracktrace_code (Optional[str]): The tracktrace code to add.
 
         Returns
         -------
@@ -176,14 +176,14 @@ class CaptureOrderRequest(RequestModel):
 
     def add_description(
         self: "CaptureOrderRequest",
-        description: str,
+        description: Optional[str],
     ) -> "CaptureOrderRequest":
         """
         Adds a description to the capture request.
 
         Parameters
         ----------
-        description (str): The description to add.
+        description (Optional[str]): The description to add.
 
         Returns
         -------

@@ -59,14 +59,14 @@ class Creditcard(RequestModel):
 
     def add_card_holder_name(
         self: "Creditcard",
-        card_holder_name: str,
+        card_holder_name: Optional[str],
     ) -> "Creditcard":
         """
         Adds a card holder name to the credit card.
 
         Parameters
         ----------
-        card_holder_name (str): The card holder name to add.
+        card_holder_name (Optional[str]): The card holder name to add.
 
         Returns
         -------
@@ -78,14 +78,14 @@ class Creditcard(RequestModel):
 
     def add_card_expiry_date(
         self: "Creditcard",
-        card_expiry_date: str,
+        card_expiry_date: Optional[str],
     ) -> "Creditcard":
         """
         Adds a card expiry date to the credit card.
 
         Parameters
         ----------
-        card_expiry_date (str): The card expiry date to add.
+        card_expiry_date (Optional[str]): The card expiry date to add.
 
         Returns
         -------
@@ -95,13 +95,16 @@ class Creditcard(RequestModel):
         self.card_expiry_date = card_expiry_date
         return self
 
-    def add_cvc(self: "Creditcard", cvc: Union[Cvc, str]) -> "Creditcard":
+    def add_cvc(
+        self: "Creditcard",
+        cvc: Optional[Union[Cvc, str]],
+    ) -> "Creditcard":
         """
         Adds a CVC code to the credit card.
 
         Parameters
         ----------
-        cvc (Cvc): The CVC code to add.
+        cvc (Optional[Cvc | str]): The CVC code to add.
 
         Returns
         -------
@@ -110,7 +113,7 @@ class Creditcard(RequestModel):
         """
         if isinstance(cvc, str):
             cvc = Cvc(cvc=cvc)
-        self.cvc = cvc.get()
+        self.cvc = cvc.get() if cvc is not None else None
         return self
 
     def add_flexible_3d(self: "Creditcard", flexible_3d: bool) -> "Creditcard":
@@ -129,13 +132,16 @@ class Creditcard(RequestModel):
         self.flexible_3d = flexible_3d
         return self
 
-    def add_term_url(self: "Creditcard", term_url: str) -> "Creditcard":
+    def add_term_url(
+        self: "Creditcard",
+        term_url: Optional[str],
+    ) -> "Creditcard":
         """
         Adds a term URL to the credit card.
 
         Parameters
         ----------
-        term_url (str): The term URL to add.
+        term_url (Optional[str]): The term URL to add.
 
         Returns
         -------

@@ -37,13 +37,16 @@ class Meta(RequestModel):
     email_address: Optional[str]
     gender: Optional[str]
 
-    def add_birthday(self: "Meta", birthday: Union[Date, str]) -> "Meta":
+    def add_birthday(
+        self: "Meta",
+        birthday: Optional[Union[Date, str]],
+    ) -> "Meta":
         """
         Adds a birthday to the Meta object.
 
         Parameters
         ----------
-        birthday (Date | str): The birthday to be added.
+        birthday (Optional[Date] | str): The birthday to be added.
 
         Returns
         -------
@@ -52,19 +55,19 @@ class Meta(RequestModel):
         """
         if isinstance(birthday, str):
             birthday = Date(date=birthday)
-        self.birthday = birthday.get()
+        self.birthday = birthday.get() if birthday is not None else None
         return self
 
     def add_bank_account(
         self: "Meta",
-        bank_account: Union[BankAccount, str],
+        bank_account: Optional[Union[BankAccount, str]],
     ) -> "Meta":
         """
         Adds a bank account to the Meta object.
 
         Parameters
         ----------
-        bank_account (BankAccount | str): The bank account to be added.
+        bank_account (Optional[BankAccount] | str): The bank account to be added.
 
         Returns
         -------
@@ -73,16 +76,21 @@ class Meta(RequestModel):
         """
         if isinstance(bank_account, str):
             bank_account = BankAccount(bank_account=bank_account)
-        self.bank_account = bank_account.get()
+        self.bank_account = (
+            bank_account.get() if bank_account is not None else None
+        )
         return self
 
-    def add_phone(self: "Meta", phone: Union[PhoneNumber, str]) -> "Meta":
+    def add_phone(
+        self: "Meta",
+        phone: Optional[Union[PhoneNumber, str]],
+    ) -> "Meta":
         """
         Adds a phone number to the Meta object.
 
         Parameters
         ----------
-        phone (PhoneNumber | str): The phone number to be added.
+        phone (Optional[PhoneNumber] | str): The phone number to be added.
 
         Returns
         -------
@@ -94,14 +102,14 @@ class Meta(RequestModel):
 
     def add_email_address(
         self: "Meta",
-        email_address: Union[EmailAddress, str],
+        email_address: Optional[Union[EmailAddress, str]],
     ) -> "Meta":
         """
         Adds an email address to the Meta object.
 
         Parameters
         ----------
-        email_address (EmailAddress | str): The email address to be added.
+        email_address (Optional[EmailAddress] | str): The email address to be added.
 
         Returns
         -------
@@ -110,16 +118,21 @@ class Meta(RequestModel):
         """
         if isinstance(email_address, str):
             email_address = EmailAddress(email_address=email_address)
-        self.email_address = email_address.get()
+        self.email_address = (
+            email_address.get() if email_address is not None else None
+        )
         return self
 
-    def add_gender(self: "Meta", gender: Union[Gender, str]) -> "Meta":
+    def add_gender(
+        self: "Meta",
+        gender: Optional[Union[Gender, str]],
+    ) -> "Meta":
         """
         Adds a gender to the Meta object.
 
         Parameters
         ----------
-        gender (Gender | str): The gender to be added.
+        gender (Optional[Gender] | str): The gender to be added.
 
         Returns
         -------
@@ -128,5 +141,5 @@ class Meta(RequestModel):
         """
         if isinstance(gender, str):
             gender = Gender(gender=gender)
-        self.gender = gender.get()
+        self.gender = gender.get() if gender is not None else None
         return self

@@ -8,7 +8,6 @@
 
 """Test module for integration testing."""
 
-import pytest
 from multisafepay.api.shared.checkout.tax_rate import TaxRate
 from multisafepay.api.shared.checkout.tax_rule import TaxRule
 from multisafepay.api.paths.orders.request.components.checkout_options import (
@@ -104,12 +103,14 @@ def test_generate_from_shopping_cart_none():
     """
     Test the generate_from_shopping_cart method of CheckoutOptions with a None shopping cart.
 
-    This test checks if an AttributeError is raised when the shopping cart is None.
+    This test checks if None is returned when the shopping cart is None.
 
     """
     shopping_cart = None
-    with pytest.raises(AttributeError):
-        CheckoutOptions.generate_from_shopping_cart(shopping_cart)
+    generated_checkout_options = CheckoutOptions.generate_from_shopping_cart(
+        shopping_cart,
+    )
+    assert generated_checkout_options is None
 
 
 def test_generate_from_shopping_cart_no_items():

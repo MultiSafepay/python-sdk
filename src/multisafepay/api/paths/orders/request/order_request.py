@@ -109,13 +109,16 @@ class OrderRequest(RequestModel):
     var2: Optional[str]
     var3: Optional[str]
 
-    def add_type(self: "OrderRequest", order_type: str) -> "OrderRequest":
+    def add_type(
+        self: "OrderRequest",
+        order_type: Optional[str],
+    ) -> "OrderRequest":
         """
         Adds the type of the order request.
 
         Parameters
         ----------
-        order_type (str): The type of the order request. Must be one of the allowed types.
+        order_type (Optional[str]): The type of the order request. Must be one of the allowed types.
 
         Raises
         ------
@@ -126,7 +129,7 @@ class OrderRequest(RequestModel):
         OrderRequest: The updated OrderRequest object.
 
         """
-        if order_type not in ALLOWED_TYPES:
+        if order_type is not None and order_type not in ALLOWED_TYPES:
             msg = f'Type "{order_type}" is not a known type. Available types: {", ".join(ALLOWED_TYPES)}'
             raise InvalidArgumentException(msg)
         self.type = order_type
@@ -134,14 +137,14 @@ class OrderRequest(RequestModel):
 
     def add_recurring_model(
         self: "OrderRequest",
-        recurring_model: str,
+        recurring_model: Optional[str],
     ) -> "OrderRequest":
         """
         Adds the recurring model of the order request.
 
         Parameters
         ----------
-        recurring_model (str): The recurring model of the order request. Must be one of the allowed recurring models.
+        recurring_model (Optional[str]): The recurring model of the order request. Must be one of the allowed recurring models.
 
         Raises
         ------
@@ -152,19 +155,25 @@ class OrderRequest(RequestModel):
         OrderRequest: The updated OrderRequest object.
 
         """
-        if recurring_model not in ALLOWED_RECURRING_MODELS:
+        if (
+            recurring_model is not None
+            and recurring_model not in ALLOWED_RECURRING_MODELS
+        ):
             msg = f'Type "{recurring_model}" is not a known type. Available types: {", ".join(ALLOWED_RECURRING_MODELS)}'
             raise InvalidArgumentException(msg)
         self.recurring_model = recurring_model
         return self
 
-    def add_order_id(self: "OrderRequest", order_id: str) -> "OrderRequest":
+    def add_order_id(
+        self: "OrderRequest",
+        order_id: Optional[str],
+    ) -> "OrderRequest":
         """
         Adds the order ID to the order request.
 
         Parameters
         ----------
-        order_id (str): The order ID.
+        order_id (Optional[str]): The order ID.
 
         Returns
         -------
@@ -176,14 +185,14 @@ class OrderRequest(RequestModel):
 
     def add_currency(
         self: "OrderRequest",
-        currency: Union[Currency, str],
+        currency: Optional[Union[Currency, str]],
     ) -> "OrderRequest":
         """
         Adds the currency to the order request.
 
         Parameters
         ----------
-        currency (Currency | str): The currency as a Currency object or a string.
+        currency (Optional[Currency | str]): The currency as a Currency object or a string.
 
         Returns
         -------
@@ -192,19 +201,19 @@ class OrderRequest(RequestModel):
         """
         if isinstance(currency, str):
             currency = Currency(currency=currency)
-        self.currency = currency.get()
+        self.currency = currency.get() if currency is not None else None
         return self
 
     def add_amount(
         self: "OrderRequest",
-        amount: Union[Amount, int],
+        amount: Optional[Union[Amount, int]],
     ) -> "OrderRequest":
         """
         Adds the amount to the order request.
 
         Parameters
         ----------
-        amount (Amount | int): The amount as an Amount object or an integer.
+        amount (Optional[Amount | int]): The amount as an Amount object or an integer.
 
         Returns
         -------
@@ -213,16 +222,19 @@ class OrderRequest(RequestModel):
         """
         if isinstance(amount, int):
             amount = Amount(amount=amount)
-        self.amount = amount.get()
+        self.amount = amount.get() if amount is not None else None
         return self
 
-    def add_capture(self: "OrderRequest", capture: str) -> "OrderRequest":
+    def add_capture(
+        self: "OrderRequest",
+        capture: Optional[str],
+    ) -> "OrderRequest":
         """
         Adds the capture type to the order request.
 
         Parameters
         ----------
-        capture (str): The capture type.
+        capture (Optional[str]): The capture type.
 
         Returns
         -------
@@ -234,14 +246,14 @@ class OrderRequest(RequestModel):
 
     def add_payment_options(
         self: "OrderRequest",
-        payment_options: PaymentOptions,
+        payment_options: Optional[PaymentOptions],
     ) -> "OrderRequest":
         """
         Adds the payment options to the order request.
 
         Parameters
         ----------
-        payment_options (PaymentOptions): The payment options.
+        payment_options (Optional[PaymentOptions]): The payment options.
 
         Returns
         -------
@@ -253,14 +265,14 @@ class OrderRequest(RequestModel):
 
     def add_customer(
         self: "OrderRequest",
-        customer: Customer,
+        customer: Optional[Customer],
     ) -> "OrderRequest":
         """
         Adds the customer to the order request.
 
         Parameters
         ----------
-        customer (Customer): The customer.
+        customer (Optional[Customer]): The customer.
 
         Returns
         -------
@@ -270,13 +282,16 @@ class OrderRequest(RequestModel):
         self.customer = customer
         return self
 
-    def add_gateway(self: "OrderRequest", gateway: str) -> "OrderRequest":
+    def add_gateway(
+        self: "OrderRequest",
+        gateway: Optional[str],
+    ) -> "OrderRequest":
         """
         Adds the gateway to the order request.
 
         Parameters
         ----------
-        gateway (str): The gateway.
+        gateway (Optional[str]): The gateway.
 
         Returns
         -------
@@ -288,7 +303,7 @@ class OrderRequest(RequestModel):
 
     def add_gateway_info(
         self: "OrderRequest",
-        gateway_info: dict,
+        gateway_info: Optional[dict],
     ) -> "OrderRequest":
         """
         Adds the gateway information to the order request.
@@ -307,14 +322,14 @@ class OrderRequest(RequestModel):
 
     def add_description(
         self: "OrderRequest",
-        description: Union[Description, str],
+        description: Optional[Union[Description, str]],
     ) -> "OrderRequest":
         """
         Adds the description to the order request.
 
         Parameters
         ----------
-        description (Description | str): The description as a Description object or a string.
+        description (Optional[Description | str]): The description as a Description object or a string.
 
         Returns
         -------
@@ -323,19 +338,21 @@ class OrderRequest(RequestModel):
         """
         if isinstance(description, str):
             description = Description(description=description)
-        self.description = description.get()
+        self.description = (
+            description.get() if description is not None else None
+        )
         return self
 
     def add_plugin(
         self: "OrderRequest",
-        plugin: Plugin,
+        plugin: Optional[Plugin],
     ) -> "OrderRequest":
         """
         Adds the plugin details to the order request.
 
         Parameters
         ----------
-        plugin (Plugin): The plugin details.
+        plugin (Optional[Plugin]): The plugin details.
 
         Returns
         -------
@@ -347,14 +364,14 @@ class OrderRequest(RequestModel):
 
     def add_recurring_id(
         self: "OrderRequest",
-        recurring_id: str,
+        recurring_id: Optional[str],
     ) -> "OrderRequest":
         """
         Adds the recurring ID to the order request.
 
         Parameters
         ----------
-        recurring_id (str): The recurring ID.
+        recurring_id (Optional[str]): The recurring ID.
 
         Returns
         -------
@@ -366,14 +383,14 @@ class OrderRequest(RequestModel):
 
     def add_second_chance(
         self: "OrderRequest",
-        second_chance: SecondChance,
+        second_chance: Optional[SecondChance],
     ) -> "OrderRequest":
         """
         Adds the second chance information to the order request.
 
         Parameters
         ----------
-        second_chance (SecondChance): The second chance information.
+        second_chance (Optional[SecondChance]): The second chance information.
 
         Returns
         -------
@@ -385,14 +402,14 @@ class OrderRequest(RequestModel):
 
     def add_google_analytics(
         self: "OrderRequest",
-        google_analytics: GoogleAnalytics,
+        google_analytics: Optional[GoogleAnalytics],
     ) -> "OrderRequest":
         """
         Adds the Google Analytics information to the order request.
 
         Parameters
         ----------
-        google_analytics (GoogleAnalytics): The Google Analytics information.
+        google_analytics (Optional[GoogleAnalytics]): The Google Analytics information.
 
         Returns
         -------
@@ -404,14 +421,14 @@ class OrderRequest(RequestModel):
 
     def add_shopping_cart(
         self: "OrderRequest",
-        shopping_cart: ShoppingCart,
+        shopping_cart: Optional[ShoppingCart],
     ) -> "OrderRequest":
         """
         Adds the shopping cart to the order request.
 
         Parameters
         ----------
-        shopping_cart (ShoppingCart): The shopping cart.
+        shopping_cart (Optional[ShoppingCart]): The shopping cart.
 
         Returns
         -------
@@ -423,14 +440,14 @@ class OrderRequest(RequestModel):
 
     def add_delivery(
         self: "OrderRequest",
-        delivery: Delivery,
+        delivery: Optional[Delivery],
     ) -> "OrderRequest":
         """
         Adds the delivery information to the order request.
 
         Parameters
         ----------
-        delivery (Delivery): The delivery information.
+        delivery (Optional[Delivery]): The delivery information.
 
         Returns
         -------
@@ -442,14 +459,14 @@ class OrderRequest(RequestModel):
 
     def add_checkout_options(
         self: "OrderRequest",
-        checkout_options: CheckoutOptions,
+        checkout_options: Optional[CheckoutOptions],
     ) -> "OrderRequest":
         """
         Adds the checkout options to the order request.
 
         Parameters
         ----------
-        checkout_options (CheckoutOptions): The checkout options.
+        checkout_options (Optional[CheckoutOptions]): The checkout options.
 
         Returns
         -------
@@ -461,14 +478,14 @@ class OrderRequest(RequestModel):
 
     def add_seconds_active(
         self: "OrderRequest",
-        seconds: int,
+        seconds: Optional[int],
     ) -> "OrderRequest":
         """
         Adds the seconds active to the order request.
 
         Parameters
         ----------
-        seconds (int): The number of seconds the order is active.
+        seconds (Optional[int]): The number of seconds the order is active.
 
         Returns
         -------
@@ -478,13 +495,16 @@ class OrderRequest(RequestModel):
         self.seconds_active = seconds
         return self
 
-    def add_days_active(self: "OrderRequest", days: int) -> "OrderRequest":
+    def add_days_active(
+        self: "OrderRequest",
+        days: Optional[int],
+    ) -> "OrderRequest":
         """
         Adds the days active to the order request.
 
         Parameters
         ----------
-        days (int): The number of days the order is active.
+        days (Optional[int]): The number of days the order is active.
 
         Returns
         -------
@@ -496,14 +516,14 @@ class OrderRequest(RequestModel):
 
     def add_custom_info(
         self: "OrderRequest",
-        custom_info: CustomInfo,
+        custom_info: Optional[CustomInfo],
     ) -> "OrderRequest":
         """
         Adds the custom information to the order request.
 
         Parameters
         ----------
-        custom_info (CustomInfo): The custom information.
+        custom_info (Optional[CustomInfo]): The custom information.
 
         Returns
         -------
@@ -513,13 +533,13 @@ class OrderRequest(RequestModel):
         self.custom_info = custom_info
         return self
 
-    def add_var1(self: "OrderRequest", var1: str) -> "OrderRequest":
+    def add_var1(self: "OrderRequest", var1: Optional[str]) -> "OrderRequest":
         """
         Adds the first custom variable to the order request.
 
         Parameters
         ----------
-        var1 (str): The first custom variable.
+        var1 (Optional[str]): The first custom variable.
 
         Returns
         -------
@@ -529,13 +549,13 @@ class OrderRequest(RequestModel):
         self.var1 = var1
         return self
 
-    def add_var2(self: "OrderRequest", var2: str) -> "OrderRequest":
+    def add_var2(self: "OrderRequest", var2: Optional[str]) -> "OrderRequest":
         """
         Adds the second custom variable to the order request.
 
         Parameters
         ----------
-        var2 (str): The second custom variable.
+        var2 (Optional[str]): The second custom variable.
 
         Returns
         -------
@@ -545,13 +565,13 @@ class OrderRequest(RequestModel):
         self.var2 = var2
         return self
 
-    def add_var3(self: "OrderRequest", var3: str) -> "OrderRequest":
+    def add_var3(self: "OrderRequest", var3: Optional[str]) -> "OrderRequest":
         """
         Adds the third custom variable to the order request.
 
         Parameters
         ----------
-        var3 (str): The third custom variable.
+        var3 (Optional[str]): The third custom variable.
 
         Returns
         -------
