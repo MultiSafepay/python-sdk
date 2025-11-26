@@ -36,6 +36,7 @@ from multisafepay.api.paths.recurring.customer_reference.token.token import (
 
 @pytest.fixture(scope="module")
 def sdk() -> Sdk:
+    """Fixture that provides an SDK instance for testing."""
     load_dotenv()
     api_key = os.getenv("API_KEY")
     return Sdk(api_key, False)

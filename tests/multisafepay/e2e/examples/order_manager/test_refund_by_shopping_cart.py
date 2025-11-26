@@ -41,6 +41,7 @@ from multisafepay.api.paths.orders.response.order_response import Order
 
 @pytest.fixture(scope="module")
 def order_manager() -> OrderManager:
+    """Fixture that provides an OrderManager instance for testing."""
     load_dotenv()
     api_key = os.getenv("API_KEY")
     multisafepay_sdk = Sdk(api_key, False)

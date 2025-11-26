@@ -21,6 +21,7 @@ from multisafepay.sdk import Sdk
 
 @pytest.fixture(scope="module")
 def gateway_manager() -> GatewayManager:
+    """Fixture that provides a GatewayManager instance for testing."""
     load_dotenv()
     api_key = os.getenv("API_KEY")
     multisafepay_sdk = Sdk(api_key, False)

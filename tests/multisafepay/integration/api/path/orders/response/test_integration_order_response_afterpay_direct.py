@@ -27,6 +27,7 @@ from multisafepay.value_object.weight import Weight
 
 
 def test_afterpay_response():
+    """Test AfterPay order response parsing and validation."""
     data = {
         "amount": 37485,
         "amount_refunded": 0,
