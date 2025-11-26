@@ -50,6 +50,7 @@ if TYPE_CHECKING:
 
 @pytest.fixture(scope="module")
 def sdk() -> Sdk:
+    """Fixture that provides an SDK instance for testing."""
     load_dotenv()
     api_key = os.getenv("API_KEY")
     return Sdk(api_key, False)

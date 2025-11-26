@@ -38,6 +38,7 @@ from multisafepay.api.paths.orders.order_id.refund.request.refund_request import
 
 @pytest.fixture(scope="module")
 def order_manager() -> OrderManager:
+    """Fixture that provides an OrderManager instance for testing."""
     load_dotenv()
     api_key = os.getenv("API_KEY")
     multisafepay_sdk = Sdk(api_key, False)

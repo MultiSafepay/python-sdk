@@ -26,6 +26,7 @@ from multisafepay.sdk import Sdk
 
 @pytest.fixture(scope="module")
 def payment_method_manager() -> PaymentMethodManager:
+    """Fixture that provides a PaymentMethodManager instance for testing."""
     load_dotenv()
     api_key = os.getenv("API_KEY")
     multisafepay_sdk = Sdk(api_key, False)

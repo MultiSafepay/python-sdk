@@ -15,6 +15,7 @@ from multisafepay.exception.invalid_argument import InvalidArgumentException
 
 
 def test_initializes_payment_options_correctly():
+    """Test that PaymentOptions initializes correctly with all parameters."""
     payment_options = PaymentOptions(
         notification_url="https://example.com/notify",
         settings={"key": "value"},
@@ -33,6 +34,7 @@ def test_initializes_payment_options_correctly():
 
 
 def test_initializes_payment_options_with_empty_values():
+    """Test that PaymentOptions initializes with None values when no parameters are provided."""
     payment_options = PaymentOptions()
 
     assert payment_options.notification_url is None
@@ -44,6 +46,7 @@ def test_initializes_payment_options_with_empty_values():
 
 
 def test_add_notification_url_updates_value():
+    """Test that add_notification_url updates the notification_url value."""
     payment_options = PaymentOptions()
     payment_options_updated = payment_options.add_notification_url(
         "https://example.com/notify",
@@ -54,6 +57,7 @@ def test_add_notification_url_updates_value():
 
 
 def test_add_settings_updates_value():
+    """Test that add_settings updates the settings value."""
     payment_options = PaymentOptions()
     payment_options_updated = payment_options.add_settings({"key": "value"})
 
@@ -62,6 +66,7 @@ def test_add_settings_updates_value():
 
 
 def test_add_notification_method_updates_value():
+    """Test that add_notification_method updates the notification_method value."""
     payment_options = PaymentOptions()
     payment_options_updated = payment_options.add_notification_method("GET")
 
@@ -70,6 +75,7 @@ def test_add_notification_method_updates_value():
 
 
 def test_add_notification_method_raises_exception_for_invalid_value():
+    """Test that add_notification_method raises exception for invalid values."""
     payment_options = PaymentOptions()
 
     try:
@@ -79,6 +85,7 @@ def test_add_notification_method_raises_exception_for_invalid_value():
 
 
 def test_add_redirect_url_updates_value():
+    """Test that add_redirect_url updates the redirect_url value."""
     payment_options = PaymentOptions()
     payment_options_updated = payment_options.add_redirect_url(
         "https://example.com/redirect",
@@ -89,6 +96,7 @@ def test_add_redirect_url_updates_value():
 
 
 def test_add_cancel_url_updates_value():
+    """Test that add_cancel_url updates the cancel_url value."""
     payment_options = PaymentOptions()
     payment_options_updated = payment_options.add_cancel_url(
         "https://example.com/cancel",
@@ -99,6 +107,7 @@ def test_add_cancel_url_updates_value():
 
 
 def test_add_close_window_updates_value():
+    """Test that add_close_window updates the close_window value."""
     payment_options = PaymentOptions()
     payment_options_updated = payment_options.add_close_window(True)
 

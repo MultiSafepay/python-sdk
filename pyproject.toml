@@ -99,7 +99,6 @@ extend-safe-fixes = [
     "D415", # docstrings should end with a period, question mark, or exclamation point
 ]
 ignore = [
-    "D103",
     "D104",
     "D107",
     "D200",

@@ -22,6 +22,7 @@ from multisafepay.sdk import Sdk
 
 @pytest.fixture(scope="module")
 def auth_manager() -> AuthManager:
+    """Fixture that provides an AuthManager instance for testing."""
     load_dotenv()
     api_key = os.getenv("API_KEY")
     multisafepay_sdk = Sdk(api_key, False)

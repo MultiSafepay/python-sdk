@@ -25,6 +25,7 @@ from multisafepay.api.paths.categories.category_manager import (
 
 @pytest.fixture(scope="module")
 def category_manager() -> "CategoryManager":
+    """Fixture that provides a CategoryManager instance for testing."""
     load_dotenv()
     api_key = os.getenv("API_KEY")
     multisafepay_sdk = Sdk(api_key, False)

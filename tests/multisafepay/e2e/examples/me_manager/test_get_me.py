@@ -25,6 +25,7 @@ from multisafepay.api.paths.me.me_manager import MeManager
 
 @pytest.fixture(scope="module")
 def me_manager() -> "MeManager":
+    """Fixture that provides a MeManager instance for testing."""
     load_dotenv()
     api_key = os.getenv("API_KEY")
     multisafepay_sdk = Sdk(api_key, False)
