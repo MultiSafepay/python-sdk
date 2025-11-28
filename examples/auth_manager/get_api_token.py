@@ -2,10 +2,10 @@ import os
 
 from dotenv import load_dotenv
 
-from multisafepay.api.base.response.custom_api_response import CustomApiResponse
-from multisafepay.api.paths.auth.api_token.response.api_token import ApiToken
-from multisafepay.api.paths.auth.auth_manager import AuthManager
-from multisafepay.sdk import Sdk
+from multisafepay import Sdk
+from multisafepay.api.base.response import CustomApiResponse
+from multisafepay.api.paths import AuthManager
+from multisafepay.api.paths.auth import ApiToken
 
 # Load environment variables from a .env file
 load_dotenv()

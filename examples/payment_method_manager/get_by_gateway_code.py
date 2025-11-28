@@ -2,10 +2,12 @@ import os
 
 from dotenv import load_dotenv
 
-from multisafepay.sdk import Sdk
+from multisafepay import Sdk
 
-# API key to authenticate requests to the MultiSafepay SDK
+# Load environment variables from a .env file
 load_dotenv()
+
+# Retrieve the API key from the environment variables
 API_KEY = os.getenv("API_KEY")
 
 if __name__ == "__main__":
@@ -16,7 +18,9 @@ if __name__ == "__main__":
     payment_method_manager = multisafepay_sdk.get_payment_method_manager()
 
     # Retrieve the payment method using the gateway code
-    get_by_gateway_code_response = payment_method_manager.get_by_gateway_code("IDEAL")
+    get_by_gateway_code_response = (
+        payment_method_manager.get_by_gateway_code("IDEAL")
+    )
 
     # Print the API response containing the payment method information
     # print(get_by_gateway_code_response)

@@ -2,10 +2,11 @@ import os
 
 from dotenv import load_dotenv
 
-from multisafepay.api.paths.orders.order_id.capture.request.capture_request import CaptureOrderRequest
-from multisafepay.sdk import Sdk
-from multisafepay.value_object.amount import Amount
-from multisafepay.value_object.currency import Currency
+from multisafepay import Sdk
+from multisafepay.api.paths.orders.order_id.capture.request import (
+    CaptureOrderRequest,
+)
+from multisafepay.value_object import Amount
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -24,11 +25,13 @@ if __name__ == "__main__":
     amount = Amount(amount=10)
 
     # Create a CaptureOrderRequest object and add the capture details
-    capture_request = (CaptureOrderRequest()
-                       .add_amount(amount)
-                       .add_reason('Order captured')
-                       .add_new_order_id('<capture_order_id>')
-                       .add_new_order_status('completed'))
+    capture_request = (
+        CaptureOrderRequest()
+        .add_amount(amount)
+        .add_reason('Order captured')
+        .add_new_order_id('<capture_order_id>')
+        .add_new_order_status('completed')
+    )
 
     # Capture the order with the specified order ID using the order manager
     capture_response = order_manager.capture('<order_id>', capture_request)

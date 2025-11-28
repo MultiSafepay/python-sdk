@@ -3,11 +3,10 @@ from typing import List
 
 from dotenv import load_dotenv
 
-from multisafepay.api.base.listings.listing import Listing
-from multisafepay.api.base.response.custom_api_response import CustomApiResponse
-from multisafepay.api.paths.gateways.gateway_manager import GatewayManager
-from multisafepay.api.paths.gateways.response.gateway import Gateway
-from multisafepay.sdk import Sdk
+from multisafepay import Sdk
+from multisafepay.api.base.response import CustomApiResponse
+from multisafepay.api.paths import GatewayManager
+from multisafepay.api.paths.gateways.response import Gateway
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -23,12 +22,14 @@ if __name__ == "__main__":
     gateway_manager: GatewayManager = multisafepay_sdk.get_gateway_manager()
 
     # Request the list of gateways
-    get_gateways_response: CustomApiResponse = gateway_manager.get_gateways()
+    get_gateways_response: CustomApiResponse = (
+        gateway_manager.get_gateways()
+    )
 
     # Print the API response containing the list of gateways
     # print(get_gateways_response)
 
     # Extract the listing of gateways from the response
-    gatewayListing: List[Gateway] = get_gateways_response.get_data()
+    gateway_listing: List[Gateway] = get_gateways_response.get_data()
 
-    print(gatewayListing)
+    print(gateway_listing)
