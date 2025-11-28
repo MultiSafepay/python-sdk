@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from multisafepay.sdk import Sdk
+from multisafepay import Sdk
 
 # Load environment variables from a .env file
 load_dotenv()

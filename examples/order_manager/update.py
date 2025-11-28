@@ -2,8 +2,10 @@ import os
 
 from dotenv import load_dotenv
 
-from multisafepay.api.paths.orders.order_id.update.request.update_request import UpdateOrderRequest
-from multisafepay.sdk import Sdk
+from multisafepay import Sdk
+from multisafepay.api.paths.orders.order_id.update.request import (
+    UpdateOrderRequest,
+)
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -19,10 +21,12 @@ if __name__ == "__main__":
     order_manager = multisafepay_sdk.get_order_manager()
 
     # Create an UpdateOrderRequest object and set the status to '<new_status>'
-    update_order_request = UpdateOrderRequest().add_status('<new_status>')
+    update_order_request = UpdateOrderRequest().add_status('shipped')
 
     # Update the order with the specified order ID using the order manager
-    update_response = order_manager.update('<order_id>', update_order_request)
+    update_response = order_manager.update(
+        '1764238539103190', update_order_request
+    )
 
     # Print the API response containing the updated order information
     # print(update_response)

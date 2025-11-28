@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from multisafepay.sdk import Sdk
+from multisafepay import Sdk
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -15,7 +15,9 @@ if __name__ == "__main__":
     multisafepay_sdk = Sdk(API_KEY, False)
 
     # Get the recurring payments manager from the SDK and retrieve the list of recurring payments for a specific shopper
-    get_list_response = multisafepay_sdk.get_recurring_manager().get_list(reference='<reference>')
+    get_list_response = multisafepay_sdk.get_recurring_manager().get_list(
+        reference='<reference>'
+    )
 
     # Print the API response containing the recurring payments information
     # print(get_list_response)

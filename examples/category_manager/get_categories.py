@@ -3,10 +3,9 @@ from typing import List
 
 from dotenv import load_dotenv
 
-from multisafepay.api.base.listings.listing import Listing
-from multisafepay.api.base.response.custom_api_response import CustomApiResponse
-from multisafepay.api.paths.categories.response.category import Category
-from multisafepay.sdk import Sdk
+from multisafepay import Sdk
+from multisafepay.api.base.response import CustomApiResponse
+from multisafepay.api.paths.categories.response import Category
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -22,7 +21,9 @@ if __name__ == "__main__":
     category_manager = multisafepay_sdk.get_category_manager()
 
     # Request categories through the category manager
-    get_categories_response: CustomApiResponse = category_manager.get_categories()
+    get_categories_response: CustomApiResponse = (
+        category_manager.get_categories()
+    )
 
     # Print the API response containing the categories
     # print(get_categories_response)

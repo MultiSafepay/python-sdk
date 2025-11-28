@@ -12,7 +12,7 @@ from typing import Optional, Union
 from multisafepay.api.paths.orders.request.components.checkout_options import (
     CheckoutOptions,
 )
-from multisafepay.api.paths.orders.request.components.customer_info import (
+from multisafepay.api.paths.orders.request.components.custom_info import (
     CustomInfo,
 )
 from multisafepay.api.paths.orders.request.components.google_analytics import (

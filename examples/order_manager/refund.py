@@ -2,11 +2,12 @@ import os
 
 from dotenv import load_dotenv
 
-from multisafepay.api.paths.orders.order_id.refund.request.refund_request import RefundOrderRequest
-from multisafepay.sdk import Sdk
-from multisafepay.value_object.amount import Amount
-from multisafepay.value_object.currency import Currency
-from multisafepay.api.shared.description import Description
+from multisafepay import Sdk
+from multisafepay.api.paths.orders.order_id.refund.request import (
+    RefundOrderRequest,
+)
+from multisafepay.api.shared import Description
+from multisafepay.value_object import Amount, Currency
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -22,11 +23,14 @@ if __name__ == "__main__":
     order_manager = multisafepay_sdk.get_order_manager()
 
     # Create a RefundOrderRequest object and add the refund details
-    refund_request = (RefundOrderRequest()
-    .add_amount(Amount(amount=100))
-    .add_currency(Currency(currency='EUR'))
-    .add_description(
-        Description().add_description('Refund for order #<order_id>')))
+    refund_request = (
+        RefundOrderRequest()
+        .add_amount(Amount(amount=100))
+        .add_currency(Currency(currency='EUR'))
+        .add_description(
+            Description().add_description('Refund for order #<order_id>')
+        )
+    )
 
     # Request a refund for the specified order ID using the order manager
     refund_response = order_manager.refund('<order_id>', refund_request)
