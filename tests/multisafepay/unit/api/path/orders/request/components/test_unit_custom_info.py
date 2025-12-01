@@ -8,7 +8,7 @@
 
 """Test module for unit testing."""
 
-from multisafepay.api.paths.orders.request.components.customer_info import (
+from multisafepay.api.paths.orders.request.components.custom_info import (
     CustomInfo,
 )
 

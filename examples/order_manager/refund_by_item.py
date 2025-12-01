@@ -2,10 +2,9 @@ import os
 
 from dotenv import load_dotenv
 
+from multisafepay import Sdk
 from multisafepay.api.paths.orders.order_manager import OrderManager
-from multisafepay.api.paths.orders.response.order_response import Order
-
-from multisafepay.sdk import Sdk
+from multisafepay.api.paths.orders.response import Order
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -24,7 +23,9 @@ if __name__ == "__main__":
     order: Order = order_manager.get('<order_id>').get_data()
 
     # Create a refund request for a specific item in the order
-    refund_by_item_response = order_manager.refund_by_item(order, '<merchant_item_id>', 1)
+    refund_by_item_response = order_manager.refund_by_item(
+        order, '<merchant_item_id>', 1
+    )
 
     # Print the response of the refund request
     # print(refund_by_item_response)

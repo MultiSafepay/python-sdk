@@ -2,11 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from multisafepay.api.base.listings.listing import Listing
-from multisafepay.api.paths.transactions.response.transaction import Transaction
-
-from multisafepay.api.base.listings.listing_pager import ListingPager
-from multisafepay.sdk import Sdk
+from multisafepay import Sdk
 
 # Load environment variables from a .env file
 load_dotenv()

@@ -1,23 +1,27 @@
-import time
 import os
+import time
+
 from dotenv import load_dotenv
-from multisafepay.value_object.weight import Weight
-from multisafepay.api.shared.cart.cart_item import CartItem
-from multisafepay.api.paths.orders.request.components.checkout_options import CheckoutOptions
-from multisafepay.api.paths.orders.request.components.payment_options import PaymentOptions
-from multisafepay.api.paths.orders.request.components.plugin import Plugin
-from multisafepay.api.paths.orders.request.order_request import OrderRequest
-from multisafepay.api.shared.cart.shopping_cart import ShoppingCart
-from multisafepay.api.shared.customer import Customer
-from multisafepay.sdk import Sdk
-from multisafepay.value_object.amount import Amount
-from multisafepay.value_object.country import Country
-from multisafepay.value_object.currency import Currency
-from multisafepay.api.shared.description import Description
-from multisafepay.value_object.email_address import EmailAddress
-from multisafepay.value_object.ip_address import IpAddress
-from multisafepay.value_object.phone_number import PhoneNumber
-from multisafepay.api.paths.orders.response.order_response import Order
+
+from multisafepay import Sdk
+from multisafepay.api.paths.orders.request import OrderRequest
+from multisafepay.api.paths.orders.request.components import (
+    CheckoutOptions,
+    PaymentOptions,
+    Plugin,
+)
+from multisafepay.api.paths.orders.response import Order
+from multisafepay.api.shared import Customer, Description
+from multisafepay.api.shared.cart import CartItem, ShoppingCart
+from multisafepay.value_object import (
+    Amount,
+    Country,
+    Currency,
+    EmailAddress,
+    IpAddress,
+    PhoneNumber,
+    Weight,
+)
 
 # Load environment variables from a .env file
 load_dotenv()
@@ -83,52 +87,59 @@ if __name__ == "__main__":
 
     # Create cart items
     cart_items = [
-        CartItem()
-        .add_name('Geometric Candle Holders')
-        .add_description('Geometric Candle Holders description')
-        .add_unit_price(90)
-        .add_quantity(3)
-        .add_merchant_item_id('1111')
-        .add_tax_rate_percentage(21)
-        .add_weight(Weight(value=1.0, unit='kg')),
-
-        CartItem()
-        .add_name('Nice apple')
-        .add_description('Nice apple description')
-        .add_unit_price(35)
-        .add_quantity(1)
-        .add_merchant_item_id('666666')
-        .add_tax_rate_percentage(9)
-        .add_weight(Weight(value=20, unit='kg')),
-
-        CartItem()
-        .add_name('Flat Rate - Fixed')
-        .add_description('Shipping')
-        .add_unit_price(10)
-        .add_quantity(1)
-        .add_merchant_item_id('msp-shipping')
-        .add_tax_rate_percentage(0)
-        .add_weight(Weight(value=0, unit='kg'))
+        (
+            CartItem()
+            .add_name('Geometric Candle Holders')
+            .add_description('Geometric Candle Holders description')
+            .add_unit_price(90)
+            .add_quantity(3)
+            .add_merchant_item_id('1111')
+            .add_tax_rate_percentage(21)
+            .add_weight(Weight(value=1.0, unit='kg'))
+        ),
+        (
+            CartItem()
+            .add_name('Nice apple')
+            .add_description('Nice apple description')
+            .add_unit_price(35)
+            .add_quantity(1)
+            .add_merchant_item_id('666666')
+            .add_tax_rate_percentage(9)
+            .add_weight(Weight(value=20, unit='kg'))
+        ),
+        (
+            CartItem()
+            .add_name('Flat Rate - Fixed')
+            .add_description('Shipping')
+            .add_unit_price(10)
+            .add_quantity(1)
+            .add_merchant_item_id('msp-shipping')
+            .add_tax_rate_percentage(0)
+            .add_weight(Weight(value=0, unit='kg'))
+        ),
     ]
 
     # Create shopping_cart
     shopping_cart = ShoppingCart().add_items(cart_items)
 
     # Create an OrderRequest object and add the order details
-    order_request = (OrderRequest()
-                     .add_type('direct')
-                     .add_order_id(order_id)
-                     .add_description(description)
-                     .add_amount(amount)
-                     .add_currency(currency)
-                     .add_gateway('IDEAL')
-                     .add_customer(customer)
-                     .add_delivery(customer)
-                     .add_plugin(plugin)
-                     .add_payment_options(payment_options)
-                     .add_shopping_cart(shopping_cart)
-                     .add_checkout_options(CheckoutOptions.generate_from_shopping_cart(shopping_cart))
-                     )
+    order_request = (
+        OrderRequest()
+        .add_type('direct')
+        .add_order_id(order_id)
+        .add_description(description)
+        .add_amount(amount)
+        .add_currency(currency)
+        .add_gateway('IDEAL')
+        .add_customer(customer)
+        .add_delivery(customer)
+        .add_plugin(plugin)
+        .add_payment_options(payment_options)
+        .add_shopping_cart(shopping_cart)
+        .add_checkout_options(
+            CheckoutOptions.generate_from_shopping_cart(shopping_cart)
+        )
+    )
 
     # Get the order manager from the SDK
     order_manager = multisafepay_sdk.get_order_manager()
