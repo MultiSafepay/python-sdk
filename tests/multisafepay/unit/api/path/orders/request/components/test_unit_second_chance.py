@@ -14,27 +14,21 @@ from multisafepay.api.paths.orders.request.components.second_chance import (
 
 
 def initializes_second_chance_correctly():
-    """
-    Tests that the SecondChance object is initialized correctly with the given value.
-    """
+    """Tests that the SecondChance object is initialized correctly with the given value."""
     second_chance = SecondChance(send_email=True)
 
     assert second_chance.send_email is True
 
 
 def initializes_second_chance_with_default_values():
-    """
-    Tests that the SecondChance object is initialized with the default value when no arguments are provided.
-    """
+    """Tests that the SecondChance object is initialized with the default value when no arguments are provided."""
     second_chance = SecondChance()
 
     assert second_chance.send_email is False
 
 
 def add_send_email_updates_value():
-    """
-    Tests that the add_send_email method updates the send_email field to True.
-    """
+    """Tests that the add_send_email method updates the send_email field to True."""
     second_chance = SecondChance()
     second_chance_updated = second_chance.add_send_email(True)
 
@@ -43,9 +37,7 @@ def add_send_email_updates_value():
 
 
 def add_send_email_updates_value_to_false():
-    """
-    Tests that the add_send_email method updates the send_email field to False.
-    """
+    """Tests that the add_send_email method updates the send_email field to False."""
     second_chance = SecondChance(send_email=True)
     second_chance_updated = second_chance.add_send_email(False)
 

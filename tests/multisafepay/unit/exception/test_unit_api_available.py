@@ -14,17 +14,11 @@ from multisafepay.exception.api import ApiException
 
 
 def test_api_unavailable_exception_is_subclass():
-    """
-    Test if ApiUnavailableException is a subclass of ApiException.
-
-    """
+    """Test if ApiUnavailableException is a subclass of ApiException."""
     assert issubclass(ApiUnavailableException, ApiException)
 
 
 def test_raise_api_unavailable_exception():
-    """
-    Test raising ApiUnavailableException.
-
-    """
+    """Test raising ApiUnavailableException."""
     with pytest.raises(ApiUnavailableException):
         raise ApiUnavailableException("API is unavailable")

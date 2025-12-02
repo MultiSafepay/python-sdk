@@ -17,10 +17,7 @@ from multisafepay.exception.invalid_argument import InvalidArgumentException
 
 
 class Webhook:
-    """
-    A class to represent a webhook.
-
-    """
+    """A class to represent a webhook."""
 
     @staticmethod
     def validate(

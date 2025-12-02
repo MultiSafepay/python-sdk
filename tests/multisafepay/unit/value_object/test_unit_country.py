@@ -16,46 +16,30 @@ from multisafepay.exception.invalid_argument import InvalidArgumentException
 
 
 def test_country_initialization_with_valid_code():
-    """
-    Test the initialization of a Country object with a valid country code.
-
-    """
+    """Test the initialization of a Country object with a valid country code."""
     country = Country(code="US")
     assert country.code == "US"
 
 
 def test_country_initialization_with_invalid_code_length():
-    """
-    Test the initialization of a Country object with an invalid country code length.
-
-    """
+    """Test the initialization of a Country object with an invalid country code length."""
     with pytest.raises(InvalidArgumentException):
         Country(code="USA")
 
 
 def test_country_initialization_with_empty_code():
-    """
-    Test the initialization of a Country object with an empty country code.
-
-    """
+    """Test the initialization of a Country object with an empty country code."""
     with pytest.raises(ValidationError):
         Country()
 
 
 def test_country_initialization_with_lowercase_code():
-    """
-    Test the initialization of a Country object with a lowercase country code.
-
-
-    """
+    """Test the initialization of a Country object with a lowercase country code."""
     country = Country(code="nl")
     assert country.get_code() == "NL"
 
 
 def test_country_initialization_with_uppercase_code():
-    """
-    Test the initialization of a Country object with an uppercase country code.
-
-    """
+    """Test the initialization of a Country object with an uppercase country code."""
     country = Country(code="DE")
     assert country.get_code() == "DE"

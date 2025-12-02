@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.order_id.capture.request.capture_request impo
 
 
 def test_initializes_capture_order_request_with_default_values():
-    """
-    Test that a CaptureOrderRequest object is correctly initialized with default values.
-    """
+    """Test that a CaptureOrderRequest object is correctly initialized with default values."""
     request = CaptureOrderRequest(
         amount=1000,
         new_order_id="ORD123",
@@ -39,9 +37,7 @@ def test_initializes_capture_order_request_with_default_values():
 
 
 def test_initializes_capture_order_request_with_empty_values():
-    """
-    Test that a CaptureOrderRequest object is correctly initialized with empty values.
-    """
+    """Test that a CaptureOrderRequest object is correctly initialized with empty values."""
     request = CaptureOrderRequest()
 
     assert request.amount is None
@@ -55,9 +51,7 @@ def test_initializes_capture_order_request_with_empty_values():
 
 
 def test_add_amount_updates_value():
-    """
-    Test that the add_amount method updates the amount attribute to the given value.
-    """
+    """Test that the add_amount method updates the amount attribute to the given value."""
     request = CaptureOrderRequest()
     request_updated = request.add_amount(500)
 
@@ -66,9 +60,7 @@ def test_add_amount_updates_value():
 
 
 def test_add_new_order_id_updates_value():
-    """
-    Test that the add_new_order_id method updates the new_order_id attribute to the given value.
-    """
+    """Test that the add_new_order_id method updates the new_order_id attribute to the given value."""
     request = CaptureOrderRequest()
     request_updated = request.add_new_order_id("order123")
 
@@ -89,9 +81,7 @@ def test_add_new_order_status_updates_value():
 
 
 def test_add_invoice_id_updates_value():
-    """
-    Test that the add_invoice_id method updates the invoice_id attribute to the given value.
-    """
+    """Test that the add_invoice_id method updates the invoice_id attribute to the given value."""
     request = CaptureOrderRequest()
     request_updated = request.add_invoice_id("invoice123")
 
@@ -100,9 +90,7 @@ def test_add_invoice_id_updates_value():
 
 
 def test_add_carrier_updates_value():
-    """
-    Test that the add_carrier method updates the carrier attribute to the given value.
-    """
+    """Test that the add_carrier method updates the carrier attribute to the given value."""
     request = CaptureOrderRequest()
     request_updated = request.add_carrier("DHL")
 
@@ -111,9 +99,7 @@ def test_add_carrier_updates_value():
 
 
 def test_add_reason_updates_value():
-    """
-    Test that the add_reason method updates the reason attribute to the given value.
-    """
+    """Test that the add_reason method updates the reason attribute to the given value."""
     request = CaptureOrderRequest()
     request_updated = request.add_reason("Customer request")
 
@@ -122,9 +108,7 @@ def test_add_reason_updates_value():
 
 
 def test_add_tracktrace_code_updates_value():
-    """
-    Test that the add_tracktrace_code method updates the tracktrace_code attribute to the given value.
-    """
+    """Test that the add_tracktrace_code method updates the tracktrace_code attribute to the given value."""
     request = CaptureOrderRequest()
     request_updated = request.add_tracktrace_code("TRACK123")
 
@@ -133,9 +117,7 @@ def test_add_tracktrace_code_updates_value():
 
 
 def test_description_updates_value():
-    """
-    Test that the add_description method updates the description attribute to the given value.
-    """
+    """Test that the add_description method updates the description attribute to the given value."""
     request = CaptureOrderRequest()
     request_updated = request.add_description("This is a test description.")
 

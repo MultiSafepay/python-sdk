@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.order_id.refund.response.order_refund import 
 
 
 def test_initializes_order_refund_correctly():
-    """
-    Test that an OrderRefund object is correctly initialized with given values.
-    """
+    """Test that an OrderRefund object is correctly initialized with given values."""
     order_refund = OrderRefund(
         transaction_id="12345",
         refund_id="54321",
@@ -29,9 +27,7 @@ def test_initializes_order_refund_correctly():
 
 
 def test_initializes_order_refund_with_empty_values():
-    """
-    Test that an OrderRefund object is correctly initialized with empty values.
-    """
+    """Test that an OrderRefund object is correctly initialized with empty values."""
     order_refund = OrderRefund()
 
     assert order_refund.transaction_id is None
@@ -40,9 +36,7 @@ def test_initializes_order_refund_with_empty_values():
 
 
 def test_from_dict_initializes_order_refund_correctly():
-    """
-    Test that an OrderRefund object is correctly initialized from a dictionary with given values.
-    """
+    """Test that an OrderRefund object is correctly initialized from a dictionary with given values."""
     data = {
         "transaction_id": "12345",
         "refund_id": "54321",
@@ -56,9 +50,7 @@ def test_from_dict_initializes_order_refund_correctly():
 
 
 def test_from_dict_initializes_order_refund_with_empty_dict():
-    """
-    Test that an OrderRefund object is correctly initialized from an empty dictionary.
-    """
+    """Test that an OrderRefund object is correctly initialized from an empty dictionary."""
     data = {}
     order_refund = OrderRefund.from_dict(data)
 
@@ -68,9 +60,7 @@ def test_from_dict_initializes_order_refund_with_empty_dict():
 
 
 def test_from_dict_returns_none_if_input_is_none():
-    """
-    Test that the from_dict method returns None if the input is None.
-    """
+    """Test that the from_dict method returns None if the input is None."""
     order_refund = OrderRefund.from_dict(None)
 
     assert order_refund is None

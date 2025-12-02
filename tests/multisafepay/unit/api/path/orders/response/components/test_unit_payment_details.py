@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.response.components.payment_details import (
 
 
 def test_initialize_correctly():
-    """
-    Test that the PaymentDetails object is initialized correctly with all attributes.
-    """
+    """Test that the PaymentDetails object is initialized correctly with all attributes."""
     payment_details = PaymentDetails(
         account_holder_name="John Doe",
         account_id="acc123",
@@ -65,9 +63,7 @@ def test_initialize_correctly():
 
 
 def test_initialize_with_none_values():
-    """
-    Test that the PaymentDetails object is initialized correctly with None values for all attributes.
-    """
+    """Test that the PaymentDetails object is initialized correctly with None values for all attributes."""
     payment_details = PaymentDetails()
 
     assert payment_details.account_holder_name is None
@@ -94,9 +90,7 @@ def test_initialize_with_none_values():
 
 
 def test_from_dict_creates_payment_details_instance_with_correct_values():
-    """
-    Test that the PaymentDetails object is created correctly from a dictionary with all attributes.
-    """
+    """Test that the PaymentDetails object is created correctly from a dictionary with all attributes."""
     data = {
         "account_holder_name": "John Doe",
         "account_id": "acc123",
@@ -146,9 +140,7 @@ def test_from_dict_creates_payment_details_instance_with_correct_values():
 
 
 def test_from_dict_creates_payment_details_instance_with_none_values():
-    """
-    Test that the PaymentDetails object is created correctly from an empty dictionary with None values for all attributes.
-    """
+    """Test that the PaymentDetails object is created correctly from an empty dictionary with None values for all attributes."""
     data = {}
     payment_details = PaymentDetails.from_dict(data)
 
@@ -176,9 +168,7 @@ def test_from_dict_creates_payment_details_instance_with_none_values():
 
 
 def from_dict_returns_none_for_none_input():
-    """
-    Test that the PaymentDetails.from_dict method returns None when the input is None.
-    """
+    """Test that the PaymentDetails.from_dict method returns None when the input is None."""
     payment_details = PaymentDetails.from_dict(None)
 
     assert payment_details is None

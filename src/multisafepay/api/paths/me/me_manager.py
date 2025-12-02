@@ -19,9 +19,7 @@ from pydantic import ValidationError
 
 
 class MeManager(AbstractManager):
-    """
-    A manager class for handling 'me' related API requests.
-    """
+    """A manager class for handling 'me' related API requests."""
 
     def __init__(self: "MeManager", client: Client) -> None:
         """

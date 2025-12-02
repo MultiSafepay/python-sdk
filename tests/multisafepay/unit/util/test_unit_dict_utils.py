@@ -17,10 +17,7 @@ from multisafepay.util.dict_utils import (
 
 
 def test_merge_recursive_with_non_overlapping_keys():
-    """
-    Test merging two dictionaries with non-overlapping keys.
-
-    """
+    """Test merging two dictionaries with non-overlapping keys."""
     dict1 = {"a": 1, "b": 2}
     dict2 = {"c": 3, "d": 4}
     result = merge_recursive(dict1, dict2)
@@ -28,11 +25,7 @@ def test_merge_recursive_with_non_overlapping_keys():
 
 
 def test_merge_recursive_with_overlapping_keys():
-    """
-    Test merging two dictionaries with overlapping keys.
-
-
-    """
+    """Test merging two dictionaries with overlapping keys."""
     dict1 = {"a": 1, "b": {"x": 10}}
     dict2 = {"b": {"y": 20}, "c": 3}
     result = merge_recursive(dict1, dict2)
@@ -40,10 +33,7 @@ def test_merge_recursive_with_overlapping_keys():
 
 
 def test_merge_recursive_with_empty_dict1():
-    """
-    Test merging an empty dictionary with a non-empty dictionary.
-
-    """
+    """Test merging an empty dictionary with a non-empty dictionary."""
     dict1 = {}
     dict2 = {"a": 1, "b": 2}
     result = merge_recursive(dict1, dict2)
@@ -51,11 +41,7 @@ def test_merge_recursive_with_empty_dict1():
 
 
 def test_merge_recursive_with_empty_dict2():
-    """
-    Test merging a non-empty dictionary with an empty dictionary.
-
-
-    """
+    """Test merging a non-empty dictionary with an empty dictionary."""
     dict1 = {"a": 1, "b": 2}
     dict2 = {}
     result = merge_recursive(dict1, dict2)
@@ -63,102 +49,70 @@ def test_merge_recursive_with_empty_dict2():
 
 
 def test_remove_null_with_no_null_values():
-    """
-    Test removing null values from a dictionary with no null values.
-
-    """
+    """Test removing null values from a dictionary with no null values."""
     data = {"a": 1, "b": 2, "c": 3}
     result = remove_null(data)
     assert result == {"a": 1, "b": 2, "c": 3}
 
 
 def test_remove_null_with_some_null_values():
-    """
-    Test removing null values from a dictionary with some null values.
-
-
-    """
+    """Test removing null values from a dictionary with some null values."""
     data = {"a": 1, "b": None, "c": 3}
     result = remove_null(data)
     assert result == {"a": 1, "c": 3}
 
 
 def test_remove_null_with_all_null_values():
-    """
-    Test removing null values from a dictionary with all null values.
-
-    """
+    """Test removing null values from a dictionary with all null values."""
     data = {"a": None, "b": None}
     result = remove_null(data)
     assert result == {}
 
 
 def test_remove_null_with_empty_dict():
-    """
-    Test removing null values from an empty dictionary.
-
-    """
+    """Test removing null values from an empty dictionary."""
     data = {}
     result = remove_null(data)
     assert result == {}
 
 
 def test_remove_null_recursive_with_no_null_values():
-    """
-    Test removing null values from a dictionary with no null values.
-
-
-    """
+    """Test removing null values from a dictionary with no null values."""
     data = {"a": 1, "b": 2, "c": 3}
     result = remove_null_recursive(data)
     assert result == {"a": 1, "b": 2, "c": 3}
 
 
 def test_remove_null_recursive_with_some_null_values():
-    """
-    Test removing null values from a dictionary with some null values.
-
-    """
+    """Test removing null values from a dictionary with some null values."""
     data = {"a": 1, "b": None, "c": 3}
     result = remove_null_recursive(data)
     assert result == {"a": 1, "c": 3}
 
 
 def test_remove_null_recursive_with_nested_null_values():
-    """
-    Test removing null values from a dictionary with nested null values.
-
-    """
+    """Test removing null values from a dictionary with nested null values."""
     data = {"a": 1, "b": {"x": 10, "y": None}}
     result = remove_null_recursive(data)
     assert result == {"a": 1, "b": {"x": 10}}
 
 
 def test_remove_null_recursive_with_empty_list():
-    """
-    Test removing null values from a dictionary with an empty list.
-
-    """
+    """Test removing null values from a dictionary with an empty list."""
     data = {"a": 1, "b": []}
     result = remove_null_recursive(data)
     assert result == {"a": 1, "b": []}
 
 
 def test_remove_null_recursive_with_list_of_dicts():
-    """
-    Test removing null values from a dictionary with a list of dictionaries.
-
-    """
+    """Test removing null values from a dictionary with a list of dictionaries."""
     data = {"a": 1, "b": [{"x": 10, "y": None}, {"z": None}]}
     result = remove_null_recursive(data)
     assert result == {"a": 1, "b": [{"x": 10}]}
 
 
 def test_remove_null_recursive_multiple_nested_levels_dicts_and_lists():
-    """
-    Test removing null values from a dictionary with multiple nested levels of dictionaries and lists.
-
-    """
+    """Test removing null values from a dictionary with multiple nested levels of dictionaries and lists."""
     data = {
         "a": 1,
         "b": {
@@ -175,10 +129,6 @@ def test_remove_null_recursive_multiple_nested_levels_dicts_and_lists():
 
 
 def test_dict_empty():
-    """
-    Test checking if a dictionary or list is empty.
-
-
-    """
+    """Test checking if a dictionary or list is empty."""
     assert dict_empty({}) == True
     assert dict_empty({"a": 1}) == False

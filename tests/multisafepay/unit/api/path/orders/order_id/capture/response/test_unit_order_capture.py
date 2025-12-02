@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.order_id.capture.response.order_capture impor
 
 
 def test_initializes_order_capture_correctly():
-    """
-    Test that an OrderCapture object is correctly initialized with given data.
-    """
+    """Test that an OrderCapture object is correctly initialized with given data."""
     order_capture = OrderCapture(
         transaction_id="TX123",
         order_id="ORD123",
@@ -28,9 +26,7 @@ def test_initializes_order_capture_correctly():
 
 
 def test_initializes_order_capture_with_empty_values():
-    """
-    Test that an OrderCapture object is correctly initialized with default values.
-    """
+    """Test that an OrderCapture object is correctly initialized with default values."""
     order_capture = OrderCapture()
     assert order_capture.transaction_id is None
     assert order_capture.order_id is None
@@ -38,9 +34,7 @@ def test_initializes_order_capture_with_empty_values():
 
 
 def test_from_dict_initializes_order_capture_correctly():
-    """
-    Test that an OrderCapture object is correctly initialized from a dictionary.
-    """
+    """Test that an OrderCapture object is correctly initialized from a dictionary."""
     data = {
         "transaction_id": "TX123",
         "order_id": "ORD123",
@@ -53,9 +47,7 @@ def test_from_dict_initializes_order_capture_correctly():
 
 
 def test_from_dict_initializes_order_capture_with_empty_dict():
-    """
-    Test that an OrderCapture object is correctly initialized from an empty dictionary.
-    """
+    """Test that an OrderCapture object is correctly initialized from an empty dictionary."""
     data = {}
     order_capture = OrderCapture.from_dict(data)
     assert order_capture.transaction_id is None
@@ -64,8 +56,6 @@ def test_from_dict_initializes_order_capture_with_empty_dict():
 
 
 def test_from_dict_returns_none_for_none_input():
-    """
-    Test that the from_dict method returns None when given None as input.
-    """
+    """Test that the from_dict method returns None when given None as input."""
     order_capture = OrderCapture.from_dict(None)
     assert order_capture is None

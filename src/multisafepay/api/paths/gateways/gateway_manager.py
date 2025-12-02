@@ -26,9 +26,7 @@ ALLOWED_OPTIONS = {
 
 
 class GatewayManager(AbstractManager):
-    """
-    Manages gateway-related operations.
-    """
+    """Manages gateway-related operations."""
 
     def __init__(self: "GatewayManager", client: Client) -> None:
         """

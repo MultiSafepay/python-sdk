@@ -32,10 +32,7 @@ def test_initializes_with_valid_values():
 
 
 def test_creates_from_dict_with_name_and_rules():
-    """
-    Test that a TaxRule instance is created from a dictionary with name and rules.
-
-    """
+    """Test that a TaxRule instance is created from a dictionary with name and rules."""
     data = {"name": "Standard Tax", "rules": [{"rate": 21, "country": "NL"}]}
     tax_rule = TaxRule.from_dict(data)
     assert tax_rule.name == "Standard Tax"
@@ -45,10 +42,7 @@ def test_creates_from_dict_with_name_and_rules():
 
 
 def test_creates_from_dict_with_only_rules():
-    """
-    Test that a TaxRule instance is created from a dictionary with only rules.
-
-    """
+    """Test that a TaxRule instance is created from a dictionary with only rules."""
     data = {"rules": [{"rate": 21, "country": "NL"}]}
     tax_rule = TaxRule.from_dict(data)
     assert tax_rule.name is None
@@ -58,10 +52,7 @@ def test_creates_from_dict_with_only_rules():
 
 
 def test_adds_rules():
-    """
-    Test that rules are added to a TaxRule instance.
-
-    """
+    """Test that rules are added to a TaxRule instance."""
     tax_rule = TaxRule()
     tax_rates = [TaxRate(rate=21, country="NL")]
     tax_rule.add_rules(tax_rates)
@@ -71,10 +62,7 @@ def test_adds_rules():
 
 
 def test_adds_a_single_rule():
-    """
-    Test that a single rule is added to a TaxRule instance.
-
-    """
+    """Test that a single rule is added to a TaxRule instance."""
     tax_rule = TaxRule()
     tax_rate = TaxRate(rate=21, country="NL")
     tax_rule.add_rule(tax_rate)

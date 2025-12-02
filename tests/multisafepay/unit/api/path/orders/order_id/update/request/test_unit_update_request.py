@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.order_id.update.request.update_request import
 
 
 def test_initializes_update_order_request_correctly():
-    """
-    Test that an UpdateOrderRequest object is correctly initialized with given values.
-    """
+    """Test that an UpdateOrderRequest object is correctly initialized with given values."""
     request = UpdateOrderRequest(
         tracktrace_code="123ABC",
         tracktrace_url="http://example.com/track",
@@ -45,9 +43,7 @@ def test_initializes_update_order_request_correctly():
 
 
 def test_initializes_update_order_request_with_empty_values():
-    """
-    Test that an UpdateOrderRequest object is correctly initialized with empty values.
-    """
+    """Test that an UpdateOrderRequest object is correctly initialized with empty values."""
     request = UpdateOrderRequest()
 
     assert request.tracktrace_code is None
@@ -64,9 +60,7 @@ def test_initializes_update_order_request_with_empty_values():
 
 
 def test_add_tracktrace_code_updates_value():
-    """
-    Test that the add_tracktrace_code method updates the tracktrace_code attribute.
-    """
+    """Test that the add_tracktrace_code method updates the tracktrace_code attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_tracktrace_code("123ABC")
 
@@ -75,9 +69,7 @@ def test_add_tracktrace_code_updates_value():
 
 
 def test_add_tracktrace_url_updates_value():
-    """
-    Test that the add_tracktrace_url method updates the tracktrace_url attribute.
-    """
+    """Test that the add_tracktrace_url method updates the tracktrace_url attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_tracktrace_url("http://example.com/track")
 
@@ -86,9 +78,7 @@ def test_add_tracktrace_url_updates_value():
 
 
 def test_add_carrier_updates_value():
-    """
-    Test that the add_carrier method updates the carrier attribute.
-    """
+    """Test that the add_carrier method updates the carrier attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_carrier("CarrierName")
 
@@ -97,9 +87,7 @@ def test_add_carrier_updates_value():
 
 
 def test_add_ship_date_updates_value():
-    """
-    Test that the add_ship_date method updates the ship_date attribute.
-    """
+    """Test that the add_ship_date method updates the ship_date attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_ship_date("2023-10-01")
 
@@ -108,9 +96,7 @@ def test_add_ship_date_updates_value():
 
 
 def test_add_reason_updates_value():
-    """
-    Test that the add_reason method updates the reason attribute.
-    """
+    """Test that the add_reason method updates the reason attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_reason("Update reason")
 
@@ -119,9 +105,7 @@ def test_add_reason_updates_value():
 
 
 def test_add_invoice_id_updates_value():
-    """
-    Test that the add_invoice_id method updates the invoice_id attribute.
-    """
+    """Test that the add_invoice_id method updates the invoice_id attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_invoice_id("INV123")
 
@@ -130,9 +114,7 @@ def test_add_invoice_id_updates_value():
 
 
 def test_add_invoice_url_updates_value():
-    """
-    Test that the add_invoice_url method updates the invoice_url attribute.
-    """
+    """Test that the add_invoice_url method updates the invoice_url attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_invoice_url("http://example.com/invoice")
 
@@ -141,9 +123,7 @@ def test_add_invoice_url_updates_value():
 
 
 def test_add_po_number_updates_value():
-    """
-    Test that the add_po_number method updates the po_number attribute.
-    """
+    """Test that the add_po_number method updates the po_number attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_po_number("PO123")
 
@@ -152,9 +132,7 @@ def test_add_po_number_updates_value():
 
 
 def test_add_status_updates_value():
-    """
-    Test that the add_status method updates the status attribute.
-    """
+    """Test that the add_status method updates the status attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_status("Shipped")
 
@@ -163,9 +141,7 @@ def test_add_status_updates_value():
 
 
 def test_add_exclude_order_updates_value():
-    """
-    Test that the add_exclude_order method updates the exclude_order attribute.
-    """
+    """Test that the add_exclude_order method updates the exclude_order attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_exclude_order(True)
 
@@ -174,9 +150,7 @@ def test_add_exclude_order_updates_value():
 
 
 def test_add_extend_expiration_updates_value():
-    """
-    Test that the add_extend_expiration method updates the extend_expiration attribute.
-    """
+    """Test that the add_extend_expiration method updates the extend_expiration attribute."""
     request = UpdateOrderRequest()
     request_updated = request.add_extend_expiration(True)
 

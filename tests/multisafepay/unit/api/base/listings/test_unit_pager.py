@@ -12,10 +12,7 @@ from multisafepay.api.base.listings.pager import Pager
 
 
 def test_initialization_with_empty_data():
-    """
-    Test the initialization of a Pager object with empty data.
-
-    """
+    """Test the initialization of a Pager object with empty data."""
     pager = Pager()
     assert pager.after is None
     assert pager.before is None
@@ -23,10 +20,7 @@ def test_initialization_with_empty_data():
 
 
 def test_initialization_with_none_cursor():
-    """
-    Test the initialization of a Pager object with None cursor.
-
-    """
+    """Test the initialization of a Pager object with None cursor."""
     pager = Pager(after="asd", before="dsa", cursor=None)
     assert pager.after == "asd"
     assert pager.before == "dsa"
@@ -34,20 +28,14 @@ def test_initialization_with_none_cursor():
 
 
 def test_initialization_with_none_data():
-    """
-    Test the initialization of a Pager object from None data.
-
-    """
+    """Test the initialization of a Pager object from None data."""
     data = None
     pager = Pager.from_dict(data)
     assert pager is None
 
 
 def test_cursor_initialization_with_valid_data():
-    """
-    Test the initialization of a Cursor object from a dictionary with valid data.
-
-    """
+    """Test the initialization of a Cursor object from a dictionary with valid data."""
     data = {
         "after": "a1",
         "before": "b1",

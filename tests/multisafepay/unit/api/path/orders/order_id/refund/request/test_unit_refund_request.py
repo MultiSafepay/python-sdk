@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.order_id.refund.request.refund_request import
 
 
 def test_initializes_refund_order_request_correctly():
-    """
-    Test that a RefundOrderRequest object is correctly initialized with given data.
-    """
+    """Test that a RefundOrderRequest object is correctly initialized with given data."""
     request = RefundOrderRequest()
     request.add_currency("USD")
     request.add_amount(1000)
@@ -28,9 +26,7 @@ def test_initializes_refund_order_request_correctly():
 
 
 def test_initializes_refund_order_request_with_default_values():
-    """
-    Test that a RefundOrderRequest object is correctly initialized with default values.
-    """
+    """Test that a RefundOrderRequest object is correctly initialized with default values."""
     request = RefundOrderRequest()
 
     assert request.currency is None
@@ -40,9 +36,7 @@ def test_initializes_refund_order_request_with_default_values():
 
 
 def add_currency_updates_value():
-    """
-    Test that the add_currency method updates the currency attribute to the given value.
-    """
+    """Test that the add_currency method updates the currency attribute to the given value."""
     request = RefundOrderRequest()
     request_updated = request.add_currency("EUR")
 
@@ -51,9 +45,7 @@ def add_currency_updates_value():
 
 
 def add_amount_updates_value():
-    """
-    Test that the add_amount method updates the amount attribute to the given value.
-    """
+    """Test that the add_amount method updates the amount attribute to the given value."""
     request = RefundOrderRequest()
     request_updated = request.add_amount(500)
 
@@ -62,9 +54,7 @@ def add_amount_updates_value():
 
 
 def add_description_updates_value():
-    """
-    Test that the add_description method updates the description attribute to the given value.
-    """
+    """Test that the add_description method updates the description attribute to the given value."""
     request = RefundOrderRequest()
     request_updated = request.add_description("Partial refund")
 

@@ -16,10 +16,7 @@ from multisafepay.util.total_amount import (
 
 
 def test_get_tax_rate_by_item():
-    """
-    Test the get_tax_rate_by_item method.
-
-    """
+    """Test the get_tax_rate_by_item method."""
     item = {"unit_price": 1000, "quantity": 1, "tax_table_selector": "BTW10"}
 
     data = {
@@ -41,11 +38,7 @@ def test_get_tax_rate_by_item():
 
 
 def test_get_tax_rate_by_item_btw21():
-    """
-    Test the get_tax_rate_by_item method.
-
-
-    """
+    """Test the get_tax_rate_by_item method."""
     item = {"unit_price": 1000, "quantity": 1, "tax_table_selector": "BTW22"}
 
     data = {
@@ -67,10 +60,7 @@ def test_get_tax_rate_by_item_btw21():
 
 
 def test_calculate_totals():
-    """
-    Test the calculate_totals method.
-
-    """
+    """Test the calculate_totals method."""
     data = {
         "shopping_cart": {
             "items": [
@@ -87,10 +77,7 @@ def test_calculate_totals():
 
 
 def test_validate_total_amount():
-    """
-    Test the validate_total_amount method.
-
-    """
+    """Test the validate_total_amount method."""
     data = {
         "amount": 1000,
         "shopping_cart": {

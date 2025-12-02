@@ -12,25 +12,19 @@ from multisafepay.api.shared.cart.shopping_cart import ShoppingCart
 
 
 def test_initializes_with_default_values():
-    """
-    Test that a ShoppingCart initializes with default values.
-    """
+    """Test that a ShoppingCart initializes with default values."""
     cart = ShoppingCart()
     assert cart.items is None
 
 
 def test_creates_from_dict_without_items():
-    """
-    Test that a ShoppingCart can be created from a dictionary without items.
-    """
+    """Test that a ShoppingCart can be created from a dictionary without items."""
     data = {}
     cart = ShoppingCart.from_dict(data)
     assert cart.items is None
 
 
 def test_creates_from_none():
-    """
-    Test that a ShoppingCart is None when created from None.
-    """
+    """Test that a ShoppingCart is None when created from None."""
     cart = ShoppingCart.from_dict(None)
     assert cart is None

@@ -14,27 +14,21 @@ from multisafepay.api.paths.orders.request.components.gateway_info.terminal impo
 
 
 def test_initializes_terminal_correctly():
-    """
-    Test that the Terminal object is initialized correctly with a given terminal_id.
-    """
+    """Test that the Terminal object is initialized correctly with a given terminal_id."""
     terminal = Terminal(terminal_id="12345")
 
     assert terminal.terminal_id == "12345"
 
 
 def test_initializes_terminal_with_empty_value():
-    """
-    Test that the Terminal object is initialized correctly with an empty value.
-    """
+    """Test that the Terminal object is initialized correctly with an empty value."""
     terminal = Terminal()
 
     assert terminal.terminal_id is None
 
 
 def test_add_terminal_id_updates_value():
-    """
-    Test that the add_terminal_id method updates the terminal_id attribute to the given value.
-    """
+    """Test that the add_terminal_id method updates the terminal_id attribute to the given value."""
     terminal = Terminal()
     terminal_updated = terminal.add_terminal_id("12345")
 
@@ -43,9 +37,7 @@ def test_add_terminal_id_updates_value():
 
 
 def test_add_terminal_id_with_empty_string():
-    """
-    Test that the add_terminal_id method updates the terminal_id attribute to an empty string.
-    """
+    """Test that the add_terminal_id method updates the terminal_id attribute to an empty string."""
     terminal = Terminal()
     terminal_updated = terminal.add_terminal_id("")
 

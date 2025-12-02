@@ -28,9 +28,7 @@ ALLOWED_OPTIONS = {
 
 
 class PaymentMethodManager(AbstractManager):
-    """
-    A class representing the PaymentMethodManager.
-    """
+    """A class representing the PaymentMethodManager."""
 
     def __init__(self: "PaymentMethodManager", client: Client) -> None:
         """
