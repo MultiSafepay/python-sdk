@@ -13,9 +13,7 @@ from multisafepay.api.shared.payment_method import PaymentMethod
 
 
 def test_initializes_with_valid_values():
-    """
-    Test that a PaymentMethod instance initializes with valid values.
-    """
+    """Test that a PaymentMethod instance initializes with valid values."""
     payment_method = PaymentMethod(
         account_id="12345",
         amount=100.0,
@@ -37,9 +35,7 @@ def test_initializes_with_valid_values():
 
 
 def test_initializes_with_default_values():
-    """
-    Test that a PaymentMethod instance initializes with default values.
-    """
+    """Test that a PaymentMethod instance initializes with default values."""
     payment_method = PaymentMethod()
     assert payment_method.account_id is None
     assert payment_method.amount is None
@@ -52,33 +48,25 @@ def test_initializes_with_default_values():
 
 
 def test_adds_account_id():
-    """
-    Test that an account ID is added to the PaymentMethod instance.
-    """
+    """Test that an account ID is added to the PaymentMethod instance."""
     payment_method = PaymentMethod().add_account_id("12345")
     assert payment_method.account_id == "12345"
 
 
 def test_adds_amount():
-    """
-    Test that an amount is added to the PaymentMethod instance.
-    """
+    """Test that an amount is added to the PaymentMethod instance."""
     payment_method = PaymentMethod().add_amount(100.0)
     assert payment_method.amount == 100.0
 
 
 def test_adds_currency():
-    """
-    Test that a currency is added to the PaymentMethod instance.
-    """
+    """Test that a currency is added to the PaymentMethod instance."""
     payment_method = PaymentMethod().add_currency("USD")
     assert payment_method.currency == "USD"
 
 
 def test_adds_description():
-    """
-    Test that a description is added to the PaymentMethod instance.
-    """
+    """Test that a description is added to the PaymentMethod instance."""
     payment_method = PaymentMethod().add_description(
         "Payment for order #12345",
     )
@@ -86,41 +74,31 @@ def test_adds_description():
 
 
 def test_adds_external_transaction_id():
-    """
-    Test that an external transaction ID is added to the PaymentMethod instance.
-    """
+    """Test that an external transaction ID is added to the PaymentMethod instance."""
     payment_method = PaymentMethod().add_external_transaction_id("txn_12345")
     assert payment_method.external_transaction_id == "txn_12345"
 
 
 def test_adds_payment_description():
-    """
-    Test that a payment description is added to the PaymentMethod instance.
-    """
+    """Test that a payment description is added to the PaymentMethod instance."""
     payment_method = PaymentMethod().add_payment_description("Order payment")
     assert payment_method.payment_description == "Order payment"
 
 
 def test_adds_status():
-    """
-    Test that a status is added to the PaymentMethod instance.
-    """
+    """Test that a status is added to the PaymentMethod instance."""
     payment_method = PaymentMethod().add_status("completed")
     assert payment_method.status == "completed"
 
 
 def test_adds_type():
-    """
-    Test that a type is added to the PaymentMethod instance.
-    """
+    """Test that a type is added to the PaymentMethod instance."""
     payment_method = PaymentMethod().add_type("credit_card")
     assert payment_method.type == "credit_card"
 
 
 def test_creates_from_dict_with_all_fields():
-    """
-    Test that a PaymentMethod instance is created from a dictionary with all fields.
-    """
+    """Test that a PaymentMethod instance is created from a dictionary with all fields."""
     data = {
         "account_id": "12345",
         "amount": 100.0,
@@ -143,9 +121,7 @@ def test_creates_from_dict_with_all_fields():
 
 
 def test_creates_from_empty_dict():
-    """
-    Test that a PaymentMethod instance is created from an empty dictionary.
-    """
+    """Test that a PaymentMethod instance is created from an empty dictionary."""
     data = {}
     payment_method = PaymentMethod.from_dict(data)
     assert payment_method.account_id is None
@@ -159,8 +135,6 @@ def test_creates_from_empty_dict():
 
 
 def test_creates_from_none():
-    """
-    Test that None is returned when creating a PaymentMethod instance from None.
-    """
+    """Test that None is returned when creating a PaymentMethod instance from None."""
     payment_method = PaymentMethod.from_dict(None)
     assert payment_method is None

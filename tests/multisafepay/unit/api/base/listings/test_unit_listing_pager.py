@@ -15,18 +15,12 @@ class MockItem:
     """Mock item for testing purposes."""
 
     def __init__(self: "MockItem", value: object) -> None:
-        """
-        Initialize a MockItem with a given value.
-
-        """
+        """Initialize a MockItem with a given value."""
         self.value = value
 
 
 def test_listing_pager_with_not_pager():
-    """
-    Test the initialization of a ListingPager object with valid data and no Pager.
-
-    """
+    """Test the initialization of a ListingPager object with valid data and no Pager."""
     data = [{"value": 1}, {"value": 2}]
     listing_pager = ListingPager(data=data, pager=None, class_type=MockItem)
     assert len(listing_pager) == 2

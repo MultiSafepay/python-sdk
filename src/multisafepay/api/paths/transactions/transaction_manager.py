@@ -39,9 +39,7 @@ ALLOWED_OPTIONS = {
 
 
 class TransactionManager(AbstractManager):
-    """
-    A class representing the TransactionManager.
-    """
+    """A class representing the TransactionManager."""
 
     def __init__(self: "TransactionManager", client: Client) -> None:
         """

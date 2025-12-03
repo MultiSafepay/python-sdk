@@ -15,55 +15,36 @@ from multisafepay.value_object.amount import Amount
 
 
 def test_amount_initialization():
-    """
-    Test the initialization of an Amount object with a valid amount value.
-
-    """
+    """Test the initialization of an Amount object with a valid amount value."""
     amount = Amount(amount=100)
     assert amount.amount == 100
 
 
 def test_empty_amount_initialization():
-    """
-    Test the initialization of an Amount object without providing an amount value.
-
-    """
+    """Test the initialization of an Amount object without providing an amount value."""
     with pytest.raises(ValidationError):
         Amount()
 
 
 def test_cast_initialization_valid():
-    """
-    Test the initialization of an Amount object with a valid amount value as a string.
-
-    """
+    """Test the initialization of an Amount object with a valid amount value as a string."""
     amount = Amount(amount="100")
     assert amount.amount == 100
 
 
 def test_amount_initialization_zero():
-    """
-    Test the initialization of an Amount object with a zero amount value.
-
-    """
+    """Test the initialization of an Amount object with a zero amount value."""
     amount = Amount(amount=0)
     assert amount.amount == 0
 
 
 def test_amount_initialization_negative():
-    """
-    Test the initialization of an Amount object with a negative amount value.
-
-
-    """
+    """Test the initialization of an Amount object with a negative amount value."""
     amount = Amount(amount=-50)
     assert amount.amount == -50
 
 
 def test_amount_get():
-    """
-    Test the get method of the Amount object.
-
-    """
+    """Test the get method of the Amount object."""
     amount = Amount(amount=100)
     assert amount.get() == 100

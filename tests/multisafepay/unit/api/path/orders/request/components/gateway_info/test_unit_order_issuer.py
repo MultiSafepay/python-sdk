@@ -14,27 +14,21 @@ from multisafepay.api.paths.orders.request.components.gateway_info.issuer import
 
 
 def test_initializes_issuer_correctly():
-    """
-    Test that the Issuer object is initialized correctly with given values.
-    """
+    """Test that the Issuer object is initialized correctly with given values."""
     issuer = Issuer(issuer_id="12345")
 
     assert issuer.issuer_id == "12345"
 
 
 def test_initializes_issuer_with_empty_values():
-    """
-    Test that the Issuer object is initialized correctly with empty values.
-    """
+    """Test that the Issuer object is initialized correctly with empty values."""
     issuer = Issuer()
 
     assert issuer.issuer_id is None
 
 
 def test_add_issuer_id_updates_value():
-    """
-    Test that the add_issuer_id method updates the issuer_id attribute.
-    """
+    """Test that the add_issuer_id method updates the issuer_id attribute."""
     request = Issuer()
     request_updated = request.add_issuer_id("12345")
 

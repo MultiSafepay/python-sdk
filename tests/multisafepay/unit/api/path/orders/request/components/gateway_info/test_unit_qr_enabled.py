@@ -14,27 +14,21 @@ from multisafepay.api.paths.orders.request.components.gateway_info.qr_enabled im
 
 
 def test_initializes_qr_enabled_correctly():
-    """
-    Test that the QrEnabled object is initialized correctly with a given value.
-    """
+    """Test that the QrEnabled object is initialized correctly with a given value."""
     qr_enabled = QrEnabled(qr_enabled=True)
 
     assert qr_enabled.qr_enabled is True
 
 
 def test_initializes_qr_enabled_with_empty_value():
-    """
-    Test that the QrEnabled object is initialized correctly with an empty value.
-    """
+    """Test that the QrEnabled object is initialized correctly with an empty value."""
     qr_enabled = QrEnabled()
 
     assert qr_enabled.qr_enabled is None
 
 
 def test_add_qr_enabled_updates_value():
-    """
-    Test that the add_qr_enabled method updates the qr_enabled attribute to True.
-    """
+    """Test that the add_qr_enabled method updates the qr_enabled attribute to True."""
     request = QrEnabled()
     request_updated = request.add_qr_enabled(True)
 
@@ -43,9 +37,7 @@ def test_add_qr_enabled_updates_value():
 
 
 def test_add_qr_enabled_with_false_value():
-    """
-    Test that the add_qr_enabled method updates the qr_enabled attribute to False.
-    """
+    """Test that the add_qr_enabled method updates the qr_enabled attribute to False."""
     request = QrEnabled()
     request_updated = request.add_qr_enabled(False)
 

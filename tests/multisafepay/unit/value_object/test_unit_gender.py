@@ -16,46 +16,30 @@ from multisafepay.value_object.gender import Gender
 
 
 def test_gender_initialization_valid():
-    """
-    Test the initialization of a Gender object with a valid gender.
-
-    """
+    """Test the initialization of a Gender object with a valid gender."""
     gender = Gender(gender="male")
     assert gender.gender == "male"
 
 
 def test_gender_is_not_string():
-    """
-    Test the initialization of a Gender object with a non-string gender.
-
-    """
+    """Test the initialization of a Gender object with a non-string gender."""
     with pytest.raises(ValidationError):
         Gender()
 
 
 def test_unknown_gender():
-    """
-    Test the initialization of a Gender object with an unknown gender.
-
-    """
+    """Test the initialization of a Gender object with an unknown gender."""
     with pytest.raises(InvalidArgumentException):
         Gender(gender="123")
 
 
 def test_gender_get():
-    """
-    Test the get method of the Gender object.
-
-
-    """
+    """Test the get method of the Gender object."""
     gender = Gender(gender="mr")
     assert gender.get() == "mr"
 
 
 def test_gender_initialization_invalid():
-    """
-    Test the initialization of a Gender object with an invalid gender.
-
-    """
+    """Test the initialization of a Gender object with an invalid gender."""
     with pytest.raises(InvalidArgumentException):
         Gender(gender="unknown")

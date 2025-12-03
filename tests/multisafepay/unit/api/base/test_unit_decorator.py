@@ -12,8 +12,6 @@ from multisafepay.api.base.decorator import Decorator
 
 
 def test_initialization_with_empty_dependencies():
-    """
-    Test the initialization of a Decorator object with empty dependencies.
-    """
+    """Test the initialization of a Decorator object with empty dependencies."""
     decorator = Decorator()
     assert decorator.get_dependencies() == {}

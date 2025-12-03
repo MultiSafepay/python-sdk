@@ -13,17 +13,11 @@ from multisafepay.exception.invalid_api_key import InvalidApiKeyException
 
 
 def test_invalid_api_key_exception_is_subclass():
-    """
-    Test if InvalidApiKeyException is a subclass of Exception.
-
-    """
+    """Test if InvalidApiKeyException is a subclass of Exception."""
     assert issubclass(InvalidApiKeyException, Exception)
 
 
 def test_raise_invalid_api_key_exception():
-    """
-    Test raising InvalidApiKeyException.
-
-    """
+    """Test raising InvalidApiKeyException."""
     with pytest.raises(InvalidApiKeyException):
         raise InvalidApiKeyException("Invalid API key provided")

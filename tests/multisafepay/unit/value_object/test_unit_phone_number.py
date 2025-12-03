@@ -15,11 +15,7 @@ from multisafepay.value_object.phone_number import PhoneNumber
 
 
 def test_phone_number_initialization():
-    """
-    Test the initialization of a PhoneNumber object with a valid phone number.
-
-
-    """
+    """Test the initialization of a PhoneNumber object with a valid phone number."""
     phone_number = PhoneNumber(phone_number="1234567890")
     assert phone_number.phone_number == "1234567890"
 

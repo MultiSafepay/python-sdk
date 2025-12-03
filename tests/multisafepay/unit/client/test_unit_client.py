@@ -14,19 +14,13 @@ from multisafepay.client.client import Client
 
 
 def test_initializes_with_default_http_client():
-    """
-    Test that the Client initializes with the default HTTP client.
-
-    """
+    """Test that the Client initializes with the default HTTP client."""
     client = Client(api_key="mock_api_key", is_production=False)
     assert isinstance(client.http_client, Session)
 
 
 def test_initializes_with_custom_http_client():
-    """
-    Test that the Client initializes with a custom HTTP client.
-
-    """
+    """Test that the Client initializes with a custom HTTP client."""
     custom_http_client = Mock()
     client = Client(
         api_key="mock_api_key",

@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.request.components.gateway_info.qr_code impor
 
 
 def test_initializes_qr_code_correctly():
-    """
-    Test that the QrCode object is initialized correctly with given values.
-    """
+    """Test that the QrCode object is initialized correctly with given values."""
     qr_code = QrCode(
         qr_size=200,
         allow_multiple=True,
@@ -33,9 +31,7 @@ def test_initializes_qr_code_correctly():
 
 
 def test_initializes_qr_code_with_empty_values():
-    """
-    Test that the QrCode object is initialized correctly with empty values.
-    """
+    """Test that the QrCode object is initialized correctly with empty values."""
     qr_code = QrCode()
 
     assert qr_code.qr_size is None
@@ -46,9 +42,7 @@ def test_initializes_qr_code_with_empty_values():
 
 
 def test_add_qr_size_updates_value():
-    """
-    Test that the add_qr_size method updates the qr_size attribute.
-    """
+    """Test that the add_qr_size method updates the qr_size attribute."""
     request = QrCode()
     request_updated = request.add_qr_size(200)
 
@@ -57,9 +51,7 @@ def test_add_qr_size_updates_value():
 
 
 def test_add_allow_multiple_updates_value():
-    """
-    Test that the add_allow_multiple method updates the allow_multiple attribute.
-    """
+    """Test that the add_allow_multiple method updates the allow_multiple attribute."""
     request = QrCode()
     request_updated = request.add_allow_multiple(True)
 
@@ -68,9 +60,7 @@ def test_add_allow_multiple_updates_value():
 
 
 def test_add_allow_change_amount_updates_value():
-    """
-    Test that the add_allow_change_amount method updates the allow_change_amount attribute.
-    """
+    """Test that the add_allow_change_amount method updates the allow_change_amount attribute."""
     request = QrCode()
     request_updated = request.add_allow_change_amount(False)
 
@@ -79,9 +69,7 @@ def test_add_allow_change_amount_updates_value():
 
 
 def test_add_min_amount_updates_value():
-    """
-    Test that the add_min_amount method updates the min_amount attribute.
-    """
+    """Test that the add_min_amount method updates the min_amount attribute."""
     request = QrCode()
     request_updated = request.add_min_amount(100)
 
@@ -90,9 +78,7 @@ def test_add_min_amount_updates_value():
 
 
 def test_add_max_amount_updates_value():
-    """
-    Test that the add_max_amount method updates the max_amount attribute.
-    """
+    """Test that the add_max_amount method updates the max_amount attribute."""
     request = QrCode()
     request_updated = request.add_max_amount(500)
 

@@ -14,9 +14,7 @@ from multisafepay.api.paths.transactions.response.transaction import (
 
 
 def test_initializes_transaction_correctly():
-    """
-    Test that a Transaction object is correctly initialized with given data.
-    """
+    """Test that a Transaction object is correctly initialized with given data."""
     transaction = Transaction(
         amount=1000,
         completed="2023-10-01",
@@ -76,9 +74,7 @@ def test_initializes_transaction_correctly():
 
 
 def test_initializes_transaction_empty():
-    """
-    Test that a Transaction object is correctly initialized with default values.
-    """
+    """Test that a Transaction object is correctly initialized with default values."""
     transaction = Transaction()
     assert transaction.amount is None
     assert transaction.completed is None
@@ -110,9 +106,7 @@ def test_initializes_transaction_empty():
 
 
 def test_initializes_transaction_from_dict():
-    """
-    Test that a Transaction object is correctly initialized from a dictionary.
-    """
+    """Test that a Transaction object is correctly initialized from a dictionary."""
     data = {
         "amount": 1000,
         "completed": "2023-10-01",
@@ -173,9 +167,7 @@ def test_initializes_transaction_from_dict():
 
 
 def test_initializes_transaction_with_none_values_from_dict():
-    """
-    Test that a Transaction object is correctly initialized from an empty dictionary.
-    """
+    """Test that a Transaction object is correctly initialized from an empty dictionary."""
     data = {}
     transaction = Transaction.from_dict(data)
     assert transaction.amount is None
@@ -208,8 +200,6 @@ def test_initializes_transaction_with_none_values_from_dict():
 
 
 def test_from_dict_returns_none_for_none_input_from_dict():
-    """
-    Test that the from_dict method returns None when given None as input.
-    """
+    """Test that the from_dict method returns None when given None as input."""
     transaction = Transaction.from_dict(None)
     assert transaction is None

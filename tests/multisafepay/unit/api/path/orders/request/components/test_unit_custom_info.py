@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.request.components.custom_info import (
 
 
 def test_initializes_custom_info_correctly():
-    """
-    Tests that the CustomInfo object is initialized correctly with given values.
-    """
+    """Tests that the CustomInfo object is initialized correctly with given values."""
     custom_info = CustomInfo(
         custom1="value1",
         custom2="value2",
@@ -29,9 +27,7 @@ def test_initializes_custom_info_correctly():
 
 
 def test_initializes_custom_info_with_empty_values():
-    """
-    Tests that the CustomInfo object is initialized with None values when no arguments are provided.
-    """
+    """Tests that the CustomInfo object is initialized with None values when no arguments are provided."""
     custom_info = CustomInfo()
 
     assert custom_info.custom1 is None
@@ -40,9 +36,7 @@ def test_initializes_custom_info_with_empty_values():
 
 
 def test_add_custom1_updates_value():
-    """
-    Tests that the add_custom1 method updates the custom1 field correctly.
-    """
+    """Tests that the add_custom1 method updates the custom1 field correctly."""
     custom_info = CustomInfo()
     custom_info_updated = custom_info.add_custom1("value1")
 
@@ -51,9 +45,7 @@ def test_add_custom1_updates_value():
 
 
 def test_add_custom2_updates_value():
-    """
-    Tests that the add_custom2 method updates the custom2 field correctly.
-    """
+    """Tests that the add_custom2 method updates the custom2 field correctly."""
     custom_info = CustomInfo()
     custom_info_updated = custom_info.add_custom2("value2")
 
@@ -62,9 +54,7 @@ def test_add_custom2_updates_value():
 
 
 def test_add_custom3_updates_value():
-    """
-    Tests that the add_custom3 method updates the custom3 field correctly.
-    """
+    """Tests that the add_custom3 method updates the custom3 field correctly."""
     custom_info = CustomInfo()
     custom_info_updated = custom_info.add_custom3("value3")
 

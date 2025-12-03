@@ -15,9 +15,7 @@ from multisafepay.exception.invalid_argument import InvalidArgumentException
 
 
 def test_initializes_order_request_correctly():
-    """
-    Tests that the OrderRequest object is initialized correctly with the given values.
-    """
+    """Tests that the OrderRequest object is initialized correctly with the given values."""
     order_request = OrderRequest(
         type="direct",
         gateway="test_gateway",
@@ -61,9 +59,7 @@ def test_initializes_order_request_correctly():
 
 
 def test_initializes_order_request_with_default_values():
-    """
-    Tests that the OrderRequest object is initialized with default values when no arguments are provided.
-    """
+    """Tests that the OrderRequest object is initialized with default values when no arguments are provided."""
     order_request = OrderRequest()
 
     assert order_request.type is None
@@ -92,9 +88,7 @@ def test_initializes_order_request_with_default_values():
 
 
 def test_add_type_updates_value():
-    """
-    Tests that the add_type method updates the type field correctly.
-    """
+    """Tests that the add_type method updates the type field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_type("direct")
 
@@ -103,9 +97,7 @@ def test_add_type_updates_value():
 
 
 def test_add_type_raises_exception_for_invalid_value():
-    """
-    Tests that the add_type method raises an InvalidArgumentException for an invalid type value.
-    """
+    """Tests that the add_type method raises an InvalidArgumentException for an invalid type value."""
     order_request = OrderRequest()
     with pytest.raises(InvalidArgumentException) as excinfo:
         order_request.add_type("invalid_type")
@@ -116,9 +108,7 @@ def test_add_type_raises_exception_for_invalid_value():
 
 
 def test_add_recurring_model_updates_value():
-    """
-    Tests that the add_recurring_model method updates the recurring_model field correctly.
-    """
+    """Tests that the add_recurring_model method updates the recurring_model field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_recurring_model("subscription")
 
@@ -127,9 +117,7 @@ def test_add_recurring_model_updates_value():
 
 
 def test_add_recurring_model_raises_exception_for_invalid_value():
-    """
-    Tests that the add_recurring_model method raises an InvalidArgumentException for an invalid recurring_model value.
-    """
+    """Tests that the add_recurring_model method raises an InvalidArgumentException for an invalid recurring_model value."""
     order_request = OrderRequest()
     with pytest.raises(InvalidArgumentException) as excinfo:
         order_request.add_recurring_model("invalid_model")
@@ -140,9 +128,7 @@ def test_add_recurring_model_raises_exception_for_invalid_value():
 
 
 def test_add_order_id_updates_value():
-    """
-    Tests that the add_order_id method updates the order_id field correctly.
-    """
+    """Tests that the add_order_id method updates the order_id field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_order_id("12345")
 
@@ -151,9 +137,7 @@ def test_add_order_id_updates_value():
 
 
 def test_add_currency_updates_value():
-    """
-    Tests that the add_currency method updates the currency field correctly.
-    """
+    """Tests that the add_currency method updates the currency field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_currency("USD")
 
@@ -162,9 +146,7 @@ def test_add_currency_updates_value():
 
 
 def test_add_amount_updates_value():
-    """
-    Tests that the add_amount method updates the amount field correctly.
-    """
+    """Tests that the add_amount method updates the amount field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_amount(1000)
 
@@ -173,9 +155,7 @@ def test_add_amount_updates_value():
 
 
 def test_add_gateway_updates_value():
-    """
-    Tests that the add_gateway method updates the gateway field correctly.
-    """
+    """Tests that the add_gateway method updates the gateway field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_gateway("test_gateway")
 
@@ -184,9 +164,7 @@ def test_add_gateway_updates_value():
 
 
 def test_add_gateway_info_updates_value():
-    """
-    Tests that the add_gateway_info method updates the gateway_info field correctly.
-    """
+    """Tests that the add_gateway_info method updates the gateway_info field correctly."""
     order_request = OrderRequest()
     gateway_info = {"info": "test"}
     order_request_updated = order_request.add_gateway_info(gateway_info)
@@ -196,9 +174,7 @@ def test_add_gateway_info_updates_value():
 
 
 def test_add_description_updates_value():
-    """
-    Tests that the add_description method updates the description field correctly.
-    """
+    """Tests that the add_description method updates the description field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_description("Test description")
 
@@ -207,9 +183,7 @@ def test_add_description_updates_value():
 
 
 def test_add_recurring_id_updates_value():
-    """
-    Tests that the add_recurring_id method updates the recurring_id field correctly.
-    """
+    """Tests that the add_recurring_id method updates the recurring_id field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_recurring_id("rec123")
 
@@ -218,9 +192,7 @@ def test_add_recurring_id_updates_value():
 
 
 def test_add_seconds_active_updates_value():
-    """
-    Tests that the add_seconds_active method updates the seconds_active field correctly.
-    """
+    """Tests that the add_seconds_active method updates the seconds_active field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_seconds_active(3600)
 
@@ -229,9 +201,7 @@ def test_add_seconds_active_updates_value():
 
 
 def test_add_days_active_updates_value():
-    """
-    Tests that the add_days_active method updates the days_active field correctly.
-    """
+    """Tests that the add_days_active method updates the days_active field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_days_active(30)
 
@@ -240,9 +210,7 @@ def test_add_days_active_updates_value():
 
 
 def test_add_var1_updates_value():
-    """
-    Tests that the add_var1 method updates the var1 field correctly.
-    """
+    """Tests that the add_var1 method updates the var1 field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_var1("var1")
 
@@ -251,9 +219,7 @@ def test_add_var1_updates_value():
 
 
 def test_add_var2_updates_value():
-    """
-    Tests that the add_var2 method updates the var2 field correctly.
-    """
+    """Tests that the add_var2 method updates the var2 field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_var2("var2")
 
@@ -262,9 +228,7 @@ def test_add_var2_updates_value():
 
 
 def test_add_var3_updates_value():
-    """
-    Tests that the add_var3 method updates the var3 field correctly.
-    """
+    """Tests that the add_var3 method updates the var3 field correctly."""
     order_request = OrderRequest()
     order_request_updated = order_request.add_var3("var3")
 

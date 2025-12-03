@@ -119,30 +119,22 @@ JSON_STRING = json.dumps(
 
 
 def test_check_auth_with_no_timestamp_check():
-    """
-    Test that the Webhook.validate method returns True when the timestamp check is disabled.
-    """
+    """Test that the Webhook.validate method returns True when the timestamp check is disabled."""
     assert Webhook.validate(JSON_STRING, AUTH, API_KEY, 0)
 
 
 def test_check_auth_with_failing_timestamp_check():
-    """
-    Test that the Webhook.validate method returns False when the timestamp check fails.
-    """
+    """Test that the Webhook.validate method returns False when the timestamp check fails."""
     assert not Webhook.validate(JSON_STRING, AUTH, API_KEY, 1)
 
 
 def test_verify_with_invalid_api_key():
-    """
-    Test that the Webhook.validate method returns False when an invalid API key is provided.
-    """
+    """Test that the Webhook.validate method returns False when an invalid API key is provided."""
     assert not Webhook.validate(JSON_STRING, AUTH, "a-fake-API-key", 0)
 
 
 def test_verify_with_invalid_json_argument():
-    """
-    Test that the Webhook.validate method raises an InvalidArgumentException when an invalid JSON argument is provided.
-    """
+    """Test that the Webhook.validate method raises an InvalidArgumentException when an invalid JSON argument is provided."""
     with pytest.raises(
         InvalidArgumentException,
     ):  # changed to TypeError because in python you cant pass int to json.loads
@@ -150,9 +142,7 @@ def test_verify_with_invalid_json_argument():
 
 
 def test_verify_with_invalid_validation_time_argument():
-    """
-    Test that the Webhook.validate method raises an InvalidArgumentException when an invalid validation time argument is provided.
-    """
+    """Test that the Webhook.validate method raises an InvalidArgumentException when an invalid validation time argument is provided."""
     with pytest.raises(
         InvalidArgumentException,
     ):  # changed to ValueError to match python's error handling.
@@ -160,9 +150,7 @@ def test_verify_with_invalid_validation_time_argument():
 
 
 def test_verify_with_empty_spaces_in_api_key():
-    """
-    Test that the Webhook.validate method returns True when the API key contains leading or trailing spaces.
-    """
+    """Test that the Webhook.validate method returns True when the API key contains leading or trailing spaces."""
     assert Webhook.validate(
         JSON_STRING,
         AUTH,

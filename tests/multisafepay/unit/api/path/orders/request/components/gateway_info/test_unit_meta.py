@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.request.components.gateway_info.meta import (
 
 
 def test_initializes_meta_correctly():
-    """
-    Test that a Meta object is correctly initialized with given data.
-    """
+    """Test that a Meta object is correctly initialized with given data."""
     meta = Meta(
         birthday="1990-01-01",
         bank_account="NL91ABNA0417164300",
@@ -33,9 +31,7 @@ def test_initializes_meta_correctly():
 
 
 def test_initializes_meta_with_empty_values():
-    """
-    Test that a Meta object is correctly initialized with empty values.
-    """
+    """Test that a Meta object is correctly initialized with empty values."""
     meta = Meta()
 
     assert meta.birthday is None
@@ -46,9 +42,7 @@ def test_initializes_meta_with_empty_values():
 
 
 def test_add_birthday_updates_value():
-    """
-    Test that the add_birthday method updates the birthday attribute to the given value.
-    """
+    """Test that the add_birthday method updates the birthday attribute to the given value."""
     request = Meta()
     request_updated = request.add_birthday("1990-01-01")
 
@@ -57,9 +51,7 @@ def test_add_birthday_updates_value():
 
 
 def test_add_bank_account_updates_value():
-    """
-    Test that the add_bank_account method updates the bank_account attribute to the given value.
-    """
+    """Test that the add_bank_account method updates the bank_account attribute to the given value."""
     request = Meta()
     request_updated = request.add_bank_account("NL91ABNA0417164300")
 
@@ -68,9 +60,7 @@ def test_add_bank_account_updates_value():
 
 
 def test_add_phone_updates_value():
-    """
-    Test that the add_phone method updates the phone attribute to the given value.
-    """
+    """Test that the add_phone method updates the phone attribute to the given value."""
     request = Meta()
     request_updated = request.add_phone("+1234567890")
 
@@ -79,9 +69,7 @@ def test_add_phone_updates_value():
 
 
 def test_add_email_address_updates_value():
-    """
-    Test that the add_email_address method updates the email_address attribute to the given value.
-    """
+    """Test that the add_email_address method updates the email_address attribute to the given value."""
     request = Meta()
     request_updated = request.add_email_address("test@example.com")
 
@@ -90,9 +78,7 @@ def test_add_email_address_updates_value():
 
 
 def test_add_gender_updates_value():
-    """
-    Test that the add_gender method updates the gender attribute to the given value.
-    """
+    """Test that the add_gender method updates the gender attribute to the given value."""
     request = Meta()
     request_updated = request.add_gender("male")
 

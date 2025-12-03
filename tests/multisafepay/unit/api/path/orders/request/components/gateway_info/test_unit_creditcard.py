@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.request.components.gateway_info.creditcard im
 
 
 def test_initializes_creditcard_correctly():
-    """
-    Test that a Creditcard object is correctly initialized with given values.
-    """
+    """Test that a Creditcard object is correctly initialized with given values."""
     creditcard = Creditcard(
         card_number="4111111111111111",
         card_holder_name="John Doe",
@@ -35,9 +33,7 @@ def test_initializes_creditcard_correctly():
 
 
 def test_initializes_creditcard_with_empty_values():
-    """
-    Test that a Creditcard object is correctly initialized with empty values.
-    """
+    """Test that a Creditcard object is correctly initialized with empty values."""
     creditcard = Creditcard()
 
     assert creditcard.card_number is None
@@ -49,9 +45,7 @@ def test_initializes_creditcard_with_empty_values():
 
 
 def test_add_card_number_updates_value():
-    """
-    Test that the add_card_number method updates the card_number attribute.
-    """
+    """Test that the add_card_number method updates the card_number attribute."""
     request = Creditcard()
     request_updated = request.add_card_number("4111111111111111")
 
@@ -60,9 +54,7 @@ def test_add_card_number_updates_value():
 
 
 def test_add_card_holder_name_updates_value():
-    """
-    Test that the add_card_holder_name method updates the card_holder_name attribute.
-    """
+    """Test that the add_card_holder_name method updates the card_holder_name attribute."""
     request = Creditcard()
     request_updated = request.add_card_holder_name("John Doe")
 
@@ -71,9 +63,7 @@ def test_add_card_holder_name_updates_value():
 
 
 def test_add_card_expiry_date_updates_value():
-    """
-    Test that the add_card_expiry_date method updates the card_expiry_date attribute.
-    """
+    """Test that the add_card_expiry_date method updates the card_expiry_date attribute."""
     request = Creditcard()
     request_updated = request.add_card_expiry_date("12/25")
 
@@ -82,9 +72,7 @@ def test_add_card_expiry_date_updates_value():
 
 
 def test_add_cvc_updates_value():
-    """
-    Test that the add_cvc method updates the cvc attribute.
-    """
+    """Test that the add_cvc method updates the cvc attribute."""
     request = Creditcard()
     request_updated = request.add_cvc("123")
 
@@ -93,9 +81,7 @@ def test_add_cvc_updates_value():
 
 
 def test_add_flexible_3d_updates_value():
-    """
-    Test that the add_flexible_3d method updates the flexible_3d attribute.
-    """
+    """Test that the add_flexible_3d method updates the flexible_3d attribute."""
     request = Creditcard()
     request_updated = request.add_flexible_3d(True)
 
@@ -104,9 +90,7 @@ def test_add_flexible_3d_updates_value():
 
 
 def test_add_term_url_updates_value():
-    """
-    Test that the add_term_url method updates the term_url attribute.
-    """
+    """Test that the add_term_url method updates the term_url attribute."""
     request = Creditcard()
     request_updated = request.add_term_url("https://example.com/term")
 

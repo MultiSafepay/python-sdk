@@ -15,9 +15,6 @@ from multisafepay.exception.invalid_total_amount import (
 
 
 def test_invalid_total_amount_exception():
-    """
-    Test raising InvalidTotalAmountException.
-
-    """
+    """Test raising InvalidTotalAmountException."""
     with pytest.raises(InvalidTotalAmountException):
         raise InvalidTotalAmountException("Invalid total amount")

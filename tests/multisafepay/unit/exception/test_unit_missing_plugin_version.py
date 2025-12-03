@@ -16,17 +16,11 @@ from multisafepay.exception.invalid_argument import InvalidArgumentException
 
 
 def test_missing_plugin_version_exception_is_subclass():
-    """
-    Test if MissingPluginVersionException is a subclass of InvalidArgumentException.
-
-    """
+    """Test if MissingPluginVersionException is a subclass of InvalidArgumentException."""
     assert issubclass(MissingPluginVersionException, InvalidArgumentException)
 
 
 def test_raise_missing_plugin_version_exception():
-    """
-    Test raising MissingPluginVersionException.
-
-    """
+    """Test raising MissingPluginVersionException."""
     with pytest.raises(MissingPluginVersionException):
         raise MissingPluginVersionException("Missing plugin version")

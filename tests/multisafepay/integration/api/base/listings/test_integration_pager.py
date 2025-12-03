@@ -13,10 +13,7 @@ from multisafepay.api.base.listings.pager import Pager
 
 
 def test_initialization_with_valid_data():
-    """
-    Test the initialization of a Pager object with valid data.
-
-    """
+    """Test the initialization of a Pager object with valid data."""
     cursor = Cursor(after="c1", before="c2")
     pager = Pager(after="asd", before="dsa", cursor=cursor)
     assert pager.after == "asd"
@@ -26,10 +23,7 @@ def test_initialization_with_valid_data():
 
 
 def test_cursor_initialization_with_valid_data():
-    """
-    Test the initialization of a Cursor object from a dictionary with valid data.
-
-    """
+    """Test the initialization of a Cursor object from a dictionary with valid data."""
     data = {
         "after": "a1",
         "before": "b1",

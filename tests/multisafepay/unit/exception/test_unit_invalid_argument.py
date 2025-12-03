@@ -13,9 +13,6 @@ from multisafepay.exception.invalid_argument import InvalidArgumentException
 
 
 def test_invalid_argument_exception():
-    """
-    Test raising InvalidArgumentException.
-
-    """
+    """Test raising InvalidArgumentException."""
     with pytest.raises(InvalidArgumentException):
         raise InvalidArgumentException("Invalid argument")

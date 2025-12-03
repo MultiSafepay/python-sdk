@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.request.components.gateway_info.destination_h
 
 
 def test_initializes_destination_holder_correctly():
-    """
-    Test that a DestinationHolder object is correctly initialized with given values.
-    """
+    """Test that a DestinationHolder object is correctly initialized with given values."""
     destination_holder = DestinationHolder(
         name="Jane Doe",
         city="Amsterdam",
@@ -33,9 +31,7 @@ def test_initializes_destination_holder_correctly():
 
 
 def test_initializes_destination_holder_with_empty_values():
-    """
-    Test that a DestinationHolder object is correctly initialized with empty values.
-    """
+    """Test that a DestinationHolder object is correctly initialized with empty values."""
     destination_holder = DestinationHolder()
 
     assert destination_holder.name is None
@@ -46,9 +42,7 @@ def test_initializes_destination_holder_with_empty_values():
 
 
 def test_add_name_updates_value():
-    """
-    Test that the add_name method updates the name attribute.
-    """
+    """Test that the add_name method updates the name attribute."""
     request = DestinationHolder()
     request_update = request.add_name("Jane Doe")
 
@@ -57,9 +51,7 @@ def test_add_name_updates_value():
 
 
 def test_add_city_updates_value():
-    """
-    Test that the add_city method updates the city attribute.
-    """
+    """Test that the add_city method updates the city attribute."""
     request = DestinationHolder()
     request_update = request.add_city("Amsterdam")
 
@@ -68,9 +60,7 @@ def test_add_city_updates_value():
 
 
 def test_add_country_updates_value():
-    """
-    Test that the add_country method updates the country attribute.
-    """
+    """Test that the add_country method updates the country attribute."""
     request = DestinationHolder()
     request_update = request.add_country("NL")
 
@@ -79,9 +69,7 @@ def test_add_country_updates_value():
 
 
 def test_add_iban_updates_value():
-    """
-    Test that the add_iban method updates the iban attribute.
-    """
+    """Test that the add_iban method updates the iban attribute."""
     request = DestinationHolder()
     request_update = request.add_iban("NL91ABNA0417164300")
 
@@ -90,9 +78,7 @@ def test_add_iban_updates_value():
 
 
 def test_add_swift_updates_value():
-    """
-    Test that the add_swift method updates the swift attribute.
-    """
+    """Test that the add_swift method updates the swift attribute."""
     request = DestinationHolder()
     request_update = request.add_swift("ABNANL2A")
 

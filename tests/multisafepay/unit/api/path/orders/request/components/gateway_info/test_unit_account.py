@@ -14,9 +14,7 @@ from multisafepay.api.paths.orders.request.components.gateway_info.account impor
 
 
 def test_initializes_account_correctly():
-    """
-    Test that an Account object is correctly initialized with given values.
-    """
+    """Test that an Account object is correctly initialized with given values."""
     account = Account(
         account_id="12345",
         account_holder_name="John Doe",
@@ -31,9 +29,7 @@ def test_initializes_account_correctly():
 
 
 def test_initializes_account_with_empty_values():
-    """
-    Test that an Account object is correctly initialized with empty values.
-    """
+    """Test that an Account object is correctly initialized with empty values."""
     account = Account()
 
     assert account.account_id is None
@@ -43,9 +39,7 @@ def test_initializes_account_with_empty_values():
 
 
 def test_add_account_id_updates_value():
-    """
-    Test that the add_account_id method updates the account_id attribute.
-    """
+    """Test that the add_account_id method updates the account_id attribute."""
     request = Account()
     request_updated = request.add_account_id("NL91ABNA0417164300")
 
@@ -54,9 +48,7 @@ def test_add_account_id_updates_value():
 
 
 def test_add_account_holder_name_updates_value():
-    """
-    Test that the add_account_holder_name method updates the account_holder_name attribute.
-    """
+    """Test that the add_account_holder_name method updates the account_holder_name attribute."""
     request = Account()
     request_updated = request.add_account_holder_name("John Doe")
 
@@ -65,9 +57,7 @@ def test_add_account_holder_name_updates_value():
 
 
 def test_add_account_holder_iban_updates_value():
-    """
-    Test that the add_account_holder_iban method updates the account_holder_iban attribute.
-    """
+    """Test that the add_account_holder_iban method updates the account_holder_iban attribute."""
     request = Account()
     request_updated = request.add_account_holder_iban("NL91ABNA0417164300")
 
@@ -76,9 +66,7 @@ def test_add_account_holder_iban_updates_value():
 
 
 def test_add_emandate_updates_value():
-    """
-    Test that the add_emandate method updates the emandate attribute.
-    """
+    """Test that the add_emandate method updates the emandate attribute."""
     request = Account()
     request_updated = request.add_emandate("EM123")
 

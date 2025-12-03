@@ -22,9 +22,7 @@ from pydantic import ValidationError
 
 
 class IssuerManager(AbstractManager):
-    """
-    Manager class for handling issuer-related operations.
-    """
+    """Manager class for handling issuer-related operations."""
 
     def __init__(self: "IssuerManager", client: Client) -> None:
         """

@@ -13,30 +13,21 @@ from multisafepay.exception.api import ApiException
 
 
 def test_api_exception_initialization():
-    """
-    Test the initialization of ApiException.
-
-    """
+    """Test the initialization of ApiException."""
     exception = ApiException("An error occurred")
     assert str(exception) == "An error occurred"
     assert exception.context == {}
 
 
 def test_api_exception_initialization__string__():
-    """
-    Test the initialization of ApiException with a string representation.
-
-    """
+    """Test the initialization of ApiException with a string representation."""
     context = {"key": "value"}
     exception = ApiException("An error occurred", context)
     assert str(exception) == "('An error occurred', {'key': 'value'})"
 
 
 def test_api_exception_initialization_with_context():
-    """
-    Test the initialization of ApiException with context.
-
-    """
+    """Test the initialization of ApiException with context."""
     context = {"key": "value"}
     exception = ApiException("An error occurred", context)
     assert exception.get_message() == "An error occurred"
@@ -44,20 +35,14 @@ def test_api_exception_initialization_with_context():
 
 
 def test_add_context():
-    """
-    Test adding context to ApiException.
-
-    """
+    """Test adding context to ApiException."""
     exception = ApiException("An error occurred")
     exception.add_context({"key": "value"})
     assert exception.context == {"key": "value"}
 
 
 def test_get_details():
-    """
-    Test getting details from ApiException.
-
-    """
+    """Test getting details from ApiException."""
     context = {"key": "value"}
     exception = ApiException("An error occurred", context)
     details = exception.get_details()
@@ -66,10 +51,7 @@ def test_get_details():
 
 
 def test_get_context_as_array():
-    """
-    Test getting context as an array from ApiException.
-
-    """
+    """Test getting context as an array from ApiException."""
     context = {"key": "value"}
     exception = ApiException("An error occurred", context)
     context_array = exception.get_context_as_array()
@@ -78,10 +60,7 @@ def test_get_context_as_array():
 
 
 def test_get_context_value():
-    """
-    Test getting a specific context value from ApiException.
-
-    """
+    """Test getting a specific context value from ApiException."""
     context = {"key": "value"}
     exception = ApiException("An error occurred", context)
     assert exception.get_context_value("key") == "value"

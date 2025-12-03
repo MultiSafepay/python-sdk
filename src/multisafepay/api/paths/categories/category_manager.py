@@ -18,9 +18,7 @@ from pydantic import ValidationError
 
 
 class CategoryManager(AbstractManager):
-    """
-    A manager class for handling category-related API requests.
-    """
+    """A manager class for handling category-related API requests."""
 
     def __init__(self: "CategoryManager", client: Client) -> None:
         """

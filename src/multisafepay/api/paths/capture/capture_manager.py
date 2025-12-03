@@ -24,9 +24,7 @@ from pydantic import ValidationError
 
 
 class CaptureManager(AbstractManager):
-    """
-    A class to manage capture operations.
-    """
+    """A class to manage capture operations."""
 
     def __init__(self: "CaptureManager", client: Client) -> None:
         """

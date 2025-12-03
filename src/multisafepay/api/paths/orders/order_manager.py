@@ -46,9 +46,7 @@ from pydantic import ValidationError
 
 
 class OrderManager(AbstractManager):
-    """
-    Manages operations related to orders, such as creating, updating, capturing, and refunding orders.
-    """
+    """Manages operations related to orders, such as creating, updating, capturing, and refunding orders."""
 
     def __init__(self: "OrderManager", client: Client) -> None:
         """

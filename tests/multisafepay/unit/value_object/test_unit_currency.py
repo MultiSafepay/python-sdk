@@ -14,20 +14,13 @@ from multisafepay.value_object.currency import Currency
 
 
 def test_currency_initialization():
-    """
-    Test the initialization of a Currency object with a valid currency code.
-
-    """
+    """Test the initialization of a Currency object with a valid currency code."""
     currency = Currency(currency="USD")
     assert currency.currency == "USD"
 
 
 def test_currency_is_not_string():
-    """
-    Test the initialization of a Currency object with a non-string currency code.
-
-
-    """
+    """Test the initialization of a Currency object with a non-string currency code."""
     with pytest.raises(
         InvalidArgumentException,
         match='Value "0" is not a valid currency code',
@@ -36,9 +29,6 @@ def test_currency_is_not_string():
 
 
 def test_currency_get():
-    """
-    Test the get method of the Currency object.
-
-    """
+    """Test the get method of the Currency object."""
     currency = Currency(currency="USD")
     assert currency.get() == "USD"
