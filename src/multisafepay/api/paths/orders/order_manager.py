@@ -39,6 +39,7 @@ from multisafepay.api.shared.cart.shopping_cart import ShoppingCart
 from multisafepay.api.shared.description import Description
 from multisafepay.client.client import Client
 from multisafepay.util.dict_utils import dict_empty
+from multisafepay.util.json_encoder import DecimalEncoder
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
 from multisafepay.value_object.amount import Amount
 from multisafepay.value_object.currency import Currency
@@ -127,7 +128,7 @@ class OrderManager(AbstractManager):
         CustomApiResponse: The custom API response containing the created order data.
 
         """
-        json_data = json.dumps(request_order.to_dict())
+        json_data = json.dumps(request_order.to_dict(), cls=DecimalEncoder)
         response: ApiResponse = self.client.create_post_request(
             "json/orders",
             request_body=json_data,
@@ -152,7 +153,7 @@ class OrderManager(AbstractManager):
         CustomApiResponse: The custom API response containing the updated order data.
 
         """
-        json_data = json.dumps(update_request.to_dict())
+        json_data = json.dumps(update_request.to_dict(), cls=DecimalEncoder)
         encoded_order_id = self.encode_path_segment(order_id)
         response = self.client.create_patch_request(
             f"json/orders/{encoded_order_id}",
@@ -182,7 +183,7 @@ class OrderManager(AbstractManager):
         CustomApiResponse: The custom API response containing the capture data.
 
         """
-        json_data = json.dumps(capture_request.to_dict())
+        json_data = json.dumps(capture_request.to_dict(), cls=DecimalEncoder)
         encoded_order_id = self.encode_path_segment(order_id)
 
         response = self.client.create_post_request(
@@ -223,7 +224,7 @@ class OrderManager(AbstractManager):
         CustomApiResponse: The custom API response containing the refund data.
 
         """
-        json_data = json.dumps(request_refund.to_dict())
+        json_data = json.dumps(request_refund.to_dict(), cls=DecimalEncoder)
         encoded_order_id = self.encode_path_segment(order_id)
         response = self.client.create_post_request(
             f"json/orders/{encoded_order_id}/refunds",

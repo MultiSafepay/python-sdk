@@ -8,6 +8,8 @@
 
 """Shared API models and utilities."""
 
+from decimal import Decimal
+
 from multisafepay.api.shared.cart.cart_item import CartItem
 from multisafepay.value_object.weight import Weight
 
@@ -48,7 +50,7 @@ def test_initializes_with_valid_values():
     assert item.quantity == 10
     assert item.tax_table_selector == "standard"
     assert item.tax_rate == 0.2
-    assert item.unit_price == 19.99
+    assert item.unit_price == Decimal("19.99")
     assert item.weight.value == 100
     assert item.weight.unit == "grams"
 
@@ -114,6 +116,6 @@ def test_creates_from_dict():
     assert item.quantity == 10
     assert item.tax_table_selector == "standard"
     assert item.tax_rate == 0.2
-    assert item.unit_price == 19.99
+    assert item.unit_price == Decimal("19.99")
     assert item.weight.unit == "grams"
     assert item.weight.value == 100.0

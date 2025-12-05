@@ -103,9 +103,11 @@ def test_adds_tax_table_selector():
 
 def test_adds_unit_price():
     """Test that unit price can be added to a CartItem."""
+    from decimal import Decimal
+
     item = CartItem()
     item.add_unit_price(19.99)
-    assert item.unit_price == 19.99
+    assert item.unit_price == Decimal("19.99")
 
 
 def test_creates_from_empty_dict():

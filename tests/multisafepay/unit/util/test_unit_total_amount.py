@@ -8,6 +8,8 @@
 
 """Utility functions for test unit total amount."""
 
+from decimal import Decimal
+
 from multisafepay.util.total_amount import (
     validate_total_amount,
     __get_tax_rate_by_item,
@@ -34,7 +36,7 @@ def test_get_tax_rate_by_item():
         },
     }
 
-    assert __get_tax_rate_by_item(item, data) == 0.1
+    assert __get_tax_rate_by_item(item, data) == Decimal("0.1")
 
 
 def test_get_tax_rate_by_item_btw21():
@@ -56,7 +58,7 @@ def test_get_tax_rate_by_item_btw21():
         },
     }
 
-    assert __get_tax_rate_by_item(item, data) == 0.21
+    assert __get_tax_rate_by_item(item, data) == Decimal("0.21")
 
 
 def test_calculate_totals():
@@ -73,7 +75,7 @@ def test_calculate_totals():
         },
     }
 
-    assert __calculate_totals(data) == 2.42
+    assert __calculate_totals(data) == Decimal("2.42")
 
 
 def test_validate_total_amount():

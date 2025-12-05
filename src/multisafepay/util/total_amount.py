@@ -8,10 +8,41 @@
 """Total amount calculation and validation utilities for order processing."""
 
 import json
+from decimal import Decimal
+from typing import Union
 
 from multisafepay.exception.invalid_total_amount import (
     InvalidTotalAmountException,
 )
+
+
+def _convert_decimals_to_float(
+    obj: Union[Decimal, dict, list, object],
+) -> Union[float, dict, list, object]:
+    """
+    Recursively convert Decimal objects to float for JSON serialization.
+
+    Parameters
+    ----------
+    obj : Union[Decimal, dict, list, object]
+        The object to convert (can be dict, list, Decimal, or any other type)
+
+    Returns
+    -------
+    Union[float, dict, list, object]
+        The converted object with all Decimals replaced by floats
+
+    """
+    if isinstance(obj, Decimal):
+        return float(obj)
+    if isinstance(obj, dict):
+        return {
+            key: _convert_decimals_to_float(value)
+            for key, value in obj.items()
+        }
+    if isinstance(obj, list):
+        return [_convert_decimals_to_float(item) for item in obj]
+    return obj
 
 
 def validate_total_amount(data: dict) -> bool:
@@ -40,17 +71,22 @@ def validate_total_amount(data: dict) -> bool:
     amount = data["amount"]
     total_unit_price = __calculate_totals(data)
 
-    if (total_unit_price * 100) != amount:
+    # Convert total_unit_price to cents (integer) for comparison
+    total_unit_price_cents = int(total_unit_price * 100)
+
+    if total_unit_price_cents != amount:
         msg = f"Total of unit_price ({total_unit_price}) does not match amount ({amount})"
-        msg += "\n" + json.dumps(data, indent=4)
+        # Create a JSON-serializable copy of data by converting Decimal to float
+        serializable_data = _convert_decimals_to_float(data)
+        msg += "\n" + json.dumps(serializable_data, indent=4)
         raise InvalidTotalAmountException(msg)
 
     return True
 
 
-def __calculate_totals(data: dict) -> float:
+def __calculate_totals(data: dict) -> Decimal:
     """
-    Calculate the total unit price of items in the shopping cart.
+    Calculate the total unit price of items in the shopping cart using precise Decimal arithmetic.
 
     Parameters
     ----------
@@ -58,23 +94,31 @@ def __calculate_totals(data: dict) -> float:
 
     Returns
     -------
-    float: The total unit price of all items in the shopping cart.
+    Decimal: The total unit price of all items in the shopping cart with precise decimal calculation.
 
     """
-    total_unit_price = 0
+    total_unit_price = Decimal("0")
     for item in data["shopping_cart"]["items"]:
         tax_rate = __get_tax_rate_by_item(item, data)
-        item_price = item["unit_price"] * item["quantity"]
-        item_price += tax_rate * item_price
+
+        # Convert to Decimal for precise calculations
+        unit_price = Decimal(str(item["unit_price"]))
+        quantity = Decimal(str(item["quantity"]))
+        tax_rate_decimal = Decimal(str(tax_rate))
+
+        # Calculate item price with tax
+        item_price = unit_price * quantity
+        item_price += tax_rate_decimal * item_price
         total_unit_price += item_price
 
-    return round(total_unit_price, 2)
+    # Round to 2 decimal places for currency
+    return total_unit_price.quantize(Decimal("0.01"))
 
 
 def __get_tax_rate_by_item(
     item: dict,
     data: dict,
-) -> object:
+) -> Union[Decimal, int]:
     """
     Get the tax rate for a specific item in the shopping cart.
 
@@ -85,7 +129,7 @@ def __get_tax_rate_by_item(
 
     Returns
     -------
-    object: The tax rate for the item, or 0 if no tax rate is found.
+    Union[Decimal, int]: The tax rate for the item as Decimal, or 0 if no tax rate is found.
 
     """
     if "tax_table_selector" not in item or not item["tax_table_selector"]:
@@ -103,10 +147,12 @@ def __get_tax_rate_by_item(
             continue
 
         tax_rule = tax_table["rules"][0]
-        return tax_rule["rate"]
-    return (
+        return Decimal(str(tax_rule["rate"]))
+
+    default_rate = (
         data["checkout_options"]["tax_tables"]["default"]["rate"]
         if "default" in data["checkout_options"]["tax_tables"]
         and "rate" in data["checkout_options"]["tax_tables"]["default"]
         else 0
     )
+    return Decimal(str(default_rate)) if default_rate != 0 else 0

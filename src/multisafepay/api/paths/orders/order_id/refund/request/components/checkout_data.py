@@ -155,7 +155,7 @@ class CheckoutData(RequestModel):
 
         refund_item = found_item.clone()
         refund_item.add_quantity(quantity)
-        refund_item.add_unit_price(found_item.unit_price * -1.0)
+        refund_item.add_unit_price(found_item.unit_price * -1)
 
         self.add_item(refund_item)
 
