@@ -7,9 +7,11 @@
 
 """Transaction costs model for handling fees and charges in payment processing."""
 
-from typing import Optional
+from decimal import Decimal
+from typing import Optional, Union
 
 from multisafepay.model.api_model import ApiModel
+from multisafepay.value_object.decimal_amount import DecimalAmount
 
 
 class Costs(ApiModel):
@@ -21,7 +23,7 @@ class Costs(ApiModel):
     transaction_id (Optional[int]): The ID of the transaction.
     description (Optional[str]): The description of the cost.
     type (Optional[str]): The type of the cost.
-    amount (Optional[float]): The amount of the cost.
+    amount (Optional[Decimal]): The amount of the cost as a precise Decimal value.
     currency (Optional[str]): The currency of the cost.
     status (Optional[str]): The status of the cost.
 
@@ -30,7 +32,7 @@ class Costs(ApiModel):
     transaction_id: Optional[int]
     description: Optional[str]
     type: Optional[str]
-    amount: Optional[float]
+    amount: Optional[Decimal]
     currency: Optional[str]
     status: Optional[str]
 
@@ -82,20 +84,26 @@ class Costs(ApiModel):
         self.type = type_
         return self
 
-    def add_amount(self: "Costs", amount: float) -> "Costs":
+    def add_amount(
+        self: "Costs",
+        amount: Union[DecimalAmount, Decimal, float, str],
+    ) -> "Costs":
         """
-        Add an amount to the Costs instance.
+        Add an amount to the Costs instance with precise Decimal conversion.
 
         Parameters
         ----------
-        amount (float): The amount of the cost.
+        amount (Union[DecimalAmount, Decimal, float, int, str]): The amount of the cost.
 
         Returns
         -------
         Costs: The updated Costs instance.
 
         """
-        self.amount = amount
+        if isinstance(amount, DecimalAmount):
+            self.amount = amount.get()
+        else:
+            self.amount = DecimalAmount(amount=amount).get()
         return self
 
     def add_currency(self: "Costs", currency: str) -> "Costs":

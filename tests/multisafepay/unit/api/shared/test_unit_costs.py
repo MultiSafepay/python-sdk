@@ -8,6 +8,7 @@
 
 """Unit tests for the shared costs model."""
 
+from decimal import Decimal
 
 from multisafepay.api.shared.costs import Costs
 
@@ -25,7 +26,7 @@ def test_initializes_with_valid_values():
     assert costs.transaction_id == 123
     assert costs.description == "Service Fee"
     assert costs.type == "Fixed"
-    assert costs.amount == 99.99
+    assert costs.amount == Decimal("99.99")
     assert costs.currency == "USD"
     assert costs.status == "Pending"
 
@@ -62,7 +63,7 @@ def test_adds_type():
 def test_adds_amount():
     """Test that an amount is added to a Costs instance."""
     costs = Costs().add_amount(99.99)
-    assert costs.amount == 99.99
+    assert costs.amount == Decimal("99.99")
 
 
 def test_adds_currency():
@@ -91,7 +92,7 @@ def test_creates_from_dict_with_all_fields():
     assert costs.transaction_id == 123
     assert costs.description == "Service Fee"
     assert costs.type == "Fixed"
-    assert costs.amount == 99.99
+    assert costs.amount == Decimal("99.99")
     assert costs.currency == "USD"
     assert costs.status == "Pending"
 

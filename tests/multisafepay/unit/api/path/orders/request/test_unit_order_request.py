@@ -11,6 +11,11 @@
 import pytest
 
 from multisafepay.api.paths.orders.request.order_request import OrderRequest
+from multisafepay.api.shared.cart.cart_item import CartItem
+from multisafepay.api.shared.cart.shopping_cart import ShoppingCart
+from multisafepay.exception.invalid_total_amount import (
+    InvalidTotalAmountException,
+)
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 
 
@@ -180,6 +185,50 @@ def test_add_description_updates_value():
 
     assert order_request.description == "Test description"
     assert isinstance(order_request_updated, OrderRequest)
+
+
+def test_validate_amount_raises_when_amount_mismatches_cart() -> None:
+    """validate_amount() should raise if amount and cart total disagree."""
+    order_request = OrderRequest(
+        amount=101,
+        shopping_cart=ShoppingCart(
+            items=[CartItem(unit_price="1.00", quantity=1)],
+        ),
+    )
+
+    with pytest.raises(InvalidTotalAmountException):
+        order_request.validate_amount()
+
+
+def test_validate_amount_rounding_strategy_end_vs_line() -> None:
+    """Per-line rounding can differ by 1 cent from end-rounding."""
+    # Three lines of 0.335:
+    # - end rounding: 0.335*3 = 1.005 -> 1.01 (101 cents)
+    # - line rounding: 0.335 -> 0.34 per line => 1.02 (102 cents)
+    cart = ShoppingCart(
+        items=[
+            CartItem(unit_price="0.335", quantity=1),
+            CartItem(unit_price="0.335", quantity=1),
+            CartItem(unit_price="0.335", quantity=1),
+        ],
+    )
+
+    OrderRequest(amount=101, shopping_cart=cart).validate_amount(
+        rounding_strategy="end",
+    )
+    OrderRequest(amount=102, shopping_cart=cart).validate_amount(
+        rounding_strategy="line",
+    )
+
+    with pytest.raises(InvalidTotalAmountException):
+        OrderRequest(amount=101, shopping_cart=cart).validate_amount(
+            rounding_strategy="line",
+        )
+
+    with pytest.raises(InvalidTotalAmountException):
+        OrderRequest(amount=102, shopping_cart=cart).validate_amount(
+            rounding_strategy="end",
+        )
 
 
 def test_add_recurring_id_updates_value():

@@ -33,7 +33,11 @@ from multisafepay.api.shared.delivery import Delivery
 from multisafepay.api.shared.description import Description
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 from multisafepay.model.request_model import RequestModel
-from multisafepay.util.total_amount import validate_total_amount
+from multisafepay.util.total_amount import (
+    RoundingMode,
+    RoundingStrategy,
+    validate_total_amount,
+)
 from multisafepay.value_object.amount import Amount
 from multisafepay.value_object.currency import Currency
 
@@ -581,14 +585,16 @@ class OrderRequest(RequestModel):
         self.var3 = var3
         return self
 
-    def validate_amount(self: "OrderRequest") -> "OrderRequest":
-        """
-        Validates the total amount of the order request and the shopping cart.
-
-        Returns
-        -------
-        OrderRequest: The validated OrderRequest object.
-
-        """
-        validate = validate_total_amount(self.dict())
+    def validate_amount(
+        self: "OrderRequest",
+        *,
+        rounding_strategy: RoundingStrategy = "end",
+        rounding_mode: RoundingMode = "half_up",
+    ) -> "OrderRequest":
+        """Validates the total amount of the order request and the shopping cart."""
+        validate_total_amount(
+            self.dict(),
+            rounding_strategy=rounding_strategy,
+            rounding_mode=rounding_mode,
+        )
         return self
