@@ -150,12 +150,13 @@ class CheckoutData(RequestModel):
             )
 
         found_item = self.get_item_by_merchant_item_id(merchant_item_id)
-        if quantity < 1 or quantity > found_item.quantity:
-            quantity = found_item.get_quantity()
+        item_quantity = found_item.quantity or 0
+        if quantity < 1 or quantity > item_quantity:
+            quantity = item_quantity
 
         refund_item = found_item.clone()
         refund_item.add_quantity(quantity)
-        refund_item.add_unit_price(found_item.unit_price * -1.0)
+        refund_item.add_unit_price(found_item.unit_price * -1)
 
         self.add_item(refund_item)
 
