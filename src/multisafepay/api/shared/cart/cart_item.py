@@ -9,11 +9,15 @@
 
 import copy
 import math
-from typing import Dict, List, Optional
+from decimal import Decimal
+from typing import TYPE_CHECKING, Optional, Union
 
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 from multisafepay.model.api_model import ApiModel
-from multisafepay.value_object.weight import Weight
+from multisafepay.value_object.decimal_amount import DecimalAmount
+
+if TYPE_CHECKING:
+    from multisafepay.value_object.weight import Weight
 
 
 class CartItem(ApiModel):
@@ -32,7 +36,7 @@ class CartItem(ApiModel):
     product_url: (Optional[str]) The product URL.
     quantity: (Optional[int]) The quantity.
     tax_table_selector: (Optional[str]) The tax table selector.
-    unit_price: (Optional[float]) The unit price.
+    unit_price: (Optional[Decimal]) The unit price as a precise Decimal value.
     weight: (Optional[Weight]) The weight.
 
     """
@@ -43,12 +47,13 @@ class CartItem(ApiModel):
     image: Optional[str]
     merchant_item_id: Optional[str]
     name: Optional[str]
-    options: Optional[List[Dict]]
+    options: Optional[list]
     product_url: Optional[str]
     quantity: Optional[int]
     tax_table_selector: Optional[str]
-    unit_price: Optional[float]
-    weight: Optional[Weight]
+    unit_price: Optional[Decimal]
+
+    weight: Optional["Weight"]
 
     def add_cashback(self: "CartItem", cashback: str) -> "CartItem":
         """
@@ -149,7 +154,7 @@ class CartItem(ApiModel):
         self.name = name
         return self
 
-    def add_options(self: "CartItem", options: List[Dict]) -> "CartItem":
+    def add_options(self: "CartItem", options: list) -> "CartItem":
         """
         Add options to the cart item.
 
@@ -216,23 +221,29 @@ class CartItem(ApiModel):
         self.tax_table_selector = tax_table_selector
         return self
 
-    def add_unit_price(self: "CartItem", unit_price: float) -> "CartItem":
+    def add_unit_price(
+        self: "CartItem",
+        unit_price: Union[DecimalAmount, Decimal, float, str],
+    ) -> "CartItem":
         """
-        Add unit price to the cart item.
+        Add unit price to the cart item with precise Decimal conversion.
 
         Parameters
         ----------
-        unit_price: (float) The unit price to be added.
+        unit_price: (Union[DecimalAmount, Decimal, float, str]) The unit price to be added.
 
         Returns
         -------
         CartItem: The updated CartItem instance.
 
         """
-        self.unit_price = unit_price
+        if isinstance(unit_price, DecimalAmount):
+            self.unit_price = unit_price.get()
+        else:
+            self.unit_price = DecimalAmount(amount=unit_price).get()
         return self
 
-    def add_weight(self: "CartItem", weight: Weight) -> "CartItem":
+    def add_weight(self: "CartItem", weight: "Weight") -> "CartItem":
         """
         Add weight to the cart item.
 
@@ -250,10 +261,10 @@ class CartItem(ApiModel):
 
     def add_tax_rate_percentage(
         self: "CartItem",
-        tax_rate_percentage: int,
+        tax_rate_percentage: Union[int, Decimal],
     ) -> "CartItem":
         """
-        Add tax rate percentage to the cart item.
+        Add tax rate percentage to the cart item using precise Decimal arithmetic.
 
         This method sets the tax rate percentage for the cart item. The tax rate should be a non-negative number.
 
@@ -263,7 +274,7 @@ class CartItem(ApiModel):
 
         Parameters
         ----------
-        tax_rate_percentage: (int) The tax rate percentage to be added.
+        tax_rate_percentage: (Union[int, Decimal]) The tax rate percentage to be added.
 
         Returns
         -------
@@ -275,13 +286,17 @@ class CartItem(ApiModel):
                 "Tax rate percentage cannot be negative.",
             )
 
-        if math.isnan(tax_rate_percentage) or math.isinf(tax_rate_percentage):
+        if isinstance(tax_rate_percentage, float) and (
+            math.isnan(tax_rate_percentage) or math.isinf(tax_rate_percentage)
+        ):
             raise InvalidArgumentException(
                 "Tax rate percentage cannot be special floats.",
             )
 
         try:
-            rating = tax_rate_percentage / 100
+            # Use Decimal for precise division
+            percentage_decimal = Decimal(str(tax_rate_percentage))
+            rating = percentage_decimal / Decimal("100")
             self.tax_table_selector = str(rating)
         except (ValueError, TypeError) as e:
             raise InvalidArgumentException(
@@ -290,9 +305,12 @@ class CartItem(ApiModel):
 
         return self
 
-    def add_tax_rate(self: "CartItem", tax_rate: float) -> "CartItem":
+    def add_tax_rate(
+        self: "CartItem",
+        tax_rate: Union[Decimal, float],
+    ) -> "CartItem":
         """
-        Add tax rate to the cart item.
+        Add tax rate to the cart item using Decimal for precision.
 
         This method sets the tax rate for the cart item. The tax rate should be a non-negative number.
 
@@ -302,7 +320,7 @@ class CartItem(ApiModel):
 
         Parameters
         ----------
-        tax_rate: (float) The tax rate to be added.
+        tax_rate: (Union[Decimal, float]) The tax rate to be added.
 
         Returns
         -------
@@ -312,12 +330,17 @@ class CartItem(ApiModel):
         if tax_rate < 0:
             raise InvalidArgumentException("Tax rate cannot be negative.")
 
-        if math.isnan(tax_rate) or math.isinf(tax_rate):
+        if isinstance(tax_rate, float) and (
+            math.isnan(tax_rate) or math.isinf(tax_rate)
+        ):
             raise InvalidArgumentException(
                 "Tax rate cannot be special floats.",
             )
 
         try:
+            # Convert to Decimal if not already
+            if not isinstance(tax_rate, Decimal):
+                tax_rate = Decimal(str(tax_rate))
             self.tax_table_selector = str(tax_rate)
         except (ValueError, TypeError) as e:
             raise InvalidArgumentException(
@@ -355,3 +378,10 @@ class CartItem(ApiModel):
             return None
 
         return CartItem(**d)
+
+
+# Update forward references to resolve Weight
+# pylint: disable=wrong-import-position
+from multisafepay.value_object.weight import Weight  # noqa: E402
+
+CartItem.update_forward_refs()
