@@ -3,6 +3,10 @@
 import os
 
 import pytest
+from dotenv import load_dotenv
+
+# Load .env file from the project root
+load_dotenv()
 
 
 def pytest_collection_modifyitems(

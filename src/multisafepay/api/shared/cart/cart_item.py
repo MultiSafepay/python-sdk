@@ -230,7 +230,7 @@ class CartItem(ApiModel):
 
         Parameters
         ----------
-        unit_price: (Union[DecimalAmount, Decimal, float, int, str]) The unit price to be added.
+        unit_price: (Union[DecimalAmount, Decimal, float, str]) The unit price to be added.
 
         Returns
         -------
