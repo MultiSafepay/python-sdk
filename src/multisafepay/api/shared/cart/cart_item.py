@@ -223,14 +223,14 @@ class CartItem(ApiModel):
 
     def add_unit_price(
         self: "CartItem",
-        unit_price: Union[DecimalAmount, Decimal, float, int, str],
+        unit_price: Union[DecimalAmount, Decimal, float, str],
     ) -> "CartItem":
         """
         Add unit price to the cart item with precise Decimal conversion.
 
         Parameters
         ----------
-        unit_price: (Union[DecimalAmount, Decimal, float, int, str]) The unit price to be added.
+        unit_price: (Union[DecimalAmount, Decimal, float, str]) The unit price to be added.
 
         Returns
         -------

@@ -29,14 +29,14 @@ class DecimalAmount(InmutableModel):
     @validator("amount", pre=True)
     def convert_to_decimal(
         cls: Type["DecimalAmount"],
-        value: Union[str, float, int, Decimal],
+        value: Union[str, float, Decimal],
     ) -> Decimal:
         """
         Convert the input value to Decimal for precise calculations.
 
         Parameters
         ----------
-        value (Union[str, float, int, Decimal]): The value to convert.
+        value (Union[str, float, Decimal]): The value to convert.
 
         Returns
         -------

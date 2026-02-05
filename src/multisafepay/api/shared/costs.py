@@ -86,14 +86,14 @@ class Costs(ApiModel):
 
     def add_amount(
         self: "Costs",
-        amount: Union[DecimalAmount, Decimal, float, int, str],
+        amount: Union[DecimalAmount, Decimal, float, str],
     ) -> "Costs":
         """
         Add an amount to the Costs instance with precise Decimal conversion.
 
         Parameters
         ----------
-        amount (Union[DecimalAmount, Decimal, float, int, str]): The amount of the cost.
+        amount (Union[DecimalAmount, Decimal, float, str]): The amount of the cost.
 
         Returns
         -------
