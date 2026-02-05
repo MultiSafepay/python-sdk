@@ -10,6 +10,10 @@
 
 import pytest
 import json
+import base64
+import hashlib
+import hmac
+import time
 
 from multisafepay.exception.invalid_argument import InvalidArgumentException
 from multisafepay.util.webhook import Webhook
@@ -156,4 +160,44 @@ def test_verify_with_empty_spaces_in_api_key():
         AUTH,
         " your-MultiSafepay-API-key ",
         0,
+    )
+
+
+def test_validate_with_unicode_characters():
+    """Test Webhook validation with unicode characters in the payload."""
+    api_key = "test-api-key"
+    timestamp = str(int(time.time()))
+
+    # Payload with unicode characters
+    data = {
+        "city": "München",
+        "price": "€100",
+        "description": "Descripción con ñ",
+    }
+    json_request = json.dumps(data)
+
+    # Manually calculate expected signature using ensure_ascii=False
+    transaction_compact_json = json.dumps(
+        data,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    )
+    payload = f"{timestamp}:{transaction_compact_json}"
+
+    signature = hmac.new(
+        api_key.encode(),
+        payload.encode(),
+        hashlib.sha512,
+    ).hexdigest()
+
+    auth_header = base64.b64encode(
+        f"{timestamp}:{signature}".encode(),
+    ).decode()
+
+    # Validation should pass
+    assert Webhook.validate(
+        json_request,
+        auth_header,
+        api_key,
+        validation_time_in_seconds=600,
     )

@@ -57,6 +57,7 @@ class Webhook:
             transaction_compact_json = json.dumps(
                 transaction_json,
                 separators=(",", ":"),
+                ensure_ascii=False,
             )
         except json.JSONDecodeError as e:
             raise InvalidArgumentException(
