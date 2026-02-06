@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-02-06
+
+### Added
+- PTHMINT-91: Implement Decimal precision for monetary calculations
+
+### Fixed
+- PTHMINT-96: Webhook validation for payloads with Unicode characters
+- PTHMINT-84: Fix type annotations consistency between fields and methods
+- PTHMINT-90, PTHMINT-88, PTHMINT-87, PTHMINT-86, PTHMINT-52, PTHMINT-51: Fix code quality issues (ruff linting)
+
+### Changed
+- PTHMINT-89: Improve import organization and structure
+
 ## [2.1.0] - 2025-08-05
 
 ### Added
