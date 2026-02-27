@@ -120,6 +120,11 @@ def test_recurring(sdk: Sdk):
 
     assert isinstance(order, Order)
 
+    recurring_id = getattr(order.payment_details, "recurring_id", None)
+    assert (
+        recurring_id
+    ), "Expected order.payment_details.recurring_id to be set"
+
     recurring_manager = sdk.get_recurring_manager()
     response = recurring_manager.get_list(reference)
 
@@ -156,4 +161,4 @@ def test_recurring(sdk: Sdk):
     assert isinstance(delete_response, CustomApiResponse)
     delete_data_response = delete_response.get_body_data()
     assert isinstance(delete_data_response, dict)
-    assert delete_data_response.get("removed") == True
+    assert delete_data_response.get("removed") is True

@@ -8,7 +8,7 @@
 """DecimalAmount value object for monetary amounts."""
 
 from decimal import Decimal
-from typing import Type, Union
+from typing import Union
 
 from multisafepay.model.inmutable_model import InmutableModel
 from pydantic import validator
@@ -28,7 +28,7 @@ class DecimalAmount(InmutableModel):
 
     @validator("amount", pre=True)
     def convert_to_decimal(
-        cls: Type["DecimalAmount"],
+        cls: "DecimalAmount",
         value: Union[str, float, Decimal],
     ) -> Decimal:
         """

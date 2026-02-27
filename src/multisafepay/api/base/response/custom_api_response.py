@@ -7,7 +7,7 @@
 
 """Custom API response class with generic typing support for flexible response handling."""
 
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 
 from multisafepay.api.base.response.api_response import ApiResponse
 
@@ -27,7 +27,7 @@ class CustomApiResponse(ApiResponse):
     def __init__(
         self: "CustomApiResponse",
         data: Optional[Union[dict, list]],
-        **kwargs: Dict[str, Any],
+        **kwargs: dict[str, Any],
     ) -> None:
         """
         Initialize the CustomApiResponse with optional data and additional keyword arguments.

@@ -8,7 +8,7 @@
 """Base API exception classes for MultiSafepay SDK errors."""
 
 import json
-from typing import Dict, List, Optional, Union
+from typing import Optional, Union
 
 
 class ApiException(Exception):
@@ -119,7 +119,7 @@ class ApiException(Exception):
     def get_context_value(
         self: "ApiException",
         name: str,
-    ) -> Optional[Union[str, int, float, bool, Dict, List]]:
+    ) -> Optional[Union[str, int, float, bool, dict, list]]:
         """
         Get a specific context value by name.
 

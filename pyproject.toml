@@ -18,7 +18,7 @@ urllib3 = ">=2.5.0"
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
 mypy = "^1.10.0"
-pylint = "^3.2.2"
+pylint = "^3.3.0"
 pytest = "^8.2.1"
 pytest-cov = "^5.0.0"
 ruff = "^0.4.4"
@@ -92,6 +92,9 @@ disable = [
     "W0718",
     "W1514",
 ]
+
+[tool.ruff]
+target-version = "py39"
 
 [tool.ruff.lint]
 extend-safe-fixes = [

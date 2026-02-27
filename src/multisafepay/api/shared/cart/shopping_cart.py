@@ -7,7 +7,7 @@
 
 """Shopping cart model for managing cart items in order processing."""
 
-from typing import List, Optional
+from typing import Optional
 
 from multisafepay.api.shared.cart.cart_item import CartItem
 from multisafepay.model.api_model import ApiModel
@@ -23,9 +23,9 @@ class ShoppingCart(ApiModel):
 
     """
 
-    items: Optional[List[CartItem]]
+    items: Optional[list[CartItem]]
 
-    def get_items(self: "ShoppingCart") -> Optional[List[CartItem]]:
+    def get_items(self: "ShoppingCart") -> Optional[list[CartItem]]:
         """
         Get the list of items in the shopping cart.
 
@@ -38,7 +38,7 @@ class ShoppingCart(ApiModel):
 
     def add_items(
         self: "ShoppingCart",
-        items: Optional[List[CartItem]],
+        items: Optional[list[CartItem]],
     ) -> "ShoppingCart":
         """
         Add multiple items to the shopping cart.

@@ -7,7 +7,8 @@
 
 """Generic listing container for API response collections."""
 
-from typing import Any, Dict, Generic, Iterator, List, TypeVar
+from collections.abc import Iterator
+from typing import Any, Generic, TypeVar
 
 from pydantic.main import BaseModel
 
@@ -24,13 +25,13 @@ class Listing(Generic[T], BaseModel):
 
     """
 
-    data: List[T]
+    data: list[T]
 
     def __init__(
         self: "Listing",
-        data: List[Any],
+        data: list[Any],
         class_type: type,
-        **kwargs: Dict[str, Any],
+        **kwargs: dict[str, Any],
     ) -> None:
         """
         Initialize the Listing with data and a class type.
@@ -42,7 +43,7 @@ class Listing(Generic[T], BaseModel):
         **kwargs: Additional keyword arguments to pass to the class type constructor.
 
         """
-        elements: List[T] = []
+        elements: list[T] = []
         if data:
             for item_data in data:
                 if item_data:
@@ -92,7 +93,7 @@ class Listing(Generic[T], BaseModel):
         """
         return len(self.data)
 
-    def get_data(self: "Listing") -> List[T]:
+    def get_data(self: "Listing") -> list[T]:
         """
         Get the list of items in the listing.
 

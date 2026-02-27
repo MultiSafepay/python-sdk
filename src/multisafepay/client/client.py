@@ -7,7 +7,7 @@
 
 """HTTP client module for making API requests to MultiSafepay services."""
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from multisafepay.api.base.response.api_response import ApiResponse
 from requests import Request, Session
@@ -69,8 +69,8 @@ class Client:
     def create_get_request(
         self: "Client",
         endpoint: str,
-        params: Dict[str, Any] = None,
-        context: Dict[str, Any] = None,
+        params: dict[str, Any] = None,
+        context: dict[str, Any] = None,
     ) -> ApiResponse:
         """
         Create a GET request.
@@ -97,9 +97,9 @@ class Client:
     def create_post_request(
         self: "Client",
         endpoint: str,
-        params: Dict[str, Any] = None,
+        params: dict[str, Any] = None,
         request_body: str = None,
-        context: Dict[str, Any] = None,
+        context: dict[str, Any] = None,
     ) -> ApiResponse:
         """
         Create a POST request.
@@ -127,9 +127,9 @@ class Client:
     def create_patch_request(
         self: "Client",
         endpoint: str,
-        params: Dict[str, Any] = None,
+        params: dict[str, Any] = None,
         request_body: str = None,
-        context: Dict[str, Any] = None,
+        context: dict[str, Any] = None,
     ) -> ApiResponse:
         """
         Create a PATCH request.
@@ -157,8 +157,8 @@ class Client:
     def create_delete_request(
         self: "Client",
         endpoint: str,
-        params: Dict[str, Any] = None,
-        context: Dict[str, Any] = None,
+        params: dict[str, Any] = None,
+        context: dict[str, Any] = None,
     ) -> ApiResponse:
         """
         Create a DELETE request.
@@ -180,7 +180,7 @@ class Client:
     def _build_url(
         self: "Client",
         endpoint: str,
-        params: Optional[Dict[str, Any]] = None,
+        params: Optional[dict[str, Any]] = None,
     ) -> str:
         """
         Build the full URL for the request.
@@ -208,9 +208,9 @@ class Client:
         self: "Client",
         method: str,
         url: str,
-        params: Optional[Dict[str, Any]] = None,
-        request_body: Optional[Dict[str, Any]] = None,
-        context: Dict[str, Any] = None,
+        params: Optional[dict[str, Any]] = None,
+        request_body: Optional[dict[str, Any]] = None,
+        context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
         """
         Create and send an HTTP request.

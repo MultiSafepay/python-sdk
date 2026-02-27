@@ -7,7 +7,7 @@
 
 """Tax rule model for defining taxation rules and rates in checkout processing."""
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 from multisafepay.api.shared.checkout.tax_rate import TaxRate
 from multisafepay.model.api_model import ApiModel
@@ -26,7 +26,7 @@ class TaxRule(ApiModel):
     """
 
     name: Optional[str]
-    rules: Optional[List[TaxRate]]
+    rules: Optional[list[TaxRate]]
     standalone: Optional[Any]
 
     def add_name(self: "TaxRule", name: str) -> "TaxRule":
@@ -45,7 +45,7 @@ class TaxRule(ApiModel):
         self.name = name
         return self
 
-    def add_rules(self: "TaxRule", rules: List[TaxRate]) -> "TaxRule":
+    def add_rules(self: "TaxRule", rules: list[TaxRate]) -> "TaxRule":
         """
         Add a list of tax rates to the tax rule.
 
@@ -101,7 +101,7 @@ class TaxRule(ApiModel):
         return self
 
     @staticmethod
-    def from_dict(d: Optional[Dict]) -> Optional["TaxRule"]:
+    def from_dict(d: Optional[dict]) -> Optional["TaxRule"]:
         """
         Create a TaxRule instance from a dictionary.
 
