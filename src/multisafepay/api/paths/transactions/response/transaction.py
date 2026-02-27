@@ -7,7 +7,7 @@
 
 """Transaction response model for handling transaction data and status information."""
 
-from typing import List, Optional
+from typing import Optional
 
 from multisafepay.api.base.decorator import Decorator
 from multisafepay.api.shared.costs import Costs
@@ -55,7 +55,7 @@ class Transaction(ResponseModel):
 
     amount: Optional[int]
     completed: Optional[str]
-    costs: Optional[List[Costs]]
+    costs: Optional[list[Costs]]
     created: Optional[str]
     modified: Optional[str]
     currency: Optional[str]
@@ -68,7 +68,7 @@ class Transaction(ResponseModel):
     net: Optional[int]
     order_id: Optional[str]
     payment_method: Optional[str]
-    payment_methods: Optional[List[PaymentMethod]]
+    payment_methods: Optional[list[PaymentMethod]]
     reason: Optional[str]
     reason_code: Optional[str]
     site_id: Optional[str]

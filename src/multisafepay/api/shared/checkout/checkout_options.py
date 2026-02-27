@@ -7,7 +7,7 @@
 
 """Checkout options model for configuring tax rules and checkout behavior."""
 
-from typing import List, Optional
+from typing import Optional
 
 from multisafepay.api.shared.checkout.default_tax_rate import DefaultTaxRate
 from multisafepay.api.shared.checkout.tax_rule import TaxRule
@@ -26,7 +26,7 @@ class CheckoutOptions(ApiModel):
     """
 
     default: Optional[DefaultTaxRate]
-    alternate: Optional[List[TaxRule]]
+    alternate: Optional[list[TaxRule]]
 
     def add_default(
         self: "CheckoutOptions",
@@ -49,7 +49,7 @@ class CheckoutOptions(ApiModel):
 
     def add_alternate(
         self: "CheckoutOptions",
-        alternate: List[TaxRule],
+        alternate: list[TaxRule],
     ) -> "CheckoutOptions":
         """
         Add alternate tax rates to the checkout options.

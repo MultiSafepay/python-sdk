@@ -7,7 +7,7 @@
 
 """Order response models for handling order API responses and data structures."""
 
-from typing import List, Optional
+from typing import Optional
 
 from multisafepay.api.base.decorator import Decorator
 from multisafepay.api.paths.orders.response.components.order_adjustment import (
@@ -74,7 +74,7 @@ class Order(ResponseModel):
     amount: Optional[int]
     amount_refunded: Optional[int]
     checkout_options: Optional[CheckoutOptions]
-    costs: Optional[List[Costs]]
+    costs: Optional[list[Costs]]
     created: Optional[str]
     modified: Optional[str]
     currency: Optional[str]
@@ -88,10 +88,10 @@ class Order(ResponseModel):
     order_id: Optional[str]
     order_total: Optional[float]
     payment_details: Optional[PaymentDetails]
-    payment_methods: Optional[List[PaymentMethod]]
+    payment_methods: Optional[list[PaymentMethod]]
     reason: Optional[str]
     reason_code: Optional[str]
-    related_transactions: Optional[List[Transaction]]
+    related_transactions: Optional[list[Transaction]]
     shopping_cart: Optional[ShoppingCart]
     status: Optional[str]
     transaction_id: Optional[str]

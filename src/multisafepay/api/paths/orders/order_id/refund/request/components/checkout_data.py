@@ -7,7 +7,7 @@
 
 """Checkout data model for refund request checkout information and configuration."""
 
-from typing import List, Optional
+from typing import Optional
 
 from multisafepay.api.shared.cart.cart_item import CartItem
 from multisafepay.api.shared.cart.shopping_cart import ShoppingCart
@@ -25,11 +25,11 @@ class CheckoutData(RequestModel):
 
     """
 
-    items: Optional[List[CartItem]]
+    items: Optional[list[CartItem]]
 
     def add_items(
         self: "CheckoutData",
-        items: Optional[List[CartItem]] = None,
+        items: Optional[list[CartItem]] = None,
     ) -> "CheckoutData":
         """
         Adds multiple items to the checkout data.
@@ -74,7 +74,7 @@ class CheckoutData(RequestModel):
         self.items.append(item)
         return self
 
-    def get_items(self: "CheckoutData") -> Optional[List[CartItem]]:
+    def get_items(self: "CheckoutData") -> Optional[list[CartItem]]:
         """
         Retrieves all items from the checkout data.
 

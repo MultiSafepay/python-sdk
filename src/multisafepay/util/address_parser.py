@@ -8,7 +8,6 @@
 """Address parsing utilities for extracting street and house number information."""
 
 import re
-from typing import List
 
 
 class AddressParser:
@@ -22,7 +21,7 @@ class AddressParser:
         self: "AddressParser",
         address1: str,
         address2: str = "",
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Parses and splits up an address in street and house number.
 
@@ -61,7 +60,7 @@ class AddressParser:
         group1: str,
         group2: str,
         group3: str,
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Extract the street and apartment from the matched RegEx results.
 

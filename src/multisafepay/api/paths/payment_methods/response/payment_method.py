@@ -7,7 +7,7 @@
 
 """Payment method response model for handling payment method configurations and options."""
 
-from typing import List, Optional
+from typing import Optional
 
 from multisafepay.api.base.decorator import Decorator
 from multisafepay.api.paths.payment_methods.response.components.allowed_amount import (
@@ -55,17 +55,17 @@ class PaymentMethod(ResponseModel):
 
     additional_data: Optional[dict]
     allowed_amount: Optional[AllowedAmount]
-    allowed_countries: Optional[List[str]]
-    allowed_currencies: Optional[List[str]]
+    allowed_countries: Optional[list[str]]
+    allowed_currencies: Optional[list[str]]
     apps: Optional[Apps]
-    brands: Optional[List[Brand]]
+    brands: Optional[list[Brand]]
     description: Optional[str]
     icon_urls: Optional[IconUrls]
     id: Optional[str]
     label: Optional[str]
     name: Optional[str]
-    preferred_countries: Optional[List[str]]
-    required_customer_data: Optional[List[str]]
+    preferred_countries: Optional[list[str]]
+    required_customer_data: Optional[list[str]]
     tokenization: Optional[Tokenization]
     type: Optional[str]
     shopping_cart_required: Optional[bool]

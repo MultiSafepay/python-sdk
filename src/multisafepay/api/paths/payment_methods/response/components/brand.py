@@ -7,7 +7,7 @@
 
 """Brand model for payment method branding information and display settings."""
 
-from typing import List, Optional
+from typing import Optional
 
 from multisafepay.api.paths.payment_methods.response.components.icon_urls import (
     IconUrls,
@@ -28,7 +28,7 @@ class Brand(ResponseModel):
 
     """
 
-    allowed_countries: Optional[List[str]]
+    allowed_countries: Optional[list[str]]
     icon_urls: Optional[IconUrls]
     id: Optional[str]
     name: Optional[str]

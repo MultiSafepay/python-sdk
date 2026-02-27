@@ -7,7 +7,7 @@
 
 """Message utilities for handling API error messages and notifications."""
 
-from typing import Dict, Iterator, List
+from collections.abc import Iterator
 
 from pydantic import BaseModel, Field
 
@@ -35,7 +35,7 @@ class MessageList(BaseModel):
 
     """
 
-    __root__: List[Message] = Field(default_factory=list)
+    __root__: list[Message] = Field(default_factory=list)
 
     def __iter__(self: "MessageList") -> Iterator[Message]:
         """
@@ -90,7 +90,7 @@ class MessageList(BaseModel):
         self.__root__.append(Message(message=message))
         return self
 
-    def get_messages(self: "MessageList") -> List[Dict]:
+    def get_messages(self: "MessageList") -> list[dict]:
         """
         Get all messages in the list.
 
