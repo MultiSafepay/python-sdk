@@ -8,23 +8,30 @@
 
 """Test module for unit testing."""
 
-from unittest.mock import Mock
-from requests import Session
+import pytest
+
 from multisafepay.client.client import Client
+from multisafepay.transport import RequestsTransport
+
+requests = pytest.importorskip("requests")
 
 
-def test_initializes_with_default_http_client():
-    """Test that the Client initializes with the default HTTP client."""
+def test_initializes_with_default_requests_transport():
+    """Test that the Client initializes with the default requests transport."""
     client = Client(api_key="mock_api_key", is_production=False)
-    assert isinstance(client.http_client, Session)
+    assert isinstance(client.transport, RequestsTransport)
+    assert isinstance(client.transport.session, requests.Session)
 
 
-def test_initializes_with_custom_http_client():
-    """Test that the Client initializes with a custom HTTP client."""
-    custom_http_client = Mock()
+def test_initializes_with_custom_requests_session_via_transport():
+    """Test that the Client can be initialized with a custom requests.Session via transport."""
+    session = requests.Session()
+    transport = RequestsTransport(session=session)
     client = Client(
         api_key="mock_api_key",
         is_production=False,
-        http_client=custom_http_client,
+        transport=transport,
     )
-    assert client.http_client == custom_http_client
+    assert client.transport is transport
+    assert client.transport.session is session
+    session.close()

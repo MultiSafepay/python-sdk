@@ -10,6 +10,7 @@
 
 import os
 import time
+from typing import Optional
 
 import pytest
 from dotenv import load_dotenv
@@ -126,26 +127,30 @@ def test_recurring(sdk: Sdk):
     ), "Expected order.payment_details.recurring_id to be set"
 
     recurring_manager = sdk.get_recurring_manager()
-    response = recurring_manager.get_list(reference)
 
-    assert isinstance(response, CustomApiResponse)
-    token_list = response.get_data()
+    def _get_token_from_list() -> Optional[Token]:
+        response = recurring_manager.get_list(reference)
+        assert isinstance(response, CustomApiResponse)
+        token_list = response.get_data()
+        assert isinstance(token_list, list)
+        for token in token_list:
+            if getattr(token, "token", None) == recurring_id:
+                assert isinstance(token, Token)
+                return token
+        return None
 
-    assert isinstance(token_list, list)
-    assert len(token_list) > 0
+    # Token creation can be eventually consistent; poll briefly.
+    deadline = time.monotonic() + 15
+    token: Optional[Token] = None
+    while token is None and time.monotonic() < deadline:
+        token = _get_token_from_list()
+        if token is None:
+            time.sleep(1)
 
-    index = next(
-        (
-            i
-            for i, token in enumerate(token_list)
-            if token.token == order.payment_details.recurring_id
-        ),
-        -1,
+    assert token is not None, (
+        "Recurring token not found in list after creating order. "
+        f"reference={reference!r}, recurring_id={recurring_id!r}"
     )
-
-    assert index is not -1
-    assert isinstance(token_list[index], Token)
-    token = token_list[index]
 
     response = recurring_manager.get(token.token, reference)
 

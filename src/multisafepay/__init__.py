@@ -2,4 +2,6 @@
 
 from multisafepay.sdk import Sdk
 
-__all__ = ["Sdk"]
+__all__ = [
+    "Sdk",
+]
