@@ -35,15 +35,15 @@ class HTTPTransport(Protocol):
 
         Parameters
         ----------
-        method : str
+        method (str):
             The HTTP method (GET, POST, PATCH, DELETE, etc.).
-        url : str
+        url (str):
             The full URL for the request.
-        headers : Optional[Dict[str, str]], optional
+        headers (Optional[dict[str, str]]):
             HTTP headers to include in the request, by default None.
-        data : Optional[str], optional
+        data (Optional[str]):
             Request body data, by default None.
-        **kwargs : Any
+        **kwargs (object):
             Additional keyword arguments for transport-specific options,
             such as query params, timeout, SSL options, etc.
 

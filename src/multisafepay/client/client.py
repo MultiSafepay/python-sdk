@@ -67,7 +67,7 @@ class Client:
         self: "Client",
         endpoint: str,
         params: dict[str, Any] = None,
-        context: dict[str, Any] = None,
+        context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
         """
         Create a GET request.
@@ -95,7 +95,7 @@ class Client:
         endpoint: str,
         params: dict[str, Any] = None,
         request_body: str = None,
-        context: dict[str, Any] = None,
+        context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
         """
         Create a POST request.
@@ -125,7 +125,7 @@ class Client:
         endpoint: str,
         params: dict[str, Any] = None,
         request_body: str = None,
-        context: dict[str, Any] = None,
+        context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
         """
         Create a PATCH request.
@@ -154,7 +154,7 @@ class Client:
         self: "Client",
         endpoint: str,
         params: dict[str, Any] = None,
-        context: dict[str, Any] = None,
+        context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
         """
         Create a DELETE request.
@@ -205,7 +205,7 @@ class Client:
         method: str,
         url: str,
         request_body: Optional[dict[str, Any]] = None,
-        context: dict[str, Any] = None,
+        context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
         """
         Create and send an HTTP request.
