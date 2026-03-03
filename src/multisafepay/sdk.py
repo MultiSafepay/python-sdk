@@ -20,6 +20,7 @@ from multisafepay.api.paths.payment_methods.payment_method_manager import (
 from multisafepay.api.paths.transactions.transaction_manager import (
     TransactionManager,
 )
+from multisafepay.transport import HTTPTransport
 
 from .api.paths.capture.capture_manager import CaptureManager
 from .api.paths.me.me_manager import MeManager
@@ -39,7 +40,7 @@ class Sdk:
         self: "Sdk",
         api_key: str,
         is_production: bool,
-        http_client: Optional[Client] = None,
+        transport: Optional[HTTPTransport] = None,
         locale: str = "en_US",
     ) -> None:
         """
@@ -51,8 +52,9 @@ class Sdk:
             The API key for authenticating with the MultiSafePay API.
         is_production : bool
             Flag indicating whether to use the production environment.
-        http_client : Optional[Client], optional
-            The HTTP client to use for making requests, by default None.
+        transport : Optional[HTTPTransport], optional
+            The HTTP transport implementation to use for making requests.
+            If not provided, defaults to RequestsTransport, by default None.
         locale : str, optional
             The locale to use for requests, by default "en_US".
 
@@ -60,7 +62,7 @@ class Sdk:
         self.client = Client(
             api_key.strip(),
             is_production,
-            http_client,
+            transport,
             locale,
         )
         self.recurring_manager = RecurringManager(self.client)
