@@ -48,9 +48,8 @@ class RequestsTransport:
 
     Attributes
     ----------
-    session : Session
-        The underlying requests Session object used for connection pooling
-        and request execution.
+    session (Session): The underlying requests Session object used for
+        connection pooling and request execution.
 
     """
 
@@ -63,9 +62,8 @@ class RequestsTransport:
 
         Parameters
         ----------
-        session : Optional[Session], optional
-            An existing requests Session to use. If not provided, a new
-            Session will be created, by default None.
+        session (Session | None): An existing requests Session to use. If not
+            provided, a new Session will be created, by default None.
 
         """
         if not _HAS_REQUESTS:  # pragma: no cover
@@ -85,26 +83,19 @@ class RequestsTransport:
 
         Parameters
         ----------
-        method : str
-            The HTTP method (GET, POST, PATCH, DELETE, etc.).
-        url : str
-            The full URL for the request.
-        headers : Optional[Dict[str, str]], optional
-            HTTP headers to include in the request, by default None.
-        data : Optional[str], optional
-            Request body data, by default None.
-        **kwargs : Any
-            Additional keyword arguments passed to requests.
+        method (str): The HTTP method (GET, POST, PATCH, DELETE, etc.).
+        url (str): The full URL for the request.
+        headers (dict[str, str] | None): HTTP headers to include in the request, by default None.
+        data (str | None): Request body data, by default None.
+        **kwargs (object): Additional keyword arguments passed to requests.
 
         Returns
         -------
-        Response
-            The requests Response object.
+        Response: The requests Response object.
 
         Raises
         ------
-        RequestException
-            If the request fails or encounters an error.
+        RequestException: If the request fails or encounters an error.
 
         """
         if not _HAS_REQUESTS:  # pragma: no cover
