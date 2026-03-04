@@ -11,9 +11,10 @@ homepage = "https://multisafepay.com"
 [tool.poetry.dependencies]
 python = ">=3.9,<3.14"
 pydantic = "^1.10.0"
+requests = { version = ">=2.32.4", optional = true }
 
 [tool.poetry.extras]
-requests = ["requests", "urllib3"]
+requests = ["requests"]
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
