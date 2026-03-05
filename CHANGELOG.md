@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PTHMINT-94: Refactor `Sdk` and client request flow to support custom transport injection
 - PTHMINT-94: Update README with transport customization documentation and examples
 
+### Removed
+- PTHMINT-94: Remove `requests` as a mandatory dependency (now an optional extra)
 ## [2.2.0] - 2026-02-06
 
 ### Added
