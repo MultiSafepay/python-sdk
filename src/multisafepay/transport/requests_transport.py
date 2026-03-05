@@ -34,7 +34,7 @@ except ImportError as exc:  # pragma: no cover
 def _raise_requests_missing() -> None:
     raise ModuleNotFoundError(
         "Optional dependency 'requests' is required for RequestsTransport. "
-        "Install it via 'pip install multisafepay[requests]' (or add the Poetry extra 'requests'), "
+        "Install it via 'pip install multisafepay[requests]' or 'pip install requests', "
         "or pass a custom HTTPTransport implementation to Sdk(..., transport=...).",
     ) from _REQUESTS_IMPORT_ERROR
 
