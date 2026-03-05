@@ -10,8 +10,7 @@
 from typing import Any, Optional
 
 from multisafepay.api.base.response.api_response import ApiResponse
-from requests import Request, Session
-from requests.exceptions import RequestException
+from multisafepay.transport import HTTPTransport, RequestsTransport
 
 from ..exception.api import ApiException
 from .api_key import ApiKey
@@ -44,7 +43,7 @@ class Client:
         self: "Client",
         api_key: str,
         is_production: bool,
-        http_client: Optional[Session] = None,
+        transport: Optional[HTTPTransport] = None,
         locale: str = "en_US",
     ) -> None:
         """
@@ -54,23 +53,21 @@ class Client:
         ----------
         api_key (str): The API key for authentication.
         is_production (bool): Flag indicating if the client is in production mode.
-        http_client (Optional[Session], optional): Custom HTTP client session. Defaults to None.
-        request_factory (Optional[Any], optional): Factory for creating requests. Defaults to None.
-        stream_factory (Optional[Any], optional): Factory for creating streams. Defaults to None.
+        transport (Optional[HTTPTransport], optional): Custom HTTP transport implementation.
+            Defaults to RequestsTransport if not provided.
         locale (str, optional): Locale for the requests. Defaults to "en_US".
-        strict_mode (bool, optional): Flag indicating if strict mode is enabled. Defaults to False.
 
         """
         self.api_key = ApiKey(api_key=api_key)
         self.url = self.LIVE_URL if is_production else self.TEST_URL
-        self.http_client = http_client or Session()
+        self.transport = transport or RequestsTransport()
         self.locale = locale
 
     def create_get_request(
         self: "Client",
         endpoint: str,
         params: dict[str, Any] = None,
-        context: dict[str, Any] = None,
+        context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
         """
         Create a GET request.
@@ -90,7 +87,6 @@ class Client:
         return self._create_request(
             self.METHOD_GET,
             url,
-            params=params,
             context=context,
         )
 
@@ -99,7 +95,7 @@ class Client:
         endpoint: str,
         params: dict[str, Any] = None,
         request_body: str = None,
-        context: dict[str, Any] = None,
+        context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
         """
         Create a POST request.
@@ -129,7 +125,7 @@ class Client:
         endpoint: str,
         params: dict[str, Any] = None,
         request_body: str = None,
-        context: dict[str, Any] = None,
+        context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
         """
         Create a PATCH request.
@@ -158,7 +154,7 @@ class Client:
         self: "Client",
         endpoint: str,
         params: dict[str, Any] = None,
-        context: dict[str, Any] = None,
+        context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
         """
         Create a DELETE request.
@@ -208,7 +204,6 @@ class Client:
         self: "Client",
         method: str,
         url: str,
-        params: Optional[dict[str, Any]] = None,
         request_body: Optional[dict[str, Any]] = None,
         context: Optional[dict[str, Any]] = None,
     ) -> ApiResponse:
@@ -219,7 +214,6 @@ class Client:
         ----------
         method (str): The HTTP method.
         url (str): The full URL.
-        params (Optional[Dict[str, Any]], optional): Query parameters. Defaults to None.
         request_body (Optional[Dict[str, Any]], optional): The request body. Defaults to None.
         context (Dict[str, Any], optional): Additional context for the request. Defaults to None.
 
@@ -233,26 +227,27 @@ class Client:
             "accept-encoding": "application/json",
             "Content-Type": "application/json",
         }
-        request = Request(
-            method,
-            url,
-            params=params,
-            data=request_body,
-            headers=headers,
-        )
-        prepared_request = self.http_client.prepare_request(request)
 
         try:
-            response = self.http_client.send(prepared_request)
+            response = self.transport.request(
+                method=method,
+                url=url,
+                headers=headers,
+                data=request_body,
+            )
             response.raise_for_status()
-        except RequestException as e:
-            if 500 <= response.status_code < 600:
+        except Exception as e:
+            if (
+                hasattr(response, "status_code")
+                and 500 <= response.status_code < 600
+            ):
                 raise ApiException(f"Request failed: {e}") from e
+            raise
 
         context = context or {}
         context.update(
             {
-                "headers": request.headers,
+                "headers": headers,
                 "request_body": request_body,
             },
         )

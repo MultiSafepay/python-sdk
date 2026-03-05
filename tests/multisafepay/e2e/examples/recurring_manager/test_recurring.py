@@ -126,6 +126,7 @@ def test_recurring(sdk: Sdk):
     ), "Expected order.payment_details.recurring_id to be set"
 
     recurring_manager = sdk.get_recurring_manager()
+
     response = recurring_manager.get_list(reference)
 
     assert isinstance(response, CustomApiResponse)
