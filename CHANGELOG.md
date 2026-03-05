@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-03-05
+
+### Added
+- PTHMINT-94: Introduce transport abstraction layer with `HTTPTransport` and `RequestsTransport`
+- PTHMINT-94: Add transport examples for `httpx`, `requests.Session`, and `urllib3`
+- PTHMINT-94: Add optional `requests` extra in dependency metadata for transport usage
+
+### Changed
+- PTHMINT-99: Use PEP 585 built-in generics
+- PTHMINT-94: Refactor `Sdk` and client request flow to support custom transport injection
+- PTHMINT-94: Update README with transport customization documentation and examples
+
 ## [2.2.0] - 2026-02-06
 
 ### Added
