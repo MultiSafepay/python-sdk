@@ -20,18 +20,57 @@ your transactions in one place!
 
 ## Installation
 
-Here's how to use pip to put the MultiSafepay library into your Python.
+If you want to use the built-in default transport, install with the `requests` extra.
+
+```bash
+pip install "multisafepay[requests]"
+```
+
+If you want to provide your own transport implementation, install the base package.
 
 ```bash
 pip install multisafepay
 ```
+
+## HTTP client / transport (optional dependency)
+
+**WARNING:** This SDK does not have a hard dependency on a specific HTTP client.
+
+The SDK uses a small transport abstraction so you can choose (and swap) the underlying HTTP implementation without affecting the rest of your integration.
+
+### How it works
+
+- The SDK expects an object implementing the `HTTPTransport` / `HTTPResponse` protocols defined in `src/multisafepay/transport/http_transport.py`.
+- If you do not provide a transport, the SDK defaults to `RequestsTransport`.
+- `requests` is an optional extra:
+    - To use the default transport, install `multisafepay[requests]`.
+    - To avoid `requests`, inject your own transport (for example, `httpx` or `urllib3`).
+
+### Custom transport example
+
+```bash
+pip install multisafepay
+```
+
+```python
+from multisafepay import Sdk
+
+
+sdk = Sdk(
+    api_key="<api_key>",
+    is_production=False,
+    transport=my_custom_transport,  # must implement HTTPTransport
+)
+```
+
+See transport examples in `examples/transport/` (`httpx_transport.py`, `urllib3_transport.py`, `request_transport.py`).
 
 ## Getting started
 
 ### Initialize the client
 
 ```python
-from multisafepay.sdk import Sdk
+from multisafepay import Sdk
 
 multisafepay_sdk: Sdk = Sdk(api_key='<api_key>', is_production=True)
 ```
