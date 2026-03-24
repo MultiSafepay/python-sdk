@@ -75,6 +75,34 @@ from multisafepay import Sdk
 multisafepay_sdk: Sdk = Sdk(api_key='<api_key>', is_production=True)
 ```
 
+### Development-only custom base URL override
+
+By default, the SDK only targets:
+
+- `test`: `https://testapi.multisafepay.com/v1/`
+- `live`: `https://api.multisafepay.com/v1/`
+
+For local development, a custom base URL can be enabled with strict guardrails:
+
+```bash
+export MSP_SDK_BUILD_PROFILE=dev
+export MSP_SDK_ALLOW_CUSTOM_BASE_URL=1
+```
+
+Then pass `base_url`:
+
+```python
+from multisafepay import Sdk
+
+sdk = Sdk(
+    api_key="<api_key>",
+    is_production=False,
+    base_url="https://dev-api.example.com/v1",
+)
+```
+
+In any non-dev profile (including default `release`), custom base URLs are blocked and the SDK will only use `test/live` URLs.
+
 ## Examples
 
 Go to the folder `examples` to see how to use the SDK.

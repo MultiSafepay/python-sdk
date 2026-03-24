@@ -7,7 +7,9 @@
 
 """HTTP client module for making API requests to MultiSafepay services."""
 
+import os
 from typing import Any, Optional
+from urllib.parse import urlparse
 
 from multisafepay.api.base.response.api_response import ApiResponse
 from multisafepay.transport import HTTPTransport, RequestsTransport
@@ -33,6 +35,9 @@ class Client:
 
     LIVE_URL = "https://api.multisafepay.com/v1/"
     TEST_URL = "https://testapi.multisafepay.com/v1/"
+    BUILD_PROFILE_ENV = "MSP_SDK_BUILD_PROFILE"
+    CUSTOM_BASE_URL_ENV = "MSP_SDK_CUSTOM_BASE_URL"
+    ALLOW_CUSTOM_BASE_URL_ENV = "MSP_SDK_ALLOW_CUSTOM_BASE_URL"
 
     METHOD_POST = "POST"
     METHOD_GET = "GET"
@@ -45,6 +50,7 @@ class Client:
         is_production: bool,
         transport: Optional[HTTPTransport] = None,
         locale: str = "en_US",
+        base_url: Optional[str] = None,
     ) -> None:
         """
         Initialize the Client.
@@ -56,12 +62,55 @@ class Client:
         transport (Optional[HTTPTransport], optional): Custom HTTP transport implementation.
             Defaults to RequestsTransport if not provided.
         locale (str, optional): Locale for the requests. Defaults to "en_US".
+        base_url (Optional[str], optional): Custom API base URL.
+            Only allowed when running with `MSP_SDK_BUILD_PROFILE=dev`
+            and `MSP_SDK_ALLOW_CUSTOM_BASE_URL=1`.
 
         """
         self.api_key = ApiKey(api_key=api_key)
-        self.url = self.LIVE_URL if is_production else self.TEST_URL
+        self.url = self._resolve_base_url(
+            is_production=is_production,
+            explicit_base_url=base_url,
+        )
         self.transport = transport or RequestsTransport()
         self.locale = locale
+
+    def _resolve_base_url(
+        self: "Client",
+        is_production: bool,
+        explicit_base_url: Optional[str],
+    ) -> str:
+        profile = os.getenv(self.BUILD_PROFILE_ENV, "release").strip().lower()
+        if profile != "dev":
+            profile = "release"
+
+        env_base_url = os.getenv(self.CUSTOM_BASE_URL_ENV, "").strip()
+        requested_base_url = (explicit_base_url or env_base_url or "").strip()
+
+        if not requested_base_url:
+            return self.LIVE_URL if is_production else self.TEST_URL
+
+        allow_custom = os.getenv(
+            self.ALLOW_CUSTOM_BASE_URL_ENV,
+            "0",
+        ).strip().lower() in {"1", "true", "yes"}
+
+        if profile != "dev" or not allow_custom:
+            msg = (
+                "Custom base URL is only allowed in dev profile with "
+                "MSP_SDK_ALLOW_CUSTOM_BASE_URL enabled."
+            )
+            raise ValueError(msg)
+
+        return self._normalize_base_url(requested_base_url)
+
+    @staticmethod
+    def _normalize_base_url(base_url: str) -> str:
+        parsed = urlparse(base_url)
+        if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+            raise ValueError("Invalid custom base URL.")
+
+        return base_url.rstrip("/") + "/"
 
     def create_get_request(
         self: "Client",

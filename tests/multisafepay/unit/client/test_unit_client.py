@@ -35,3 +35,84 @@ def test_initializes_with_custom_requests_session_via_transport():
     assert client.transport is transport
     assert client.transport.session is session
     session.close()
+
+
+def test_defaults_to_test_url(monkeypatch: pytest.MonkeyPatch):
+    """Test that client defaults to test URL when not in production."""
+    monkeypatch.delenv("MSP_SDK_BUILD_PROFILE", raising=False)
+    monkeypatch.delenv("MSP_SDK_CUSTOM_BASE_URL", raising=False)
+    monkeypatch.delenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", raising=False)
+
+    client = Client(api_key="mock_api_key", is_production=False)
+    assert client.url == Client.TEST_URL
+
+
+def test_defaults_to_live_url(monkeypatch: pytest.MonkeyPatch):
+    """Test that client defaults to live URL when in production mode."""
+    monkeypatch.delenv("MSP_SDK_BUILD_PROFILE", raising=False)
+    monkeypatch.delenv("MSP_SDK_CUSTOM_BASE_URL", raising=False)
+    monkeypatch.delenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", raising=False)
+
+    client = Client(api_key="mock_api_key", is_production=True)
+    assert client.url == Client.LIVE_URL
+
+
+def test_allows_custom_base_url_only_in_dev_profile(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that custom base URL is allowed only in dev profile with flag enabled."""
+    monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
+    monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
+
+    client = Client(
+        api_key="mock_api_key",
+        is_production=False,
+        base_url="https://dev-api.multisafepay.test/v1",
+    )
+    assert client.url == "https://dev-api.multisafepay.test/v1/"
+
+
+def test_blocks_custom_base_url_in_release_profile(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that custom base URL is blocked in release profile."""
+    monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "release")
+    monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
+
+    with pytest.raises(ValueError, match="Custom base URL"):
+        Client(
+            api_key="mock_api_key",
+            is_production=False,
+            base_url="https://dev-api.multisafepay.test/v1",
+        )
+
+
+def test_blocks_custom_base_url_when_flag_disabled(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that custom base URL is blocked when the enable flag is disabled."""
+    monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
+    monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "0")
+
+    with pytest.raises(ValueError, match="Custom base URL"):
+        Client(
+            api_key="mock_api_key",
+            is_production=False,
+            base_url="https://dev-api.multisafepay.test/v1",
+        )
+
+
+def test_allows_custom_base_url_from_env_in_dev_profile(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that custom base URL can be provided via environment in dev profile."""
+    monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
+    monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
+    monkeypatch.setenv(
+        "MSP_SDK_CUSTOM_BASE_URL",
+        "https://dev-api.multisafepay.test/v1",
+    )
+
+    client = Client(api_key="mock_api_key", is_production=False)
+
+    assert client.url == "https://dev-api.multisafepay.test/v1/"
