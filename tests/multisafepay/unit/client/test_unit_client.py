@@ -116,3 +116,63 @@ def test_allows_custom_base_url_from_env_in_dev_profile(
     client = Client(api_key="mock_api_key", is_production=False)
 
     assert client.url == "https://dev-api.multisafepay.test/v1/"
+
+
+def test_rejects_custom_base_url_with_query(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that custom base URL rejects query strings."""
+    monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
+    monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
+
+    with pytest.raises(ValueError, match="Invalid custom base URL"):
+        Client(
+            api_key="mock_api_key",
+            is_production=False,
+            base_url="https://dev-api.multisafepay.test/v1?foo=bar",
+        )
+
+
+def test_rejects_custom_base_url_with_fragment(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that custom base URL rejects fragments."""
+    monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
+    monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
+
+    with pytest.raises(ValueError, match="Invalid custom base URL"):
+        Client(
+            api_key="mock_api_key",
+            is_production=False,
+            base_url="https://dev-api.multisafepay.test/v1#section",
+        )
+
+
+def test_rejects_custom_base_url_without_scheme(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that custom base URL rejects missing scheme."""
+    monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
+    monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
+
+    with pytest.raises(ValueError, match="Invalid custom base URL"):
+        Client(
+            api_key="mock_api_key",
+            is_production=False,
+            base_url="dev-api.multisafepay.test/v1",
+        )
+
+
+def test_rejects_custom_base_url_without_netloc(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that custom base URL rejects missing netloc."""
+    monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
+    monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
+
+    with pytest.raises(ValueError, match="Invalid custom base URL"):
+        Client(
+            api_key="mock_api_key",
+            is_production=False,
+            base_url="https:///v1",
+        )

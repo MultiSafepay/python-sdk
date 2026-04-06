@@ -110,7 +110,13 @@ class Client:
         if parsed.scheme not in {"http", "https"} or not parsed.netloc:
             raise ValueError("Invalid custom base URL.")
 
-        return base_url.rstrip("/") + "/"
+        if parsed.query or parsed.fragment:
+            raise ValueError("Invalid custom base URL.")
+
+        path = parsed.path.rstrip("/")
+        path = "/" if not path else path + "/"
+
+        return f"{parsed.scheme}://{parsed.netloc}{path}"
 
     def create_get_request(
         self: "Client",

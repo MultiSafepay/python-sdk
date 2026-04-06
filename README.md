@@ -89,7 +89,15 @@ export MSP_SDK_BUILD_PROFILE=dev
 export MSP_SDK_ALLOW_CUSTOM_BASE_URL=1
 ```
 
-Then pass `base_url`:
+You can provide the custom base URL either via environment variable or via the SDK argument.
+
+Environment variable option:
+
+```bash
+export MSP_SDK_CUSTOM_BASE_URL="https://dev-api.example.com/v1"
+```
+
+SDK argument option:
 
 ```python
 from multisafepay import Sdk
@@ -100,6 +108,11 @@ sdk = Sdk(
     base_url="https://dev-api.example.com/v1",
 )
 ```
+
+Precedence when both are set:
+
+- The explicit SDK argument base_url takes priority.
+- If base_url is not passed, MSP_SDK_CUSTOM_BASE_URL is used.
 
 In any non-dev profile (including default `release`), custom base URLs are blocked and the SDK will only use `test/live` URLs.
 
