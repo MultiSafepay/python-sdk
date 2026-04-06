@@ -8,10 +8,8 @@
 
 """Test module for e2e testing."""
 
-import os
 import time
 import pytest
-from dotenv import load_dotenv
 from multisafepay.api.paths.orders.order_manager import OrderManager
 from multisafepay.value_object.weight import Weight
 from multisafepay.api.shared.cart.cart_item import CartItem
@@ -43,12 +41,9 @@ from multisafepay.api.paths.orders.order_id.update.request.update_request import
 
 
 @pytest.fixture(scope="module")
-def order_manager() -> OrderManager:
+def order_manager(e2e_sdk: Sdk) -> OrderManager:
     """Fixture that provides an OrderManager instance for testing."""
-    load_dotenv()
-    api_key = os.getenv("API_KEY")
-    multisafepay_sdk = Sdk(api_key, False)
-    return multisafepay_sdk.get_order_manager()
+    return e2e_sdk.get_order_manager()
 
 
 def test_update(order_manager: OrderManager):

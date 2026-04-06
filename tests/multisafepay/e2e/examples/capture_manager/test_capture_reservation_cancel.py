@@ -8,12 +8,10 @@
 
 """Test module for e2e testing."""
 
-import os
 import time
 import pytest
 from typing import TYPE_CHECKING
 
-from dotenv import load_dotenv
 from multisafepay.api.paths.capture.response.capture import CancelReservation
 from multisafepay.api.paths.capture.request.capture_request import (
     CaptureRequest,
@@ -49,11 +47,9 @@ if TYPE_CHECKING:
 
 
 @pytest.fixture(scope="module")
-def sdk() -> Sdk:
+def sdk(e2e_sdk: Sdk) -> Sdk:
     """Fixture that provides an SDK instance for testing."""
-    load_dotenv()
-    api_key = os.getenv("API_KEY")
-    return Sdk(api_key, False)
+    return e2e_sdk
 
 
 def test_capture_reservation_cancel(sdk: Sdk):

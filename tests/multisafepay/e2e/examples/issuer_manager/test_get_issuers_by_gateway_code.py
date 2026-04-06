@@ -8,9 +8,7 @@
 
 """Test module for e2e testing."""
 
-import os
 import pytest
-from dotenv import load_dotenv
 from multisafepay.api.paths.issuers.response.issuer import Issuer
 
 from multisafepay.api.base.response.custom_api_response import (
@@ -21,12 +19,9 @@ from multisafepay.sdk import Sdk
 
 
 @pytest.fixture(scope="module")
-def issuer_manager() -> IssuerManager:
+def issuer_manager(e2e_sdk: Sdk) -> IssuerManager:
     """Fixture that provides an IssuerManager instance for testing."""
-    load_dotenv()
-    api_key = os.getenv("API_KEY")
-    multisafepay_sdk = Sdk(api_key, False)
-    return multisafepay_sdk.get_issuer_manager()
+    return e2e_sdk.get_issuer_manager()
 
 
 def test_get_issuers_by_gateway_code(issuer_manager: IssuerManager):

@@ -93,6 +93,19 @@ make lint
 make test
 ```
 
+### E2E target environment
+
+E2E tests always target `https://testapi.multisafepay.com/v1/`.
+
+Use a dedicated API key for them instead of the general SDK key:
+
+```bash
+export E2E_API_KEY="<test_api_key>"
+make test-e2e
+```
+
+The e2e suite does not use the shared `API_KEY` variable.
+
 ## Support
 
 Create an issue on this repository or email <a href="mailto:integration@multisafepay.com">

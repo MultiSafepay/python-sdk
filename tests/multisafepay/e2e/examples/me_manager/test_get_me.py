@@ -8,9 +8,7 @@
 
 """Test module for e2e testing."""
 
-import os
 import pytest
-from dotenv import load_dotenv
 
 from multisafepay.api.paths.me.response.me import Me
 
@@ -24,12 +22,9 @@ from multisafepay.api.paths.me.me_manager import MeManager
 
 
 @pytest.fixture(scope="module")
-def me_manager() -> "MeManager":
+def me_manager(e2e_sdk: Sdk) -> "MeManager":
     """Fixture that provides a MeManager instance for testing."""
-    load_dotenv()
-    api_key = os.getenv("API_KEY")
-    multisafepay_sdk = Sdk(api_key, False)
-    return multisafepay_sdk.get_me_manager()
+    return e2e_sdk.get_me_manager()
 
 
 def test_get_me(me_manager: MeManager):

@@ -8,9 +8,7 @@
 
 """Test module for e2e testing."""
 
-import os
 import pytest
-from dotenv import load_dotenv
 from multisafepay.api.base.listings.listing_pager import ListingPager
 
 from multisafepay.api.base.response.custom_api_response import (
@@ -26,12 +24,9 @@ from multisafepay.sdk import Sdk
 
 
 @pytest.fixture(scope="module")
-def transaction_manager():
+def transaction_manager(e2e_sdk: Sdk):
     """Fixture that provides a TransactionManager instance for testing."""
-    load_dotenv()
-    api_key = os.getenv("API_KEY")
-    multisafepay_sdk = Sdk(api_key, False)
-    return multisafepay_sdk.get_transaction_manager()
+    return e2e_sdk.get_transaction_manager()
 
 
 def test_retrieves_all_transactions(transaction_manager: TransactionManager):
