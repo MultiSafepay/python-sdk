@@ -118,6 +118,26 @@ def test_allows_custom_base_url_from_env_in_dev_profile(
     assert client.url == "https://dev-api.multisafepay.test/v1/"
 
 
+def test_explicit_base_url_takes_precedence_over_env(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that an explicit base URL overrides the environment value."""
+    monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
+    monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
+    monkeypatch.setenv(
+        "MSP_SDK_CUSTOM_BASE_URL",
+        "https://env-api.multisafepay.test/v1",
+    )
+
+    client = Client(
+        api_key="mock_api_key",
+        is_production=False,
+        base_url="https://explicit-api.multisafepay.test/v1",
+    )
+
+    assert client.url == "https://explicit-api.multisafepay.test/v1/"
+
+
 def test_rejects_custom_base_url_with_query(
     monkeypatch: pytest.MonkeyPatch,
 ):
@@ -125,7 +145,7 @@ def test_rejects_custom_base_url_with_query(
     monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
     monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
 
-    with pytest.raises(ValueError, match="Invalid custom base URL"):
+    with pytest.raises(ValueError, match="Invalid base URL"):
         Client(
             api_key="mock_api_key",
             is_production=False,
@@ -140,11 +160,26 @@ def test_rejects_custom_base_url_with_fragment(
     monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
     monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
 
-    with pytest.raises(ValueError, match="Invalid custom base URL"):
+    with pytest.raises(ValueError, match="Invalid base URL"):
         Client(
             api_key="mock_api_key",
             is_production=False,
             base_url="https://dev-api.multisafepay.test/v1#section",
+        )
+
+
+def test_rejects_custom_base_url_with_params(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that custom base URL rejects path parameters."""
+    monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
+    monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
+
+    with pytest.raises(ValueError, match="Invalid base URL"):
+        Client(
+            api_key="mock_api_key",
+            is_production=False,
+            base_url="https://dev-api.multisafepay.test/v1;foo",
         )
 
 
@@ -155,7 +190,7 @@ def test_rejects_custom_base_url_without_scheme(
     monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
     monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
 
-    with pytest.raises(ValueError, match="Invalid custom base URL"):
+    with pytest.raises(ValueError, match="Invalid base URL"):
         Client(
             api_key="mock_api_key",
             is_production=False,
@@ -170,7 +205,7 @@ def test_rejects_custom_base_url_without_netloc(
     monkeypatch.setenv("MSP_SDK_BUILD_PROFILE", "dev")
     monkeypatch.setenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", "1")
 
-    with pytest.raises(ValueError, match="Invalid custom base URL"):
+    with pytest.raises(ValueError, match="Invalid base URL"):
         Client(
             api_key="mock_api_key",
             is_production=False,

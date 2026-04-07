@@ -108,10 +108,10 @@ class Client:
     def _normalize_base_url(base_url: str) -> str:
         parsed = urlparse(base_url)
         if parsed.scheme not in {"http", "https"} or not parsed.netloc:
-            raise ValueError("Invalid custom base URL.")
+            raise ValueError("Invalid base URL.")
 
-        if parsed.query or parsed.fragment:
-            raise ValueError("Invalid custom base URL.")
+        if parsed.params or parsed.query or parsed.fragment:
+            raise ValueError("Invalid base URL.")
 
         path = parsed.path.rstrip("/")
         path = "/" if not path else path + "/"
