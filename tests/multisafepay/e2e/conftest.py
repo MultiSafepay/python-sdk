@@ -1,16 +1,21 @@
 """Configuration for end-to-end tests."""
 
 import os
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
 from typing import Optional
 
 import pytest
 from dotenv import load_dotenv
 
+from multisafepay.client.client import Client
 from multisafepay.sdk import Sdk
 from multisafepay.transport import HTTPTransport
 
 E2E_API_KEY_ENV = "E2E_API_KEY"
+BUILD_PROFILE_ENV = "MSP_SDK_BUILD_PROFILE"
+ALLOW_CUSTOM_BASE_URL_ENV = "MSP_SDK_ALLOW_CUSTOM_BASE_URL"
+CUSTOM_BASE_URL_ENV = "MSP_SDK_CUSTOM_BASE_URL"
 
 # Load .env file from the project root
 load_dotenv()
@@ -18,6 +23,29 @@ load_dotenv()
 
 def _get_e2e_api_key() -> str:
     return os.getenv(E2E_API_KEY_ENV, "").strip()
+
+
+@contextmanager
+def _without_custom_base_url_env() -> Iterator[None]:
+    """Temporarily disable custom base URL overrides for E2E SDK creation."""
+    env_names = (
+        BUILD_PROFILE_ENV,
+        ALLOW_CUSTOM_BASE_URL_ENV,
+        CUSTOM_BASE_URL_ENV,
+    )
+    previous_values = {name: os.getenv(name) for name in env_names}
+
+    for name in env_names:
+        os.environ.pop(name, None)
+
+    try:
+        yield
+    finally:
+        for name, value in previous_values.items():
+            if value is None:
+                os.environ.pop(name, None)
+            else:
+                os.environ[name] = value
 
 
 @pytest.fixture(scope="session")
@@ -35,11 +63,19 @@ def e2e_sdk_factory(e2e_api_key: str) -> Callable[..., Sdk]:
     """Create SDK instances for E2E tests with a shared configuration."""
 
     def create_sdk(*, transport: Optional[HTTPTransport] = None) -> Sdk:
-        return Sdk(
-            api_key=e2e_api_key,
-            is_production=False,
-            transport=transport,
-        )
+        with _without_custom_base_url_env():
+            sdk = Sdk(
+                api_key=e2e_api_key,
+                is_production=False,
+                transport=transport,
+            )
+
+        if sdk.get_client().url != Client.TEST_URL:
+            raise RuntimeError(
+                "E2E SDK must use the test API base URL.",
+            )
+
+        return sdk
 
     return create_sdk
 
