@@ -42,6 +42,7 @@ class Sdk:
         is_production: bool,
         transport: Optional[HTTPTransport] = None,
         locale: str = "en_US",
+        base_url: Optional[str] = None,
     ) -> None:
         """
         Initialize the SDK with the provided configuration.
@@ -57,6 +58,8 @@ class Sdk:
             If not provided, defaults to RequestsTransport, by default None.
         locale : str, optional
             The locale to use for requests, by default "en_US".
+        base_url : Optional[str], optional
+            Custom API base URL (dev-only guardrails apply), by default None.
 
         """
         self.client = Client(
@@ -64,6 +67,7 @@ class Sdk:
             is_production,
             transport,
             locale,
+            base_url,
         )
         self.recurring_manager = RecurringManager(self.client)
 
