@@ -134,6 +134,24 @@ make lint
 make test
 ```
 
+### E2E target environment
+
+By default, E2E tests target `https://testapi.multisafepay.com/v1/`.
+
+Use dedicated E2E variables instead of the general SDK variables:
+
+```bash
+export E2E_API_KEY="<test_api_key>"
+export E2E_BASE_URL="https://testapi.multisafepay.com/v1/"  # optional
+make test-e2e
+```
+
+`E2E_BASE_URL` is optional and can point to any HTTPS base URL used for E2E.
+When omitted, E2E defaults to `testapi.multisafepay.com`.
+
+The e2e suite does not use the shared `API_KEY` variable or the shared `MSP_SDK_*`
+custom base URL settings.
+
 ## Support
 
 Create an issue on this repository or email <a href="mailto:integration@multisafepay.com">

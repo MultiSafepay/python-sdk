@@ -12,10 +12,9 @@ This test validates that a custom `requests.Session` can be injected via
 `RequestsTransport` and used end-to-end against the MultiSafepay test API.
 """
 
-import os
+from collections.abc import Callable
 
 import pytest
-from dotenv import load_dotenv
 
 from multisafepay.api.base.response.custom_api_response import (
     CustomApiResponse,
@@ -27,20 +26,15 @@ from multisafepay.transport import RequestsTransport
 
 
 @pytest.fixture(scope="module")
-def gateway_manager() -> GatewayManager:
+def gateway_manager(e2e_sdk_factory: Callable[..., Sdk]) -> GatewayManager:
     """Fixture that provides a GatewayManager instance using a custom requests.Session."""
     requests = pytest.importorskip("requests")
-
-    load_dotenv()
-    api_key = os.getenv("API_KEY")
-    if not api_key:
-        pytest.skip("API_KEY env var not set")
 
     session = requests.Session()
     session.headers.update({"User-Agent": "multisafepay-sdk-tests"})
 
     transport = RequestsTransport(session=session)
-    multisafepay_sdk = Sdk(api_key, False, transport)
+    multisafepay_sdk = e2e_sdk_factory(transport=transport)
 
     try:
         yield multisafepay_sdk.get_gateway_manager()

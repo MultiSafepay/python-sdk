@@ -8,9 +8,7 @@
 
 """Test module for e2e testing."""
 
-import os
 import pytest
-from dotenv import load_dotenv
 
 from multisafepay.api.base.response.custom_api_response import (
     CustomApiResponse,
@@ -24,12 +22,9 @@ from multisafepay.api.paths.categories.category_manager import (
 
 
 @pytest.fixture(scope="module")
-def category_manager() -> "CategoryManager":
+def category_manager(e2e_sdk: Sdk) -> "CategoryManager":
     """Fixture that provides a CategoryManager instance for testing."""
-    load_dotenv()
-    api_key = os.getenv("API_KEY")
-    multisafepay_sdk = Sdk(api_key, False)
-    return multisafepay_sdk.get_category_manager()
+    return e2e_sdk.get_category_manager()
 
 
 def test_get_categories(category_manager: CategoryManager):

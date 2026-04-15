@@ -8,11 +8,9 @@
 
 """Test module for e2e testing."""
 
-import os
 import time
 
 import pytest
-from dotenv import load_dotenv
 from multisafepay.api.paths.orders.request.components.payment_options import (
     PaymentOptions,
 )
@@ -35,11 +33,9 @@ from multisafepay.api.paths.recurring.customer_reference.token.token import (
 
 
 @pytest.fixture(scope="module")
-def sdk() -> Sdk:
+def sdk(e2e_sdk: Sdk) -> Sdk:
     """Fixture that provides an SDK instance for testing."""
-    load_dotenv()
-    api_key = os.getenv("API_KEY")
-    return Sdk(api_key, False)
+    return e2e_sdk
 
 
 def test_recurring(sdk: Sdk):

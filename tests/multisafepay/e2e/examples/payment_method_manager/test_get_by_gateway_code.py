@@ -8,9 +8,7 @@
 
 """Test module for e2e testing."""
 
-import os
 import pytest
-from dotenv import load_dotenv
 from multisafepay.api.paths.payment_methods.response.payment_method import (
     PaymentMethod,
 )
@@ -25,12 +23,9 @@ from multisafepay.sdk import Sdk
 
 
 @pytest.fixture(scope="module")
-def payment_method_manager() -> PaymentMethodManager:
+def payment_method_manager(e2e_sdk: Sdk) -> PaymentMethodManager:
     """Fixture that provides a PaymentMethodManager instance for testing."""
-    load_dotenv()
-    api_key = os.getenv("API_KEY")
-    multisafepay_sdk = Sdk(api_key, False)
-    return multisafepay_sdk.get_payment_method_manager()
+    return e2e_sdk.get_payment_method_manager()
 
 
 def test_get_by_gateway_code(payment_method_manager: PaymentMethodManager):
