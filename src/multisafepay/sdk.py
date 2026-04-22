@@ -26,6 +26,7 @@ from .api.paths.capture.capture_manager import CaptureManager
 from .api.paths.me.me_manager import MeManager
 from .api.paths.recurring.recurring_manager import RecurringManager
 from .client.client import Client
+from .client.credential_resolver import CredentialResolver
 
 
 class Sdk:
@@ -38,19 +39,21 @@ class Sdk:
 
     def __init__(
         self: "Sdk",
-        api_key: str,
-        is_production: bool,
+        api_key: Optional[str] = None,
+        is_production: bool = False,
         transport: Optional[HTTPTransport] = None,
         locale: str = "en_US",
         base_url: Optional[str] = None,
+        credential_resolver: Optional[CredentialResolver] = None,
     ) -> None:
         """
         Initialize the SDK with the provided configuration.
 
         Parameters
         ----------
-        api_key : str
+        api_key : Optional[str]
             The API key for authenticating with the MultiSafePay API.
+            Optional only when `credential_resolver` is provided.
         is_production : bool
             Flag indicating whether to use the production environment.
         transport : Optional[HTTPTransport], optional
@@ -60,14 +63,17 @@ class Sdk:
             The locale to use for requests, by default "en_US".
         base_url : Optional[str], optional
             Custom API base URL (dev-only guardrails apply), by default None.
+        credential_resolver : Optional[CredentialResolver], optional
+            Strategy for resolving API keys per auth scope, by default None.
 
         """
         self.client = Client(
-            api_key.strip(),
-            is_production,
-            transport,
-            locale,
-            base_url,
+            api_key=api_key,
+            is_production=is_production,
+            transport=transport,
+            locale=locale,
+            base_url=base_url,
+            credential_resolver=credential_resolver,
         )
         self.recurring_manager = RecurringManager(self.client)
 
