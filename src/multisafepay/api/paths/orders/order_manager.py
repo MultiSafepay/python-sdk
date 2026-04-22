@@ -15,6 +15,12 @@ from multisafepay.api.base.response.api_response import ApiResponse
 from multisafepay.api.base.response.custom_api_response import (
     CustomApiResponse,
 )
+from multisafepay.api.paths.orders.order_id.cancel.request.cancel_transaction_request import (
+    CancelTransactionRequest,
+)
+from multisafepay.api.paths.orders.order_id.cancel.response.cancel_transaction import (
+    CancelTransaction,
+)
 from multisafepay.api.paths.orders.order_id.capture.request.capture_request import (
     CaptureOrderRequest,
 )
@@ -38,6 +44,7 @@ from multisafepay.api.paths.orders.response.order_response import Order
 from multisafepay.api.shared.cart.shopping_cart import ShoppingCart
 from multisafepay.api.shared.description import Description
 from multisafepay.client.client import Client
+from multisafepay.client.credential_resolver import AuthScope
 from multisafepay.util.dict_utils import dict_empty
 from multisafepay.util.json_encoder import DecimalEncoder
 from multisafepay.util.message import MessageList, gen_could_not_created_msg
@@ -90,6 +97,26 @@ class OrderManager(AbstractManager):
 
         return CustomApiResponse(**args)
 
+    @staticmethod
+    def __custom_cancel_transaction_response(
+        response: ApiResponse,
+    ) -> CustomApiResponse:
+        args: dict = {
+            **response.dict(),
+            "data": None,
+        }
+        if not dict_empty(response.get_body_data()):
+            try:
+                args["data"] = CancelTransaction.from_dict(
+                    d=response.get_body_data().copy(),
+                )
+            except ValidationError:
+                args["warnings"] = MessageList().add_message(
+                    gen_could_not_created_msg("CancelTransaction"),
+                )
+
+        return CustomApiResponse(**args)
+
     def get(self: "OrderManager", order_id: str) -> CustomApiResponse:
         """
         Retrieve an order by its ID.
@@ -115,6 +142,7 @@ class OrderManager(AbstractManager):
     def create(
         self: "OrderManager",
         request_order: OrderRequest,
+        terminal_group_id: str = None,
     ) -> CustomApiResponse:
         """
         Create a new order.
@@ -122,6 +150,8 @@ class OrderManager(AbstractManager):
         Parameters
         ----------
         request_order (OrderRequest): The request object containing order details.
+        terminal_group_id (str): Optional terminal group identifier for
+            scoped auth resolution.
 
         Returns
         -------
@@ -132,6 +162,14 @@ class OrderManager(AbstractManager):
         response: ApiResponse = self.client.create_post_request(
             "json/orders",
             request_body=json_data,
+            auth_scope=(
+                AuthScope(
+                    scope=Client.AUTH_SCOPE_TERMINAL_GROUP,
+                    group_id=terminal_group_id,
+                )
+                if terminal_group_id
+                else None
+            ),
         )
         return OrderManager.__custom_api_response(response)
 
@@ -245,6 +283,51 @@ class OrderManager(AbstractManager):
                 )
 
         return CustomApiResponse(**args)
+
+    def cancel_transaction(
+        self: "OrderManager",
+        cancel_transaction_request: Union[
+            CancelTransactionRequest,
+            str,
+        ],
+        terminal_group_id: str = None,
+    ) -> CustomApiResponse:
+        """
+        Cancel a POS transaction by order id.
+
+        Parameters
+        ----------
+        cancel_transaction_request (CancelTransactionRequest | str):
+            Request object or direct order identifier.
+        terminal_group_id (str): Optional terminal group identifier for
+            scoped auth resolution.
+
+        Returns
+        -------
+        CustomApiResponse: The cancellation response.
+
+        """
+        order_id = (
+            cancel_transaction_request
+            if isinstance(cancel_transaction_request, str)
+            else cancel_transaction_request.order_id
+        )
+        encoded_order_id = self.encode_path_segment(order_id)
+        endpoint = f"json/orders/{encoded_order_id}/cancel"
+        context = {"order_id": order_id}
+        response = self.client.create_post_request(
+            endpoint,
+            context=context,
+            auth_scope=(
+                AuthScope(
+                    scope=Client.AUTH_SCOPE_TERMINAL_GROUP,
+                    group_id=terminal_group_id,
+                )
+                if terminal_group_id
+                else None
+            ),
+        )
+        return OrderManager.__custom_cancel_transaction_response(response)
 
     def refund_by_item(
         self: "OrderManager",

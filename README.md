@@ -120,6 +120,17 @@ In any non-dev profile (including default `release`), custom base URLs are block
 
 Go to the folder `examples` to see how to use the SDK.
 
+### Scoped credential behavior in examples
+
+Some examples support multiple credential scopes through `ScopedCredentialResolver`.
+
+- `ScopedCredentialResolver` supports any key combination as long as at least one credential is configured.
+- Cloud POS order lifecycle examples execute manager calls with terminal-group scope and therefore require `TERMINAL_GROUP_API_KEY_GROUP_DEFAULT`.
+- Those examples still read `API_KEY` and `PARTNER_API_KEY` and pass them to the resolver when available, but they are not validated as required for those specific flows.
+- `terminal_manager/create.py` calls `create_terminal` with default scope and therefore requires `API_KEY`.
+- `terminal_manager/get_terminals.py` and `terminal_group_manager/get_terminals_by_group.py` call partner-affiliate scope and require either `PARTNER_API_KEY` or `API_KEY`.
+- `PARTNER_API_KEY` is optional in those examples and must be passed via `partner_affiliate_api_key`; it does not replace `default_api_key`.
+
 ## Code quality checks
 
 ### Linting
@@ -149,8 +160,54 @@ make test-e2e
 `E2E_BASE_URL` is optional and can point to any HTTPS base URL used for E2E.
 When omitted, E2E defaults to `testapi.multisafepay.com`.
 
-The e2e suite does not use the shared `API_KEY` variable or the shared `MSP_SDK_*`
-custom base URL settings.
+For strict feature-specific examples (Cloud POS and terminal endpoints), you can
+set a separate URL with `E2E_NO_SANDBOX_BASE_URL`. If omitted, those tests reuse
+`E2E_BASE_URL`.
+
+This split is a temporary workaround: some feature-specific flows are not yet
+supported on the default `testapi` environment.
+
+### Strict feature-specific E2E credentials
+
+Cloud POS example E2E tests use a strict, isolated credential set. If any
+required variable is missing, those tests fail fast during setup.
+
+These tests are intentionally isolated because they currently depend on
+features that may not be available in `testapi` yet.
+
+`terminal_group_id` is resolved automatically from `/json/terminals` using
+`E2E_CLOUD_POS_TERMINAL_ID`.
+
+```bash
+export E2E_API_KEY="m_<merchant_key>"
+export E2E_NO_SANDBOX_BASE_URL="<non_sandbox_https_base_url>"
+export E2E_PARTNER_API_KEY="<partner_affiliate_key>"
+export E2E_CLOUD_POS_TERMINAL_ID="<terminal_id>"
+export E2E_TERMINAL_GROUP_API_KEY_GROUP_DEFAULT="<terminal_group_api_key>"
+```
+
+Terminal endpoint example E2E tests reuse the current custom environment
+configuration instead of defining a second set of terminal-specific E2E
+variables.
+
+```bash
+export API_KEY="<dev_api_key>"
+export PARTNER_API_KEY="<dev_partner_affiliate_key>"  # optional
+export MSP_SDK_CUSTOM_BASE_URL="<custom_https_base_url>"
+export E2E_CLOUD_POS_TERMINAL_ID="<terminal_id>"
+# Optional: skip automatic group lookup for the terminal-group example.
+export CLOUD_POS_TERMINAL_GROUP_ID="<terminal_group_id>"
+```
+
+You can run only the strict feature-specific examples with:
+
+```bash
+poetry run pytest \
+    tests/multisafepay/e2e/examples/terminal_manager/test_get_terminals.py \
+    tests/multisafepay/e2e/examples/terminal_group_manager/test_get_terminals_by_group.py \
+    tests/multisafepay/e2e/examples/order_manager/test_cloud_pos_order.py \
+    tests/multisafepay/e2e/examples/order_manager/test_cancel.py -q
+```
 
 ## Support
 

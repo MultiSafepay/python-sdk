@@ -11,12 +11,18 @@ from typing import Optional
 
 from multisafepay.api.paths.auth.auth_manager import AuthManager
 from multisafepay.api.paths.categories.category_manager import CategoryManager
+from multisafepay.api.paths.events.event_manager import EventManager
 from multisafepay.api.paths.gateways.gateway_manager import GatewayManager
 from multisafepay.api.paths.issuers.issuer_manager import IssuerManager
 from multisafepay.api.paths.orders.order_manager import OrderManager
 from multisafepay.api.paths.payment_methods.payment_method_manager import (
     PaymentMethodManager,
 )
+from multisafepay.api.paths.pos.pos_manager import PosManager
+from multisafepay.api.paths.terminal_groups.terminal_group_manager import (
+    TerminalGroupManager,
+)
+from multisafepay.api.paths.terminals.terminal_manager import TerminalManager
 from multisafepay.api.paths.transactions.transaction_manager import (
     TransactionManager,
 )
@@ -26,6 +32,7 @@ from .api.paths.capture.capture_manager import CaptureManager
 from .api.paths.me.me_manager import MeManager
 from .api.paths.recurring.recurring_manager import RecurringManager
 from .client.client import Client
+from .client.credential_resolver import CredentialResolver
 
 
 class Sdk:
@@ -38,19 +45,21 @@ class Sdk:
 
     def __init__(
         self: "Sdk",
-        api_key: str,
-        is_production: bool,
+        api_key: Optional[str] = None,
+        is_production: bool = False,
         transport: Optional[HTTPTransport] = None,
         locale: str = "en_US",
         base_url: Optional[str] = None,
+        credential_resolver: Optional[CredentialResolver] = None,
     ) -> None:
         """
         Initialize the SDK with the provided configuration.
 
         Parameters
         ----------
-        api_key : str
+        api_key : Optional[str]
             The API key for authenticating with the MultiSafePay API.
+            Optional only when `credential_resolver` is provided.
         is_production : bool
             Flag indicating whether to use the production environment.
         transport : Optional[HTTPTransport], optional
@@ -60,14 +69,17 @@ class Sdk:
             The locale to use for requests, by default "en_US".
         base_url : Optional[str], optional
             Custom API base URL (dev-only guardrails apply), by default None.
+        credential_resolver : Optional[CredentialResolver], optional
+            Strategy for resolving API keys per auth scope, by default None.
 
         """
         self.client = Client(
-            api_key.strip(),
-            is_production,
-            transport,
-            locale,
-            base_url,
+            api_key=api_key,
+            is_production=is_production,
+            transport=transport,
+            locale=locale,
+            base_url=base_url,
+            credential_resolver=credential_resolver,
         )
         self.recurring_manager = RecurringManager(self.client)
 
@@ -167,6 +179,18 @@ class Sdk:
         """
         return CategoryManager(self.client)
 
+    def get_event_manager(self: "Sdk") -> EventManager:
+        """
+        Get the event manager.
+
+        Returns
+        -------
+        EventManager
+            The event manager instance.
+
+        """
+        return EventManager(self.client)
+
     def get_order_manager(self: "Sdk") -> OrderManager:
         """
         Get the order manager.
@@ -190,6 +214,42 @@ class Sdk:
 
         """
         return CaptureManager(self.client)
+
+    def get_terminal_manager(self: "Sdk") -> TerminalManager:
+        """
+        Get the terminal manager.
+
+        Returns
+        -------
+        TerminalManager
+            The terminal manager instance.
+
+        """
+        return TerminalManager(self.client)
+
+    def get_terminal_group_manager(self: "Sdk") -> TerminalGroupManager:
+        """
+        Get the terminal group manager.
+
+        Returns
+        -------
+        TerminalGroupManager
+            The terminal group manager instance.
+
+        """
+        return TerminalGroupManager(self.client)
+
+    def get_pos_manager(self: "Sdk") -> PosManager:
+        """
+        Get the POS manager.
+
+        Returns
+        -------
+        PosManager
+            The POS manager instance.
+
+        """
+        return PosManager(self.client)
 
     def get_client(self: "Sdk") -> Client:
         """
