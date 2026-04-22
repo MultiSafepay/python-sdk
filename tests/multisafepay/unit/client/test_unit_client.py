@@ -11,9 +11,60 @@
 import pytest
 
 from multisafepay.client.client import Client
+from multisafepay.client.credential_resolver import (
+    ScopedCredentialResolver,
+)
 from multisafepay.transport import RequestsTransport
 
 requests = pytest.importorskip("requests")
+
+DEFAULT_API_KEY = "default_api_key"
+TERMINAL_GROUP_ID = "Default"
+TERMINAL_GROUP_API_KEY = "terminal_group_api_key"
+ORDERS_ENDPOINT = "json/orders"
+API_KEY_REQUIRED_ERROR = "api_key is required"
+
+
+class _FakeResponse:
+    """Small HTTP response stub for unit tests."""
+
+    status_code = 200
+    headers = {}
+
+    @staticmethod
+    def json() -> dict:
+        return {
+            "success": True,
+            "data": {},
+        }
+
+    @staticmethod
+    def raise_for_status() -> None:
+        return
+
+
+class _CaptureTransport:
+    """Transport stub that captures the request headers."""
+
+    def __init__(self: "_CaptureTransport") -> None:
+        self.headers = {}
+
+    def request(self: "_CaptureTransport", **kwargs: dict) -> _FakeResponse:
+        self.headers = kwargs.get("headers", {})
+        return _FakeResponse()
+
+
+def _build_resolver_client(
+    resolver: ScopedCredentialResolver,
+    transport: _CaptureTransport,
+) -> Client:
+    """Build a client configured for resolver-based auth tests."""
+    return Client(
+        api_key=None,
+        is_production=False,
+        transport=transport,
+        credential_resolver=resolver,
+    )
 
 
 def test_initializes_with_default_requests_transport():
@@ -210,4 +261,72 @@ def test_rejects_custom_base_url_without_netloc(
             api_key="mock_api_key",
             is_production=False,
             base_url="https:///v1",
+        )
+
+
+def test_create_get_request_sends_authorization_header() -> None:
+    """GET request includes Bearer authorization header."""
+    transport = _CaptureTransport()
+    client = Client(
+        api_key="test_key",
+        is_production=False,
+        transport=transport,
+    )
+    client.create_get_request("json/orders")
+    assert transport.headers["Authorization"] == "Bearer test_key"
+
+
+def test_create_post_request_sends_authorization_header() -> None:
+    """POST request includes Bearer authorization header."""
+    transport = _CaptureTransport()
+    client = Client(
+        api_key="test_key",
+        is_production=False,
+        transport=transport,
+    )
+    client.create_post_request("json/orders", request_body='{"foo":"bar"}')
+    assert transport.headers["Authorization"] == "Bearer test_key"
+
+
+def test_create_patch_request_sends_authorization_header() -> None:
+    """PATCH request includes Bearer authorization header."""
+    transport = _CaptureTransport()
+    client = Client(
+        api_key="test_key",
+        is_production=False,
+        transport=transport,
+    )
+    client.create_patch_request("json/orders/1", request_body='{"foo":"bar"}')
+    assert transport.headers["Authorization"] == "Bearer test_key"
+
+
+def test_create_delete_request_sends_authorization_header() -> None:
+    """DELETE request includes Bearer authorization header."""
+    transport = _CaptureTransport()
+    client = Client(
+        api_key="test_key",
+        is_production=False,
+        transport=transport,
+    )
+    client.create_delete_request("json/recurring/1")
+    assert transport.headers["Authorization"] == "Bearer test_key"
+
+
+def test_resolve_api_key_uses_credential_resolver() -> None:
+    """Prefer credential resolver when both api_key and resolver exist."""
+    transport = _CaptureTransport()
+    resolver = ScopedCredentialResolver(default_api_key="resolver_key")
+    client = _build_resolver_client(resolver, transport)
+    client.create_get_request("json/orders")
+    assert transport.headers["Authorization"] == "Bearer resolver_key"
+
+
+def test_resolve_api_key_raises_without_key_or_resolver() -> None:
+    """Raise ValueError when no api_key or resolver is configured."""
+    with pytest.raises(ValueError, match=API_KEY_REQUIRED_ERROR):
+        Client(
+            api_key=None,
+            is_production=False,
+            transport=_CaptureTransport(),
+            credential_resolver=None,
         )

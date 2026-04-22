@@ -7,10 +7,52 @@
 
 """Unit tests for SDK-level environment/base URL guardrails."""
 
+from unittest.mock import MagicMock
+
 import pytest
 
 from multisafepay import Sdk
+from multisafepay.api.paths.capture.capture_manager import CaptureManager
+from multisafepay.api.paths.events.event_manager import EventManager
+from multisafepay.api.paths.orders.order_manager import OrderManager
+from multisafepay.api.paths.pos.pos_manager import PosManager
+from multisafepay.api.paths.terminal_groups.terminal_group_manager import (
+    TerminalGroupManager,
+)
+from multisafepay.api.paths.terminals.terminal_manager import TerminalManager
 from multisafepay.client.client import Client
+from multisafepay.client.credential_resolver import ScopedCredentialResolver
+
+DEFAULT_API_KEY = "resolver_api_key"
+
+
+class _FakeResponse:
+    """Small HTTP response stub for SDK transport tests."""
+
+    status_code = 200
+    headers = {}
+
+    @staticmethod
+    def json() -> dict:
+        return {
+            "success": True,
+            "data": {},
+        }
+
+    @staticmethod
+    def raise_for_status() -> None:
+        return
+
+
+class _CaptureTransport:
+    """Transport stub that captures outbound request headers."""
+
+    def __init__(self: "_CaptureTransport") -> None:
+        self.headers = {}
+
+    def request(self: "_CaptureTransport", **kwargs: dict) -> _FakeResponse:
+        self.headers = kwargs.get("headers", {})
+        return _FakeResponse()
 
 
 def test_sdk_uses_test_url_by_default(monkeypatch: pytest.MonkeyPatch):
@@ -64,3 +106,105 @@ def test_sdk_blocks_custom_base_url_in_release(
             is_production=False,
             base_url="https://dev-api.multisafepay.test/v1",
         )
+
+
+def test_sdk_allows_resolver_only_initialization(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Allow constructing SDK without api_key when resolver is provided."""
+    monkeypatch.delenv("MSP_SDK_BUILD_PROFILE", raising=False)
+    monkeypatch.delenv("MSP_SDK_CUSTOM_BASE_URL", raising=False)
+    monkeypatch.delenv("MSP_SDK_ALLOW_CUSTOM_BASE_URL", raising=False)
+
+    resolver = ScopedCredentialResolver(default_api_key="resolver_api_key")
+
+    sdk = Sdk(
+        is_production=False,
+        credential_resolver=resolver,
+    )
+
+    assert sdk.get_client().url == Client.TEST_URL
+
+
+def test_sdk_requires_api_key_or_resolver() -> None:
+    """Reject SDK initialization when both api_key and resolver are missing."""
+    with pytest.raises(ValueError, match="api_key is required"):
+        Sdk(is_production=False)
+
+
+def test_sdk_returns_event_manager() -> None:
+    """Expose EventManager through SDK convenience getter."""
+    sdk = Sdk(
+        api_key="mock_api_key",
+        is_production=False,
+        transport=MagicMock(),
+    )
+
+    assert isinstance(sdk.get_event_manager(), EventManager)
+
+
+def test_sdk_uses_credential_resolver_with_custom_transport() -> None:
+    """Wire resolver + transport together and use resolved auth header."""
+    transport = _CaptureTransport()
+    resolver = ScopedCredentialResolver(default_api_key=DEFAULT_API_KEY)
+
+    sdk = Sdk(
+        is_production=False,
+        transport=transport,
+        credential_resolver=resolver,
+    )
+
+    sdk.get_client().create_get_request("json/orders")
+
+    assert sdk.get_client().transport is transport
+    assert transport.headers["Authorization"] == f"Bearer {DEFAULT_API_KEY}"
+
+
+def test_sdk_returns_order_manager() -> None:
+    """Expose OrderManager through SDK convenience getter."""
+    sdk = Sdk(
+        api_key="mock_api_key",
+        is_production=False,
+        transport=MagicMock(),
+    )
+    assert isinstance(sdk.get_order_manager(), OrderManager)
+
+
+def test_sdk_returns_terminal_manager() -> None:
+    """Expose TerminalManager through SDK convenience getter."""
+    sdk = Sdk(
+        api_key="mock_api_key",
+        is_production=False,
+        transport=MagicMock(),
+    )
+    assert isinstance(sdk.get_terminal_manager(), TerminalManager)
+
+
+def test_sdk_returns_terminal_group_manager() -> None:
+    """Expose TerminalGroupManager through SDK convenience getter."""
+    sdk = Sdk(
+        api_key="mock_api_key",
+        is_production=False,
+        transport=MagicMock(),
+    )
+    assert isinstance(sdk.get_terminal_group_manager(), TerminalGroupManager)
+
+
+def test_sdk_returns_pos_manager() -> None:
+    """Expose PosManager through SDK convenience getter."""
+    sdk = Sdk(
+        api_key="mock_api_key",
+        is_production=False,
+        transport=MagicMock(),
+    )
+    assert isinstance(sdk.get_pos_manager(), PosManager)
+
+
+def test_sdk_returns_capture_manager() -> None:
+    """Expose CaptureManager through SDK convenience getter."""
+    sdk = Sdk(
+        api_key="mock_api_key",
+        is_production=False,
+        transport=MagicMock(),
+    )
+    assert isinstance(sdk.get_capture_manager(), CaptureManager)

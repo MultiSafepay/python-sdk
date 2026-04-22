@@ -16,6 +16,11 @@ from multisafepay.transport import HTTPTransport, RequestsTransport
 
 from ..exception.api import ApiException
 from .api_key import ApiKey
+from .credential_resolver import (
+    AuthScope,
+    CredentialResolver,
+    ScopedCredentialResolver,
+)
 
 
 class Client:
@@ -39,6 +44,14 @@ class Client:
     CUSTOM_BASE_URL_ENV = "MSP_SDK_CUSTOM_BASE_URL"
     ALLOW_CUSTOM_BASE_URL_ENV = "MSP_SDK_ALLOW_CUSTOM_BASE_URL"
 
+    AUTH_SCOPE_DEFAULT = ScopedCredentialResolver.AUTH_SCOPE_DEFAULT
+    AUTH_SCOPE_PARTNER_AFFILIATE = (
+        ScopedCredentialResolver.AUTH_SCOPE_PARTNER_AFFILIATE
+    )
+    AUTH_SCOPE_TERMINAL_GROUP = (
+        ScopedCredentialResolver.AUTH_SCOPE_TERMINAL_GROUP
+    )
+
     METHOD_POST = "POST"
     METHOD_GET = "GET"
     METHOD_PATCH = "PATCH"
@@ -46,18 +59,20 @@ class Client:
 
     def __init__(
         self: "Client",
-        api_key: str,
-        is_production: bool,
+        api_key: Optional[str] = None,
+        is_production: bool = False,
         transport: Optional[HTTPTransport] = None,
         locale: str = "en_US",
         base_url: Optional[str] = None,
+        credential_resolver: Optional[CredentialResolver] = None,
     ) -> None:
         """
         Initialize the Client.
 
         Parameters
         ----------
-        api_key (str): The API key for authentication.
+        api_key (Optional[str]): The API key for authentication.
+            Optional only when `credential_resolver` is provided.
         is_production (bool): Flag indicating if the client is in production mode.
         transport (Optional[HTTPTransport], optional): Custom HTTP transport implementation.
             Defaults to RequestsTransport if not provided.
@@ -65,9 +80,17 @@ class Client:
         base_url (Optional[str], optional): Custom API base URL.
             Only allowed when running with `MSP_SDK_BUILD_PROFILE=dev`
             and `MSP_SDK_ALLOW_CUSTOM_BASE_URL=1`.
+        credential_resolver (Optional[CredentialResolver], optional):
+            Resolver used to derive API keys by auth scope.
 
         """
-        self.api_key = ApiKey(api_key=api_key)
+        if api_key is None and credential_resolver is None:
+            raise ValueError(
+                "api_key is required when credential_resolver is not provided.",
+            )
+
+        self.api_key = ApiKey(api_key=api_key) if api_key is not None else None
+        self.credential_resolver = credential_resolver
         self.url = self._resolve_base_url(
             is_production=is_production,
             explicit_base_url=base_url,
@@ -123,6 +146,7 @@ class Client:
         endpoint: str,
         params: dict[str, Any] = None,
         context: Optional[dict[str, Any]] = None,
+        auth_scope: Optional[AuthScope] = None,
     ) -> ApiResponse:
         """
         Create a GET request.
@@ -143,6 +167,7 @@ class Client:
             self.METHOD_GET,
             url,
             context=context,
+            auth_scope=auth_scope,
         )
 
     def create_post_request(
@@ -151,6 +176,7 @@ class Client:
         params: dict[str, Any] = None,
         request_body: str = None,
         context: Optional[dict[str, Any]] = None,
+        auth_scope: Optional[AuthScope] = None,
     ) -> ApiResponse:
         """
         Create a POST request.
@@ -173,6 +199,7 @@ class Client:
             url,
             request_body=request_body,
             context=context,
+            auth_scope=auth_scope,
         )
 
     def create_patch_request(
@@ -181,6 +208,7 @@ class Client:
         params: dict[str, Any] = None,
         request_body: str = None,
         context: Optional[dict[str, Any]] = None,
+        auth_scope: Optional[AuthScope] = None,
     ) -> ApiResponse:
         """
         Create a PATCH request.
@@ -203,6 +231,7 @@ class Client:
             url,
             request_body=request_body,
             context=context,
+            auth_scope=auth_scope,
         )
 
     def create_delete_request(
@@ -210,6 +239,7 @@ class Client:
         endpoint: str,
         params: dict[str, Any] = None,
         context: Optional[dict[str, Any]] = None,
+        auth_scope: Optional[AuthScope] = None,
     ) -> ApiResponse:
         """
         Create a DELETE request.
@@ -226,7 +256,12 @@ class Client:
 
         """
         url = self._build_url(endpoint, params)
-        return self._create_request(self.METHOD_DELETE, url, context=context)
+        return self._create_request(
+            self.METHOD_DELETE,
+            url,
+            context=context,
+            auth_scope=auth_scope,
+        )
 
     def _build_url(
         self: "Client",
@@ -255,12 +290,33 @@ class Client:
         )
         return f"{self.url}{endpoint}?{query_string}"
 
+    def _resolve_api_key(
+        self: "Client",
+        auth_scope: Optional[AuthScope],
+    ) -> str:
+        if self.credential_resolver is not None:
+            resolved_scope = auth_scope or AuthScope(
+                scope=self.AUTH_SCOPE_DEFAULT,
+            )
+            return self.credential_resolver.resolve(
+                auth_scope=resolved_scope.scope,
+                group_id=resolved_scope.group_id,
+            )
+
+        if self.api_key is None:
+            raise ValueError(
+                "api_key is required when credential_resolver is not provided.",
+            )
+
+        return self.api_key.get()
+
     def _create_request(
         self: "Client",
         method: str,
         url: str,
         request_body: Optional[dict[str, Any]] = None,
         context: Optional[dict[str, Any]] = None,
+        auth_scope: Optional[AuthScope] = None,
     ) -> ApiResponse:
         """
         Create and send an HTTP request.
@@ -277,8 +333,9 @@ class Client:
         ApiResponse: The API response.
 
         """
+        api_key = self._resolve_api_key(auth_scope)
         headers = {
-            "Authorization": "Bearer " + self.api_key.get(),
+            "Authorization": "Bearer " + api_key,
             "accept-encoding": "application/json",
             "Content-Type": "application/json",
         }

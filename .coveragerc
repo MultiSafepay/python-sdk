@@ -4,3 +4,4 @@ source =
     tests
 omit =
   env/
+  examples/
