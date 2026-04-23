@@ -88,4 +88,4 @@ def test_integration_order_manager_create_redirect():
 
     assert isinstance(response, CustomApiResponse)
     assert isinstance(response.get_data(), Order)
-    assert response.get_data() == Order(**data_response)
+    assert response.get_data() == Order.from_dict(data_response)

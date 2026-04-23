@@ -11,6 +11,7 @@ from typing import Optional
 
 from multisafepay.api.paths.auth.auth_manager import AuthManager
 from multisafepay.api.paths.categories.category_manager import CategoryManager
+from multisafepay.api.paths.events.event_manager import EventManager
 from multisafepay.api.paths.gateways.gateway_manager import GatewayManager
 from multisafepay.api.paths.issuers.issuer_manager import IssuerManager
 from multisafepay.api.paths.orders.order_manager import OrderManager
@@ -172,6 +173,18 @@ class Sdk:
 
         """
         return CategoryManager(self.client)
+
+    def get_event_manager(self: "Sdk") -> EventManager:
+        """
+        Get the event manager.
+
+        Returns
+        -------
+        EventManager
+            The event manager instance.
+
+        """
+        return EventManager(self.client)
 
     def get_order_manager(self: "Sdk") -> OrderManager:
         """
