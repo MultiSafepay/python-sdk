@@ -103,6 +103,11 @@ class Order(ResponseModel):
     payment_url: Optional[str]
     cancel_url: Optional[str]
     session_id: Optional[str]
+    events_token: Optional[str]
+    events_url: Optional[str]
+    events_stream_url: Optional[str]
+
+    # Backward compatibility aliases for older API payloads.
     event_token: Optional[str]
     event_url: Optional[str]
     event_stream_url: Optional[str]
@@ -117,6 +122,23 @@ class Order(ResponseModel):
 
         """
         return self.order_id
+
+    @staticmethod
+    def _normalize_event_fields(d: dict) -> dict:
+        """Normalize singular/plural event keys for compatibility."""
+        mapping = [
+            ("events_token", "event_token"),
+            ("events_url", "event_url"),
+            ("events_stream_url", "event_stream_url"),
+        ]
+
+        for plural_key, singular_key in mapping:
+            if d.get(plural_key) is None and d.get(singular_key) is not None:
+                d[plural_key] = d[singular_key]
+            if d.get(singular_key) is None and d.get(plural_key) is not None:
+                d[singular_key] = d[plural_key]
+
+        return d
 
     @staticmethod
     def from_dict(d: dict) -> Optional["Order"]:
@@ -134,7 +156,10 @@ class Order(ResponseModel):
         """
         if d is None:
             return None
-        order_dependency_adapter = Decorator(dependencies=d)
+        normalized_dependencies = Order._normalize_event_fields(d.copy())
+        order_dependency_adapter = Decorator(
+            dependencies=normalized_dependencies,
+        )
         dependencies = (
             order_dependency_adapter.adapt_order_adjustment(
                 d.get("order_adjustment"),
