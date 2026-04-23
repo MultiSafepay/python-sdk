@@ -7,9 +7,12 @@
 
 """Unit tests for SDK-level environment/base URL guardrails."""
 
+from unittest.mock import MagicMock
+
 import pytest
 
 from multisafepay import Sdk
+from multisafepay.api.paths.events.event_manager import EventManager
 from multisafepay.client.client import Client
 from multisafepay.client.credential_resolver import ScopedCredentialResolver
 
@@ -120,6 +123,17 @@ def test_sdk_requires_api_key_or_resolver() -> None:
     """Reject SDK initialization when both api_key and resolver are missing."""
     with pytest.raises(ValueError, match="api_key is required"):
         Sdk(is_production=False)
+
+
+def test_sdk_returns_event_manager() -> None:
+    """Expose EventManager through SDK convenience getter."""
+    sdk = Sdk(
+        api_key="mock_api_key",
+        is_production=False,
+        transport=MagicMock(),
+    )
+
+    assert isinstance(sdk.get_event_manager(), EventManager)
 
 
 def test_sdk_uses_credential_resolver_with_custom_transport() -> None:
