@@ -336,7 +336,7 @@ class Client:
         api_key = self._resolve_api_key(auth_scope)
         headers = {
             "Authorization": "Bearer " + api_key,
-            "accept-encoding": "application/json",
+            "Accept": "application/json",
             "Content-Type": "application/json",
         }
 
