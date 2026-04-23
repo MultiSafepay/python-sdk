@@ -21,6 +21,8 @@ from multisafepay.api.paths.orders.request.components.payment_options import (
 from multisafepay.api.paths.orders.request.order_request import OrderRequest
 from multisafepay.api.paths.orders.response.order_response import Order
 from multisafepay.api.shared.customer import Customer
+from multisafepay.client.client import Client
+from multisafepay.client.credential_resolver import AuthScope
 
 
 def test_integration_order_manager_create_redirect():
@@ -88,4 +90,47 @@ def test_integration_order_manager_create_redirect():
 
     assert isinstance(response, CustomApiResponse)
     assert isinstance(response.get_data(), Order)
-    assert response.get_data() == Order(**data_response)
+    assert response.get_data() == Order.from_dict(data_response)
+
+
+def test_integration_order_manager_create_with_terminal_group_scope():
+    """Use terminal-group auth scope when terminal_group_id is provided."""
+    client = MagicMock()
+    client.create_post_request.return_value = ApiResponse(
+        headers={},
+        status_code=200,
+        body={
+            "success": True,
+            "data": {
+                "order_id": "cloud-pos-order",
+            },
+        },
+    )
+    order_request = (
+        OrderRequest()
+        .add_type("direct")
+        .add_order_id("cloud-pos-order")
+        .add_currency("EUR")
+        .add_amount(100)
+    )
+
+    order_manager = OrderManager(client)
+    response = order_manager.create(
+        request_order=order_request,
+        terminal_group_id="Default",
+    )
+
+    assert isinstance(response, CustomApiResponse)
+    assert isinstance(response.get_data(), Order)
+    assert response.get_data().order_id == "cloud-pos-order"
+
+    called_endpoint = client.create_post_request.call_args.args[0]
+    called_auth_scope = client.create_post_request.call_args.kwargs[
+        "auth_scope"
+    ]
+
+    assert called_endpoint == "json/orders"
+    assert called_auth_scope == AuthScope(
+        scope=Client.AUTH_SCOPE_TERMINAL_GROUP,
+        group_id="Default",
+    )
