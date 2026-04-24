@@ -77,7 +77,7 @@ multisafepay_sdk: Sdk = Sdk(api_key='<api_key>', is_production=True)
 
 ### Initialize with scoped credentials
 
-Use `ScopedCredentialResolver` when the API key must change per auth scope.
+Use `ScopedCredentialResolver` when different API keys must be selected per auth scope.
 When `credential_resolver` is provided, `api_key` becomes optional.
 
 ```python
@@ -90,6 +90,7 @@ credential_resolver = ScopedCredentialResolver(
     terminal_group_api_keys={
         "Default": "<terminal_group_api_key>",
     },
+    partner_affiliate_api_key="<partner_api_key>",
 )
 
 sdk = Sdk(
@@ -97,6 +98,42 @@ sdk = Sdk(
     credential_resolver=credential_resolver,
 )
 ```
+
+Resolver behavior:
+
+- `default_api_key` is used for regular account-scoped requests.
+- `partner_affiliate_api_key` is used for partner-affiliate scoped requests and falls back to `default_api_key` when omitted.
+
+### Terminal and terminal-group operations
+
+The SDK exposes dedicated managers for POS terminal listing/creation and for listing terminals inside a specific terminal group.
+
+```python
+from multisafepay.client import ScopedCredentialResolver
+from multisafepay import Sdk
+
+
+credential_resolver = ScopedCredentialResolver(
+    default_api_key="<default_api_key>",
+    partner_affiliate_api_key="<partner_api_key>",
+)
+
+sdk = Sdk(
+    is_production=False,
+    credential_resolver=credential_resolver,
+)
+
+terminal_manager = sdk.get_terminal_manager()
+terminal_group_manager = sdk.get_terminal_group_manager()
+
+terminals = terminal_manager.get_terminals(options={"limit": 10, "page": 1})
+group_terminals = terminal_group_manager.get_terminals_by_group(
+    terminal_group_id="<terminal_group_id>",
+    options={"limit": 10, "page": 1},
+)
+```
+
+See terminal examples in `examples/terminal_manager/` and `examples/terminal_group_manager/`.
 
 ### Development-only custom base URL override
 
@@ -174,6 +211,20 @@ When omitted, E2E defaults to `testapi.multisafepay.com`.
 
 The e2e suite does not use the shared `API_KEY` variable or the shared `MSP_SDK_*`
 custom base URL settings.
+
+Terminal endpoint examples and E2E checks use a dev-backed base URL because those endpoints are not exercised against the default shared E2E target.
+
+```bash
+export API_KEY="<account_api_key>"
+export PARTNER_API_KEY="<partner_api_key>"  # optional
+export MSP_SDK_BUILD_PROFILE=dev
+export MSP_SDK_ALLOW_CUSTOM_BASE_URL=1
+export MSP_SDK_CUSTOM_BASE_URL="https://dev-api.example.com/v1/"
+export E2E_CLOUD_POS_TERMINAL_ID="<terminal_id>"
+# Optional: set when you want to skip automatic terminal-group lookup
+export CLOUD_POS_TERMINAL_GROUP_ID="<terminal_group_id>"
+make test-e2e
+```
 
 ## Support
 
