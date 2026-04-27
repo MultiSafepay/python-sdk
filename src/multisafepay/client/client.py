@@ -44,14 +44,6 @@ class Client:
     CUSTOM_BASE_URL_ENV = "MSP_SDK_CUSTOM_BASE_URL"
     ALLOW_CUSTOM_BASE_URL_ENV = "MSP_SDK_ALLOW_CUSTOM_BASE_URL"
 
-    AUTH_SCOPE_DEFAULT = ScopedCredentialResolver.AUTH_SCOPE_DEFAULT
-    AUTH_SCOPE_PARTNER_AFFILIATE = (
-        ScopedCredentialResolver.AUTH_SCOPE_PARTNER_AFFILIATE
-    )
-    AUTH_SCOPE_TERMINAL_GROUP = (
-        ScopedCredentialResolver.AUTH_SCOPE_TERMINAL_GROUP
-    )
-
     METHOD_POST = "POST"
     METHOD_GET = "GET"
     METHOD_PATCH = "PATCH"
@@ -82,6 +74,10 @@ class Client:
             and `MSP_SDK_ALLOW_CUSTOM_BASE_URL=1`.
         credential_resolver (Optional[CredentialResolver], optional):
             Resolver used to derive API keys by auth scope.
+
+        Raises
+        ------
+        ValueError: If no API key or CredentialResolver is provided.
 
         """
         if api_key is None and credential_resolver is None:
@@ -296,7 +292,7 @@ class Client:
     ) -> str:
         if self.credential_resolver is not None:
             resolved_scope = auth_scope or AuthScope(
-                scope=self.AUTH_SCOPE_DEFAULT,
+                scope=ScopedCredentialResolver.AUTH_SCOPE_DEFAULT,
             )
             return self.credential_resolver.resolve(
                 auth_scope=resolved_scope.scope,

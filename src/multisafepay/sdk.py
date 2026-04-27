@@ -66,6 +66,10 @@ class Sdk:
         credential_resolver : Optional[CredentialResolver], optional
             Strategy for resolving API keys per auth scope, by default None.
 
+        Raises
+        ------
+        ValueError: If no API key or CredentialResolver is provided.
+
         """
         self.client = Client(
             api_key=api_key,
