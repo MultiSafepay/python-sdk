@@ -75,6 +75,29 @@ from multisafepay import Sdk
 multisafepay_sdk: Sdk = Sdk(api_key='<api_key>', is_production=True)
 ```
 
+### Initialize with scoped credentials
+
+Use `ScopedCredentialResolver` when the API key must change per auth scope.
+When `credential_resolver` is provided, `api_key` becomes optional.
+
+```python
+from multisafepay import Sdk
+from multisafepay.client import ScopedCredentialResolver
+
+
+credential_resolver = ScopedCredentialResolver(
+    default_api_key="<default_api_key>",
+    terminal_group_api_keys={
+        "Default": "<terminal_group_api_key>",
+    },
+)
+
+sdk = Sdk(
+    is_production=False,
+    credential_resolver=credential_resolver,
+)
+```
+
 ### Development-only custom base URL override
 
 By default, the SDK only targets:
