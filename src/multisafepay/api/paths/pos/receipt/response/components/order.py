@@ -34,6 +34,11 @@ class ReceiptOrder(ResponseModel):
     items: Optional[list[ReceiptOrderItem]]
     tip: Optional[list[ReceiptOrderTip]]
 
+    @property
+    def amount_refunded(self: "ReceiptOrder") -> Optional[int]:
+        """Return the refunded amount using the regular order field name."""
+        return self.amountrefunded
+
     @staticmethod
     def from_dict(d: dict) -> Optional["ReceiptOrder"]:
         """Create a ReceiptOrder from dictionary data."""
@@ -41,6 +46,9 @@ class ReceiptOrder(ResponseModel):
             return None
 
         args = d.copy()
+        if "amountrefunded" not in args and "amount_refunded" in args:
+            args["amountrefunded"] = args["amount_refunded"]
+
         for key, model in (
             ("items", ReceiptOrderItem),
             ("tip", ReceiptOrderTip),

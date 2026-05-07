@@ -14,6 +14,9 @@ from multisafepay.api.base.response.custom_api_response import (
     CustomApiResponse,
 )
 from multisafepay.api.paths.pos.pos_manager import PosManager
+from multisafepay.api.paths.pos.receipt.response.components.order import (
+    ReceiptOrder,
+)
 from multisafepay.api.paths.pos.receipt.response.receipt import Receipt
 from multisafepay.client.credential_resolver import (
     AuthScope,
@@ -160,6 +163,7 @@ def test_get_receipt_parses_nested_receipt_components() -> None:
     assert receipt.order.order_id == ORDER_ID
     assert receipt.order.amount == 100
     assert receipt.order.amountrefunded == 0
+    assert receipt.order.amount_refunded == 0
     assert len(receipt.order.items) == 1
     assert receipt.order.items[0].name == "Widget"
     assert len(receipt.order.tip) == 1
@@ -183,6 +187,14 @@ def test_get_receipt_returns_none_data_for_empty_body() -> None:
 
     assert isinstance(response, CustomApiResponse)
     assert response.get_data() is None
+
+
+def test_receipt_order_accepts_amount_refunded_alias() -> None:
+    """Support the regular order field name when parsing receipt order data."""
+    receipt_order = ReceiptOrder.from_dict({"amount_refunded": 25})
+
+    assert receipt_order.amountrefunded == 25
+    assert receipt_order.amount_refunded == 25
 
 
 def test_get_receipt_encodes_order_id_in_endpoint() -> None:

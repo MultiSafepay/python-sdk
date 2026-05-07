@@ -54,5 +54,4 @@ if __name__ == "__main__":
     order = create_response.get_data()
 
     print(f"Created Cloud POS order: {order.order_id}")
-    if order.payment_url:
-        print(f"Payment URL: {order.payment_url}")
+    print(order)
