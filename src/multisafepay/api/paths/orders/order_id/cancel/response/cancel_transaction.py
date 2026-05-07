@@ -15,7 +15,6 @@ from multisafepay.api.paths.orders.response.components.payment_details import (
 )
 from multisafepay.api.shared.costs import Costs
 from multisafepay.api.shared.custom_info import CustomInfo
-from multisafepay.api.shared.customer import Customer
 from multisafepay.api.shared.payment_method import PaymentMethod
 from multisafepay.model.response_model import ResponseModel
 
@@ -30,10 +29,9 @@ class CancelTransaction(ResponseModel):
     created (Optional[str]): Creation timestamp.
     modified (Optional[str]): Last modification timestamp.
     custom_info (Optional[CustomInfo]): Additional custom info.
-    customer (Optional[Customer]): The customer data.
     fastcheckout (Optional[str]): Fastcheckout flag/status.
     financial_status (Optional[str]): Financial status.
-    items (Optional[str]): Rendered items payload.
+    order_id (Optional[str]): Order identifier.
     payment_details (Optional[PaymentDetails]): Payment details.
     payment_methods (Optional[list[PaymentMethod]]): Payment methods.
     status (Optional[str]): Order status.
@@ -44,10 +42,9 @@ class CancelTransaction(ResponseModel):
     created: Optional[str]
     modified: Optional[str]
     custom_info: Optional[CustomInfo]
-    customer: Optional[Customer]
     fastcheckout: Optional[str]
     financial_status: Optional[str]
-    items: Optional[str]
+    order_id: Optional[str]
     payment_details: Optional[PaymentDetails]
     payment_methods: Optional[list[PaymentMethod]]
     status: Optional[str]

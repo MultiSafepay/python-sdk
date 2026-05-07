@@ -40,6 +40,7 @@ def _build_cancel_api_response() -> ApiResponse:
                 "financial_status": "void",
                 "created": "2026-01-01T00:00:00",
                 "modified": "2026-01-01T00:00:01",
+                "order_id": ORDER_ID,
             },
         },
     )
@@ -63,6 +64,7 @@ def test_cancel_transaction_with_terminal_group_scope() -> None:
     assert isinstance(response, CustomApiResponse)
     assert isinstance(response.get_data(), CancelTransaction)
     assert response.get_data().status == "void"
+    assert response.get_data().order_id == ORDER_ID
     assert called_auth_scope == AuthScope(
         scope=ScopedCredentialResolver.AUTH_SCOPE_TERMINAL_GROUP,
         group_id=TERMINAL_GROUP_ID,
@@ -119,3 +121,13 @@ def test_cancel_transaction_encodes_order_id() -> None:
 
     called_endpoint = client.create_post_request.call_args.args[0]
     assert "order%2Fspecial%26chars" in called_endpoint
+
+
+def test_cancel_transaction_response_model_excludes_customer() -> None:
+    """Match the POS cancel response schema, which does not include customer."""
+    assert "customer" not in CancelTransaction.__fields__
+
+
+def test_cancel_transaction_response_model_excludes_items() -> None:
+    """Match the POS cancel response schema, which does not include items."""
+    assert "items" not in CancelTransaction.__fields__

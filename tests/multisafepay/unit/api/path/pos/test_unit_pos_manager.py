@@ -41,7 +41,7 @@ def _build_receipt_api_response() -> ApiResponse:
                     "created": "2026-01-01T00:00:00",
                     "modified": "2026-01-01T00:00:01",
                     "completed": "2026-01-01T00:00:02",
-                    "amount_refunded": 0,
+                    "amountrefunded": 0,
                     "transaction_id": 12345,
                     "items": [
                         {
@@ -159,6 +159,7 @@ def test_get_receipt_parses_nested_receipt_components() -> None:
     assert receipt.merchant.address == "123 St"
     assert receipt.order.order_id == ORDER_ID
     assert receipt.order.amount == 100
+    assert receipt.order.amountrefunded == 0
     assert len(receipt.order.items) == 1
     assert receipt.order.items[0].name == "Widget"
     assert len(receipt.order.tip) == 1

@@ -22,7 +22,7 @@ class ReceiptOrder(ResponseModel):
     """Order information included in receipt data."""
 
     amount: Optional[int]
-    amount_refunded: Optional[int]
+    amountrefunded: Optional[int]
     completed: Optional[str]
     created: Optional[str]
     currency: Optional[str]

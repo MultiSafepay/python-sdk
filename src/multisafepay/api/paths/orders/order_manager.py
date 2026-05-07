@@ -100,26 +100,6 @@ class OrderManager(AbstractManager):
 
         return CustomApiResponse(**args)
 
-    @staticmethod
-    def __custom_cancel_transaction_response(
-        response: ApiResponse,
-    ) -> CustomApiResponse:
-        args: dict = {
-            **response.dict(),
-            "data": None,
-        }
-        if not dict_empty(response.get_body_data()):
-            try:
-                args["data"] = CancelTransaction.from_dict(
-                    d=response.get_body_data().copy(),
-                )
-            except ValidationError:
-                args["warnings"] = MessageList().add_message(
-                    gen_could_not_created_msg("CancelTransaction"),
-                )
-
-        return CustomApiResponse(**args)
-
     def get(self: "OrderManager", order_id: str) -> CustomApiResponse:
         """
         Retrieve an order by its ID.
@@ -330,7 +310,21 @@ class OrderManager(AbstractManager):
                 else None
             ),
         )
-        return OrderManager.__custom_cancel_transaction_response(response)
+        args: dict = {
+            **response.dict(),
+            "data": None,
+        }
+        if not dict_empty(response.get_body_data()):
+            try:
+                args["data"] = CancelTransaction.from_dict(
+                    d=response.get_body_data().copy(),
+                )
+            except ValidationError:
+                args["warnings"] = MessageList().add_message(
+                    gen_could_not_created_msg("CancelTransaction"),
+                )
+
+        return CustomApiResponse(**args)
 
     def refund_by_item(
         self: "OrderManager",
