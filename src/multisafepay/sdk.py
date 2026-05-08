@@ -17,6 +17,7 @@ from multisafepay.api.paths.orders.order_manager import OrderManager
 from multisafepay.api.paths.payment_methods.payment_method_manager import (
     PaymentMethodManager,
 )
+from multisafepay.api.paths.pos.pos_manager import PosManager
 from multisafepay.api.paths.transactions.transaction_manager import (
     TransactionManager,
 )
@@ -200,6 +201,18 @@ class Sdk:
 
         """
         return CaptureManager(self.client)
+
+    def get_pos_manager(self: "Sdk") -> PosManager:
+        """
+        Get the POS manager.
+
+        Returns
+        -------
+        PosManager
+            The POS manager instance.
+
+        """
+        return PosManager(self.client)
 
     def get_client(self: "Sdk") -> Client:
         """
