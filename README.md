@@ -87,8 +87,9 @@ from multisafepay.client import ScopedCredentialResolver
 
 credential_resolver = ScopedCredentialResolver(
     default_api_key="<default_api_key>",
+    partner_affiliate_api_key="<partner_api_key>",
     terminal_group_api_keys={
-        "Default": "<terminal_group_api_key>",
+        "<terminal_group_id>": "<terminal_group_api_key>",
     },
 )
 
@@ -97,6 +98,43 @@ sdk = Sdk(
     credential_resolver=credential_resolver,
 )
 ```
+
+### Event stream subscriptions
+
+Use `EventManager` to subscribe to MultiSafepay SSE streams directly, or to subscribe from an order response that already contains event credentials.
+
+```python
+from multisafepay import Sdk
+from multisafepay.client import ScopedCredentialResolver
+
+
+credential_resolver = ScopedCredentialResolver(
+    default_api_key="<default_api_key>",
+    terminal_group_api_keys={
+        "<terminal_group_id>": "<terminal_group_api_key>",
+    },
+)
+
+sdk = Sdk(
+    is_production=False,
+    credential_resolver=credential_resolver,
+)
+
+order_manager = sdk.get_order_manager()
+event_manager = sdk.get_event_manager()
+
+create_response = order_manager.create(
+    request_order=order_request,
+    terminal_group_id="<terminal_group_id>",
+)
+order = create_response.get_data()
+
+with event_manager.subscribe_order_events(order, timeout=45.0) as stream:
+    for event in stream:
+        print(event)
+```
+
+Use `subscribe_events(events_token=..., events_stream_url=...)` when the token and stream URL are already available separately.
 
 ### Development-only custom base URL override
 
@@ -142,6 +180,29 @@ In any non-dev profile (including default `release`), custom base URLs are block
 ## Examples
 
 Go to the folder `examples` to see how to use the SDK.
+
+The event-stream example in `examples/event_manager/subscribe_events.py` requires:
+
+```bash
+export API_KEY="<account_api_key>"
+export TERMINAL_GROUP_API_KEY_GROUP_DEFAULT="<terminal_group_api_key>"
+export CLOUD_POS_TERMINAL_GROUP_ID="<terminal_group_id>"
+export CLOUD_POS_TERMINAL_ID="<terminal_id>"
+```
+
+The SSE E2E test can also run against a dev-backed base URL and optionally resolve the terminal group automatically:
+
+```bash
+export E2E_NO_SANDBOX_BASE_URL="https://dev-api.example.com/v1/"
+export MSP_SDK_BUILD_PROFILE=dev
+export MSP_SDK_ALLOW_CUSTOM_BASE_URL=1
+export MSP_SDK_CUSTOM_BASE_URL="https://dev-api.example.com/v1/"
+export E2E_API_KEY="<account_api_key>"
+export E2E_TERMINAL_GROUP_API_KEY_GROUP_DEFAULT="<terminal_group_api_key>"
+export E2E_CLOUD_POS_TERMINAL_ID="<terminal_id>"
+# Optional when CLOUD_POS_TERMINAL_GROUP_ID is not set
+export E2E_PARTNER_API_KEY="<partner_api_key>"
+```
 
 ## Code quality checks
 
