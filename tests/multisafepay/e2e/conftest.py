@@ -80,3 +80,27 @@ def e2e_sdk_factory(
 def e2e_sdk(e2e_sdk_factory: Callable[..., Sdk]) -> Sdk:
     """Return the default SDK instance used by E2E tests."""
     return e2e_sdk_factory()
+
+
+def pytest_collection_modifyitems(
+    config: pytest.Config,  # noqa: ARG001
+    items: list[pytest.Item],
+) -> None:
+    """
+    Skip all e2e tests when E2E_API_KEY is missing.
+
+    These tests perform real API calls. In most local/CI environments the secret
+    isn't present, so we prefer a clean skip over hard errors during fixture setup.
+    """
+    if _get_e2e_api_key():
+        return
+
+    skip = pytest.mark.skip(
+        reason=f"E2E tests require {E2E_API_KEY_ENV} (not set)",
+    )
+    for item in items:
+        # This hook runs for the whole session (all collected tests), even when
+        # this conftest is only loaded due to e2e tests being present/deselected.
+        # Ensure we only affect e2e tests.
+        if item.nodeid.startswith("tests/multisafepay/e2e/"):
+            item.add_marker(skip)

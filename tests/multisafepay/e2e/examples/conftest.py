@@ -18,6 +18,7 @@ TERMINAL_E2E_NODE_PREFIXES = (
     "tests/multisafepay/e2e/examples/terminal_manager/",
     "tests/multisafepay/e2e/examples/terminal_group_manager/",
 )
+EXAMPLE_E2E_NODE_PREFIX = "tests/multisafepay/e2e/examples/"
 
 
 def _get_first_env(*names: str) -> str:
@@ -196,6 +197,9 @@ def pytest_collection_modifyitems(
         ),
     )
     for item in items:
+        if not item.nodeid.startswith(EXAMPLE_E2E_NODE_PREFIX):
+            continue
+
         if item.nodeid.startswith(TERMINAL_E2E_NODE_PREFIXES):
             if has_terminal_e2e:
                 continue
