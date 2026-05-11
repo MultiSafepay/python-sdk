@@ -47,6 +47,7 @@ class EventManager(AbstractManager):
         return EventStream.open(
             events_token=events_token,
             events_stream_url=events_stream_url,
+            transport=self.client.transport,
             last_event_id=last_event_id,
             timeout=timeout,
         )

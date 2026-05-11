@@ -17,6 +17,7 @@ from multisafepay.client.sse import (
     ServerSentEventStream,
     StreamingResponse,
 )
+from multisafepay.transport import HTTPTransport
 from typing_extensions import Self
 
 
@@ -80,10 +81,12 @@ class EventStream:
         cls: type[EventStream],
         events_token: str,
         events_stream_url: str,
+        *,
+        transport: HTTPTransport,
         last_event_id: str | None = None,
         timeout: float = 30.0,
     ) -> EventStream:
-        """Open a new SSE stream using the event token and stream URL."""
+        """Open a new SSE stream using the event token and configured transport."""
         headers = {
             "Accept": "text/event-stream",
             "Cache-Control": "no-cache",
@@ -96,6 +99,7 @@ class EventStream:
             url=events_stream_url,
             headers=headers,
             timeout=timeout,
+            transport=transport,
         )
         return cls._from_stream(stream)
 

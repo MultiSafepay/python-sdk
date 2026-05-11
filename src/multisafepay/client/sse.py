@@ -10,21 +10,20 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import ClassVar, Protocol
+from typing import ClassVar
 from urllib.parse import urlparse
-from urllib.request import Request, urlopen
 
+from multisafepay.transport.http_transport import (
+    HTTPStreamResponse as StreamingResponse,
+)
+from multisafepay.transport.http_transport import HTTPTransport
 from typing_extensions import Self
 
-
-class StreamingResponse(Protocol):
-    """Protocol for the minimal stream response interface used by SSE streams."""
-
-    def readline(self: StreamingResponse) -> bytes:
-        """Read one line from the stream response."""
-
-    def close(self: StreamingResponse) -> None:
-        """Close the stream response."""
+_STREAMING_TRANSPORT_REQUIRED_MESSAGE = (
+    "Configured HTTP transport does not support streaming. "
+    "Implement open_stream(method, url, headers=None, data=None, **kwargs) "
+    "to use SSE subscriptions."
+)
 
 
 @dataclass(frozen=True)
@@ -132,19 +131,28 @@ class ServerSentEventStream:
         url: str,
         headers: dict[str, str] | None = None,
         timeout: float = 30.0,
+        transport: HTTPTransport | None = None,
     ) -> ServerSentEventStream:
-        """Open a new SSE stream using a URL and optional headers."""
+        """Open a new SSE stream using the configured HTTP transport."""
         cls._validate_url(url)
 
-        request = Request(  # noqa: S310
-            url=url,
-            headers=headers or {},
+        if transport is None:
+            raise NotImplementedError(_STREAMING_TRANSPORT_REQUIRED_MESSAGE)
+
+        if not hasattr(transport, "open_stream"):
+            raise NotImplementedError(_STREAMING_TRANSPORT_REQUIRED_MESSAGE)
+
+        response = transport.open_stream(
             method="GET",
+            url=url,
+            headers=headers,
+            timeout=timeout,
         )
-        # Keep the response open; close manages the lifecycle.
-        # pylint: disable=consider-using-with
-        response = urlopen(request, timeout=timeout)  # noqa: S310
-        # pylint: enable=consider-using-with
+        try:
+            response.raise_for_status()
+        except Exception:
+            response.close()
+            raise
 
         return cls(response=response)
 

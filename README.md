@@ -41,10 +41,13 @@ The SDK uses a small transport abstraction so you can choose (and swap) the unde
 ### How it works
 
 - The SDK expects an object implementing the `HTTPTransport` / `HTTPResponse` protocols defined in `src/multisafepay/transport/http_transport.py`.
+- Event stream subscriptions also require the transport to implement `open_stream(...)` and return an `HTTPStreamResponse` with `readline()`, `close()`, and `raise_for_status()`.
 - If you do not provide a transport, the SDK defaults to `RequestsTransport`.
 - `requests` is an optional extra:
     - To use the default transport, install `multisafepay[requests]`.
     - To avoid `requests`, inject your own transport (for example, `httpx` or `urllib3`).
+
+The built-in `RequestsTransport` supports both regular requests and SSE streams through the same configured `requests.Session`. Custom transports that only implement `request(...)` can still be used for regular API calls, but SSE subscriptions fail explicitly until `open_stream(...)` is added. The SDK does not fall back to another HTTP library for event streams.
 
 ### Custom transport example
 
@@ -135,6 +138,8 @@ with event_manager.subscribe_order_events(order, timeout=45.0) as stream:
 ```
 
 Use `subscribe_events(events_token=..., events_stream_url=...)` when the token and stream URL are already available separately.
+
+SSE subscriptions use the same configured SDK transport as regular API calls. With the default transport this reuses the same `requests.Session`; with a custom transport, implement `open_stream(...)` on that transport instead of opening a separate HTTP connection path.
 
 ### Development-only custom base URL override
 

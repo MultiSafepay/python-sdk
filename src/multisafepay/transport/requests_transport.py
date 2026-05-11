@@ -11,12 +11,23 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, cast
 
+from multisafepay.transport.http_transport import HTTPStreamResponse
 from typing_extensions import Self
 
 _REQUESTS_IMPORT_ERROR: ImportError | None = None
+_REQUEST_KWARG_NAMES = frozenset(
+    {
+        "auth",
+        "cookies",
+        "files",
+        "hooks",
+        "json",
+        "params",
+    },
+)
 
 if TYPE_CHECKING:  # pragma: no cover
-    from requests import Request, Session
+    from requests import PreparedRequest, Request, Session
     from requests.models import Response
 
 try:
@@ -37,6 +48,46 @@ def _raise_requests_missing() -> None:
         "Install it via 'pip install multisafepay[requests]' or 'pip install requests', "
         "or pass a custom HTTPTransport implementation to Sdk(..., transport=...).",
     ) from _REQUESTS_IMPORT_ERROR
+
+
+class _RequestsStreamResponse:
+    """Adapter exposing a requests streaming response through the SDK contract."""
+
+    def __init__(self: _RequestsStreamResponse, response: Response) -> None:
+        self._response = response
+
+    @property
+    def status_code(self: _RequestsStreamResponse) -> int:
+        """Return the wrapped response status code."""
+        return int(self._response.status_code)
+
+    @property
+    def headers(self: _RequestsStreamResponse) -> dict[str, str]:
+        """Return normalized response headers."""
+        return {
+            str(key): str(value)
+            for key, value in dict(self._response.headers).items()
+        }
+
+    def json(self: _RequestsStreamResponse) -> object:
+        """Parse the wrapped response body as JSON."""
+        return self._response.json()
+
+    def raise_for_status(self: _RequestsStreamResponse) -> None:
+        """Raise requests' HTTP error for non-success status codes."""
+        self._response.raise_for_status()
+
+    def readline(self: _RequestsStreamResponse) -> bytes:
+        """Read one line from the underlying streaming body."""
+        raw_stream = self._response.raw
+        if raw_stream is None:
+            return b""
+
+        return cast(bytes, raw_stream.readline())
+
+    def close(self: _RequestsStreamResponse) -> None:
+        """Close the wrapped streaming response."""
+        self._response.close()
 
 
 class RequestsTransport:
@@ -100,16 +151,73 @@ class RequestsTransport:
         """
         if not _HAS_REQUESTS:  # pragma: no cover
             _raise_requests_missing()
-        session = cast("Session", self.session)
-        request = Request(
+        session, prepared_request, send_kwargs = self._prepare_request(
             method=method,
             url=url,
             headers=headers,
             data=data,
             **kwargs,
         )
+        return session.send(prepared_request, **send_kwargs)
+
+    def open_stream(
+        self: RequestsTransport,
+        method: str,
+        url: str,
+        headers: dict[str, str] | None = None,
+        data: str | None = None,
+        **kwargs: object,
+    ) -> HTTPStreamResponse:
+        """Open a streaming HTTP response using the shared requests session."""
+        if not _HAS_REQUESTS:  # pragma: no cover
+            _raise_requests_missing()
+
+        session, prepared_request, send_kwargs = self._prepare_request(
+            method=method,
+            url=url,
+            headers=headers,
+            data=data,
+            **kwargs,
+        )
+        send_kwargs["stream"] = True
+        response = session.send(prepared_request, **send_kwargs)
+        return _RequestsStreamResponse(response)
+
+    def _prepare_request(
+        self: RequestsTransport,
+        method: str,
+        url: str,
+        headers: dict[str, str] | None = None,
+        data: str | None = None,
+        **kwargs: object,
+    ) -> tuple[Session, PreparedRequest, dict[str, object]]:
+        """Prepare a request once so regular and streaming calls share the same path."""
+        if not _HAS_REQUESTS:  # pragma: no cover
+            _raise_requests_missing()
+
+        session = cast("Session", self.session)
+        request_kwargs: dict[str, object] = {}
+        send_kwargs: dict[str, object] = {}
+
+        if headers is not None:
+            request_kwargs["headers"] = headers
+
+        if data is not None:
+            request_kwargs["data"] = data
+
+        for key, value in kwargs.items():
+            if key in _REQUEST_KWARG_NAMES:
+                request_kwargs[key] = value
+            else:
+                send_kwargs[key] = value
+
+        request = Request(
+            method=method,
+            url=url,
+            **request_kwargs,
+        )
         prepared_request = session.prepare_request(request)
-        return session.send(prepared_request)
+        return session, prepared_request, send_kwargs
 
     def close(self: RequestsTransport) -> None:
         """

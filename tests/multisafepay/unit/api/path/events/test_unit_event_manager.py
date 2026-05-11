@@ -31,11 +31,14 @@ def _patch_event_stream_open(
     def fake_open(
         events_token: str,
         events_stream_url: str,
+        *,
+        transport: object,
         last_event_id: Optional[str] = None,
         timeout: float = 30.0,
     ) -> object:
         captured["events_token"] = events_token
         captured["events_stream_url"] = events_stream_url
+        captured["transport"] = transport
         captured["last_event_id"] = last_event_id
         captured["timeout"] = timeout
         return expected_stream
@@ -53,8 +56,10 @@ def test_subscribe_events_delegates_to_stream_open(
 ) -> None:
     """Delegate direct subscriptions to EventStream.open."""
     captured, expected_stream = _patch_event_stream_open(monkeypatch)
+    client = MagicMock()
+    client.transport = object()
 
-    manager = EventManager(MagicMock())
+    manager = EventManager(client)
     stream = manager.subscribe_events(
         events_token="token-abc",
         events_stream_url=TEST_EVENTS_STREAM_URL,
@@ -65,6 +70,7 @@ def test_subscribe_events_delegates_to_stream_open(
     assert stream is expected_stream
     assert captured["events_token"] == "token-abc"
     assert captured["events_stream_url"] == TEST_EVENTS_STREAM_URL
+    assert captured["transport"] is client.transport
     assert captured["last_event_id"] == "last-15"
     assert captured["timeout"] == 10.0
 
@@ -74,8 +80,10 @@ def test_subscribe_order_events_uses_plural_fields(
 ) -> None:
     """Read events credentials from events_* fields when present."""
     captured, expected_stream = _patch_event_stream_open(monkeypatch)
+    client = MagicMock()
+    client.transport = object()
 
-    manager = EventManager(MagicMock())
+    manager = EventManager(client)
     order = Order(
         order_id="order-1",
         events_token="events-token",
@@ -87,6 +95,7 @@ def test_subscribe_order_events_uses_plural_fields(
     assert stream is expected_stream
     assert captured["events_token"] == "events-token"
     assert captured["events_stream_url"] == ORDER_EVENTS_STREAM_URL
+    assert captured["transport"] is client.transport
 
 
 def test_subscribe_order_events_falls_back_to_legacy_fields(
@@ -94,8 +103,10 @@ def test_subscribe_order_events_falls_back_to_legacy_fields(
 ) -> None:
     """Support old event_* field names for backward compatibility."""
     captured, expected_stream = _patch_event_stream_open(monkeypatch)
+    client = MagicMock()
+    client.transport = object()
 
-    manager = EventManager(MagicMock())
+    manager = EventManager(client)
     order = Order(
         order_id="order-2",
         event_token="legacy-token",
@@ -107,6 +118,7 @@ def test_subscribe_order_events_falls_back_to_legacy_fields(
     assert stream is expected_stream
     assert captured["events_token"] == "legacy-token"
     assert captured["events_stream_url"] == LEGACY_EVENTS_STREAM_URL
+    assert captured["transport"] is client.transport
 
 
 def test_subscribe_order_events_requires_token_and_stream_url() -> None:

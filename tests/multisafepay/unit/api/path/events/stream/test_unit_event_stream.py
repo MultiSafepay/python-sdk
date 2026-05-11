@@ -10,11 +10,11 @@
 from __future__ import annotations
 
 import io
+import urllib.request
 
 import pytest
 
 from multisafepay.api.paths.events.stream import Event, EventData, EventStream
-from multisafepay.client.sse import ServerSentEventStream
 
 EVENTS_STREAM_URL = "https://testapi.multisafepay.com/events/stream/"
 EVENTS_TOKEN = "events-token"
@@ -28,53 +28,141 @@ class _FakeStreamingResponse:
     def __init__(self: _FakeStreamingResponse, payload: bytes) -> None:
         self._buffer = io.BytesIO(payload)
         self.closed = False
+        self.status_code = 200
+        self.headers: dict[str, str] = {}
 
     def readline(self: _FakeStreamingResponse) -> bytes:
         return self._buffer.readline()
+
+    def json(self: _FakeStreamingResponse) -> object:
+        return {}
+
+    def raise_for_status(self: _FakeStreamingResponse) -> None:
+        return None
 
     def close(self: _FakeStreamingResponse) -> None:
         self._buffer.close()
         self.closed = True
 
 
-def test_open_builds_expected_headers(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Build event-specific auth headers before opening the generic SSE stream."""
-    captured: dict[str, object] = {}
+class _FailingStatusStreamingResponse(_FakeStreamingResponse):
+    """Streaming response that fails HTTP status validation."""
 
-    def fake_open(
+    def raise_for_status(self: _FailingStatusStreamingResponse) -> None:
+        raise RuntimeError("stream failed")
+
+
+class _FakeStreamingTransport:
+    """Capture stream opens and return a configurable streaming response."""
+
+    def __init__(
+        self: _FakeStreamingTransport,
+        response: _FakeStreamingResponse,
+    ) -> None:
+        self._response = response
+        self.calls: list[dict[str, object]] = []
+
+    def request(
+        self: _FakeStreamingTransport,
+        _method: str,
+        _url: str,
+        _headers: dict[str, str] | None = None,
+        _data: str | None = None,
+        **_kwargs: object,
+    ) -> object:
+        raise AssertionError("request() should not be used for SSE")
+
+    def open_stream(
+        self: _FakeStreamingTransport,
+        method: str,
         url: str,
         headers: dict[str, str] | None = None,
-        timeout: float = 30.0,
-    ) -> ServerSentEventStream:
-        captured["url"] = url
-        captured["headers"] = headers
-        captured["timeout"] = timeout
-        return ServerSentEventStream(
-            response=_FakeStreamingResponse(PING_PAYLOAD),
+        data: str | None = None,
+        **kwargs: object,
+    ) -> _FakeStreamingResponse:
+        self.calls.append(
+            {
+                "method": method,
+                "url": url,
+                "headers": headers,
+                "data": data,
+                "kwargs": kwargs,
+            },
         )
+        return self._response
 
-    monkeypatch.setattr(
-        "multisafepay.api.paths.events.stream.ServerSentEventStream.open",
-        fake_open,
-    )
+
+class _TransportWithoutStreaming:
+    """Transport double that intentionally does not implement stream support."""
+
+    def request(
+        self: _TransportWithoutStreaming,
+        _method: str,
+        _url: str,
+        _headers: dict[str, str] | None = None,
+        _data: str | None = None,
+        **_kwargs: object,
+    ) -> object:
+        raise AssertionError("request() should not be used for SSE")
+
+
+def test_open_builds_expected_headers(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Build event-specific auth headers before opening the transport stream."""
+
+    def fail_urlopen(*_args: object, **_kwargs: object) -> object:
+        raise AssertionError("urllib should not be used for SSE")
+
+    monkeypatch.setattr(urllib.request, "urlopen", fail_urlopen)
+    transport = _FakeStreamingTransport(_FakeStreamingResponse(PING_PAYLOAD))
 
     stream = EventStream.open(
         events_token=EVENTS_TOKEN,
         events_stream_url=EVENTS_STREAM_URL,
+        transport=transport,
         last_event_id=LAST_EVENT_ID,
         timeout=9.5,
     )
     event = next(stream)
+    captured = transport.calls[0]
 
     assert isinstance(event, Event)
     assert event.data == "ping"
     assert captured["url"] == EVENTS_STREAM_URL
-    assert captured["timeout"] == 9.5
+    assert captured["method"] == "GET"
     headers = captured["headers"]
     assert headers["Authorization"] == f"Bearer {EVENTS_TOKEN}"
     assert headers["Accept"] == "text/event-stream"
     assert headers["Cache-Control"] == "no-cache"
     assert headers["Last-Event-ID"] == LAST_EVENT_ID
+    assert captured["kwargs"]["timeout"] == 9.5
+
+
+def test_open_fails_clearly_when_transport_has_no_stream_support() -> None:
+    """Fail explicitly instead of bypassing the configured transport."""
+    with pytest.raises(
+        NotImplementedError,
+        match="does not support streaming",
+    ):
+        EventStream.open(
+            events_token=EVENTS_TOKEN,
+            events_stream_url=EVENTS_STREAM_URL,
+            transport=_TransportWithoutStreaming(),
+        )
+
+
+def test_open_closes_stream_when_status_validation_fails() -> None:
+    """Close an opened transport stream when HTTP status validation fails."""
+    response = _FailingStatusStreamingResponse(PING_PAYLOAD)
+    transport = _FakeStreamingTransport(response)
+
+    with pytest.raises(RuntimeError, match="stream failed"):
+        EventStream.open(
+            events_token=EVENTS_TOKEN,
+            events_stream_url=EVENTS_STREAM_URL,
+            transport=transport,
+        )
+
+    assert response.closed is True
 
 
 def test_wraps_generic_sse_messages_as_event_contracts() -> None:
