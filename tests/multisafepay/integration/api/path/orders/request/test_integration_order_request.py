@@ -10,12 +10,16 @@
 
 import pytest
 
+from multisafepay.api.paths.orders.request.components.amount_details import (
+    AmountDetails,
+)
 from multisafepay.api.paths.orders.request.components.payment_options import (
     PaymentOptions,
 )
 from multisafepay.api.paths.orders.request.components.plugin import (
     Plugin,
 )
+from multisafepay.api.paths.orders.request.components.tip import Tip
 from multisafepay.api.paths.orders.request.order_request import OrderRequest
 from multisafepay.api.shared.cart.cart_item import CartItem
 from multisafepay.api.shared.cart.shopping_cart import ShoppingCart
@@ -92,6 +96,7 @@ def test_initializes_order_request_correctly():
         .add_cancel_url("https://multisafepay.com/cancel_url")
         .add_close_window(True)
     )
+    amount_details = AmountDetails().add_tip(Tip().add_amount(20))
 
     order_request = (
         OrderRequest()
@@ -105,6 +110,7 @@ def test_initializes_order_request_correctly():
         .add_delivery(customer)
         .add_plugin(plugin)
         .add_payment_options(payment_options)
+        .add_amount_details(amount_details)
     )
 
     assert order_request.type == "redirect"
@@ -117,6 +123,10 @@ def test_initializes_order_request_correctly():
     assert order_request.delivery == customer
     assert order_request.plugin == plugin
     assert order_request.payment_options == payment_options
+    assert order_request.amount_details == amount_details
+    assert order_request.to_dict()["amount_details"] == {
+        "tip": {"amount": 20},
+    }
 
 
 def test_initializes_order_request_validate_amount_valid():

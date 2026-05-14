@@ -9,6 +9,9 @@
 
 from typing import Optional, Union
 
+from multisafepay.api.paths.orders.request.components.amount_details import (
+    AmountDetails,
+)
 from multisafepay.api.paths.orders.request.components.checkout_options import (
     CheckoutOptions,
 )
@@ -67,6 +70,7 @@ class OrderRequest(RequestModel):
     order_id (Optional[str]): The order ID.
     currency (Optional[str]): The currency of the order.
     amount (Optional[str]): The amount of the order.
+    amount_details (Optional[AmountDetails]): The amount details.
     payment_options (Optional[PaymentOptions]): The payment options.
     customer (Optional[Customer]): The customer.
     delivery (Optional[Delivery]): The delivery information.
@@ -93,6 +97,7 @@ class OrderRequest(RequestModel):
     order_id: Optional[str]
     currency: Optional[str]
     amount: Optional[int]
+    amount_details: Optional[AmountDetails]
     capture: Optional[str]
     payment_options: Optional[PaymentOptions]
     customer: Optional[Customer]
@@ -246,6 +251,25 @@ class OrderRequest(RequestModel):
 
         """
         self.capture = capture
+        return self
+
+    def add_amount_details(
+        self: "OrderRequest",
+        amount_details: Optional[AmountDetails],
+    ) -> "OrderRequest":
+        """
+        Adds amount details to the order request.
+
+        Parameters
+        ----------
+        amount_details (Optional[AmountDetails]): The amount details.
+
+        Returns
+        -------
+        OrderRequest: The updated OrderRequest object.
+
+        """
+        self.amount_details = amount_details
         return self
 
     def add_payment_options(

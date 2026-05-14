@@ -98,6 +98,46 @@ sdk = Sdk(
 )
 ```
 
+### Cloud POS order tips
+
+For POS and Cloud POS integrations, you can send tip information as part of the order creation payload with `amount_details`. Amount values are expressed in the smallest currency unit, so this example sends a total order amount of EUR 1.20 with EUR 0.20 marked as tip.
+
+```python
+from multisafepay.api.paths.orders.request import OrderRequest
+from multisafepay.api.paths.orders.request.components import (
+    AmountDetails,
+    Tip,
+)
+
+
+order_request = (
+    OrderRequest()
+    .add_type("redirect")
+    .add_order_id("cloud-pos-order-with-tip")
+    .add_description("Cloud POS order with tip")
+    .add_amount(120)
+    .add_currency("EUR")
+    .add_gateway_info({"terminal_id": "<terminal_id>"})
+    .add_amount_details(
+        AmountDetails().add_tip(Tip().add_amount(20)),
+    )
+)
+```
+
+This serializes to:
+
+```json
+{
+    "amount_details": {
+        "tip": {
+            "amount": 20
+        }
+    }
+}
+```
+
+See the full Cloud POS tip example in `examples/order_manager/cloud_pos_order_with_tip.py`.
+
 ### Development-only custom base URL override
 
 By default, the SDK only targets:

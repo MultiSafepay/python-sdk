@@ -8,6 +8,7 @@
 
 """Manager class for Test Integration Order Manager Create.Py API operations."""
 
+import json
 from unittest.mock import MagicMock
 
 from multisafepay.api.base.response.api_response import ApiResponse
@@ -15,9 +16,13 @@ from multisafepay.api.base.response.custom_api_response import (
     CustomApiResponse,
 )
 from multisafepay.api.paths.orders.order_manager import OrderManager
+from multisafepay.api.paths.orders.request.components.amount_details import (
+    AmountDetails,
+)
 from multisafepay.api.paths.orders.request.components.payment_options import (
     PaymentOptions,
 )
+from multisafepay.api.paths.orders.request.components.tip import Tip
 from multisafepay.api.paths.orders.request.order_request import OrderRequest
 from multisafepay.api.paths.orders.response.order_response import Order
 from multisafepay.api.shared.customer import Customer
@@ -113,7 +118,8 @@ def test_integration_order_manager_create_with_terminal_group_scope():
         .add_type("direct")
         .add_order_id("cloud-pos-order")
         .add_currency("EUR")
-        .add_amount(100)
+        .add_amount(120)
+        .add_amount_details(AmountDetails().add_tip(Tip().add_amount(20)))
     )
 
     order_manager = OrderManager(client)
@@ -127,11 +133,17 @@ def test_integration_order_manager_create_with_terminal_group_scope():
     assert response.get_data().order_id == "cloud-pos-order"
 
     called_endpoint = client.create_post_request.call_args.args[0]
+    called_request_body = client.create_post_request.call_args.kwargs[
+        "request_body"
+    ]
     called_auth_scope = client.create_post_request.call_args.kwargs[
         "auth_scope"
     ]
 
     assert called_endpoint == "json/orders"
+    assert json.loads(called_request_body)["amount_details"] == {
+        "tip": {"amount": 20},
+    }
     assert called_auth_scope == AuthScope(
         scope=ScopedCredentialResolver.AUTH_SCOPE_TERMINAL_GROUP,
         group_id="Default",
