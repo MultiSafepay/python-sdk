@@ -32,7 +32,7 @@ def _build_listing_api_response() -> ApiResponse:
             "success": True,
             "data": [
                 {
-                    "terminal_id": "T-001",
+                    "id": "T-001",
                     "name": "POS Terminal 1",
                     "group_id": 42,
                     "active": True,

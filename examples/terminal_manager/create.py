@@ -6,6 +6,7 @@
 # See the DISCLAIMER.md file for disclaimer details.
 
 import os
+import time
 
 from dotenv import load_dotenv
 
@@ -50,7 +51,7 @@ if __name__ == "__main__":
         CreateTerminalRequest()
         .add_provider("CTAP")
         .add_group_id(terminal_group_id)
-        .add_name("Demo POS Terminal")
+        .add_name(f"Demo POS Terminal {int(time.time())}")
     )
 
     # Create a new POS terminal

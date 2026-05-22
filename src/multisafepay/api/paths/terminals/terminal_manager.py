@@ -114,6 +114,9 @@ class TerminalManager(AbstractManager):
         response = self.client.create_post_request(
             "json/terminals",
             request_body=json_data,
+            auth_scope=AuthScope(
+                scope=ScopedCredentialResolver.AUTH_SCOPE_PARTNER_AFFILIATE,
+            ),
         )
         return TerminalManager.__custom_terminal_response(response)
 

@@ -66,14 +66,14 @@ class CreateTerminalRequest(RequestModel):
 
     def add_group_id(
         self: "CreateTerminalRequest",
-        group_id: str,
+        group_id: int,
     ) -> "CreateTerminalRequest":
         """
         Add a terminal group id.
 
         Parameters
         ----------
-        group_id (str): The terminal group identifier.
+        group_id (int): The terminal group identifier.
 
         Returns
         -------

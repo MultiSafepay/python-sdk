@@ -47,9 +47,9 @@ def test_add_group_id_updates_value() -> None:
     """Store terminal group id and return current request object."""
     request = CreateTerminalRequest()
 
-    returned = request.add_group_id("1234")
+    returned = request.add_group_id(1234)
 
-    assert request.group_id == "1234"
+    assert request.group_id == 1234
     assert returned is request
 
 

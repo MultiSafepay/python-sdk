@@ -31,7 +31,7 @@ def _build_terminal_api_response() -> ApiResponse:
         body={
             "success": True,
             "data": {
-                "terminal_id": "T-001",
+                "id": "T-001",
                 "name": "Demo POS Terminal",
                 "group_id": 42,
                 "active": True,
@@ -50,7 +50,7 @@ def _build_listing_api_response() -> ApiResponse:
             "success": True,
             "data": [
                 {
-                    "terminal_id": "T-001",
+                    "id": "T-001",
                     "name": "Terminal 1",
                     "group_id": 42,
                     "active": True,
@@ -68,7 +68,7 @@ def _build_listing_api_response() -> ApiResponse:
 
 
 def test_create_terminal_sends_post_to_correct_endpoint() -> None:
-    """create_terminal posts to json/terminals with no auth scope."""
+    """create_terminal posts to json/terminals using partner_affiliate scope."""
     client = MagicMock()
     client.create_post_request.return_value = _build_terminal_api_response()
 
@@ -83,11 +83,17 @@ def test_create_terminal_sends_post_to_correct_endpoint() -> None:
     response = manager.create_terminal(request)
 
     called_endpoint = client.create_post_request.call_args.args[0]
+    called_auth_scope = client.create_post_request.call_args.kwargs.get(
+        "auth_scope",
+    )
 
     assert isinstance(response, CustomApiResponse)
     assert isinstance(response.get_data(), Terminal)
-    assert response.get_data().terminal_id == "T-001"
+    assert response.get_data().id == "T-001"
     assert called_endpoint == "json/terminals"
+    assert called_auth_scope == AuthScope(
+        scope=ScopedCredentialResolver.AUTH_SCOPE_PARTNER_AFFILIATE,
+    )
 
 
 def test_create_terminal_serializes_request_body() -> None:
