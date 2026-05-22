@@ -7,9 +7,15 @@
 
 """Unit tests for SDK-level environment/base URL guardrails."""
 
+from unittest.mock import MagicMock
+
 import pytest
 
 from multisafepay import Sdk
+from multisafepay.api.paths.terminal_groups.terminal_group_manager import (
+    TerminalGroupManager,
+)
+from multisafepay.api.paths.terminals.terminal_manager import TerminalManager
 from multisafepay.client.client import Client
 from multisafepay.client.credential_resolver import ScopedCredentialResolver
 
@@ -137,3 +143,25 @@ def test_sdk_uses_credential_resolver_with_custom_transport() -> None:
 
     assert sdk.get_client().transport is transport
     assert transport.headers["Authorization"] == f"Bearer {DEFAULT_API_KEY}"
+
+
+def test_sdk_returns_terminal_manager() -> None:
+    """Expose TerminalManager through SDK convenience getter."""
+    sdk = Sdk(
+        api_key="mock_api_key",
+        is_production=False,
+        transport=MagicMock(),
+    )
+
+    assert isinstance(sdk.get_terminal_manager(), TerminalManager)
+
+
+def test_sdk_returns_terminal_group_manager() -> None:
+    """Expose TerminalGroupManager through SDK convenience getter."""
+    sdk = Sdk(
+        api_key="mock_api_key",
+        is_production=False,
+        transport=MagicMock(),
+    )
+
+    assert isinstance(sdk.get_terminal_group_manager(), TerminalGroupManager)
