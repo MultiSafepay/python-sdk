@@ -80,7 +80,7 @@ multisafepay_sdk: Sdk = Sdk(api_key='<api_key>', is_production=True)
 
 ### Initialize with scoped credentials
 
-Use `ScopedCredentialResolver` when the API key must change per auth scope.
+Use `ScopedCredentialResolver` when different API keys must be selected per auth scope.
 When `credential_resolver` is provided, `api_key` becomes optional.
 
 ```python
@@ -240,6 +240,20 @@ When omitted, E2E defaults to `testapi.multisafepay.com`.
 
 The e2e suite does not use the shared `API_KEY` variable or the shared `MSP_SDK_*`
 custom base URL settings.
+
+Terminal endpoint examples and E2E checks use a dev-backed base URL because those endpoints are not exercised against the default shared E2E target.
+
+```bash
+export API_KEY="<account_api_key>"
+export PARTNER_API_KEY="<partner_api_key>"  # optional
+export MSP_SDK_BUILD_PROFILE=dev
+export MSP_SDK_ALLOW_CUSTOM_BASE_URL=1
+export MSP_SDK_CUSTOM_BASE_URL="https://dev-api.example.com/v1/"
+export E2E_CLOUD_POS_TERMINAL_ID="<terminal_id>"
+# Optional: set when you want to skip automatic terminal-group lookup
+export CLOUD_POS_TERMINAL_GROUP_ID="<terminal_group_id>"
+make test-e2e
+```
 
 ## Support
 

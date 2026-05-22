@@ -19,6 +19,10 @@ from multisafepay.api.paths.payment_methods.payment_method_manager import (
     PaymentMethodManager,
 )
 from multisafepay.api.paths.pos.pos_manager import PosManager
+from multisafepay.api.paths.terminal_groups.terminal_group_manager import (
+    TerminalGroupManager,
+)
+from multisafepay.api.paths.terminals.terminal_manager import TerminalManager
 from multisafepay.api.paths.transactions.transaction_manager import (
     TransactionManager,
 )
@@ -226,6 +230,30 @@ class Sdk:
 
         """
         return PosManager(self.client)
+
+    def get_terminal_manager(self: "Sdk") -> TerminalManager:
+        """
+        Get the terminal manager.
+
+        Returns
+        -------
+        TerminalManager
+            The terminal manager instance.
+
+        """
+        return TerminalManager(self.client)
+
+    def get_terminal_group_manager(self: "Sdk") -> TerminalGroupManager:
+        """
+        Get the terminal group manager.
+
+        Returns
+        -------
+        TerminalGroupManager
+            The terminal group manager instance.
+
+        """
+        return TerminalGroupManager(self.client)
 
     def get_client(self: "Sdk") -> Client:
         """
