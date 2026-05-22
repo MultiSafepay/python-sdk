@@ -28,7 +28,7 @@ terminal_group_id_raw = os.getenv(
 ).strip()
 
 if __name__ == "__main__":
-    # create_terminal → default scope → resolver returns default_api_key
+    # create_terminal → partner_affiliate scope → resolver returns partner_affiliate_api_key
     terminal_group_id = int(terminal_group_id_raw)
 
     resolver_kwargs = {

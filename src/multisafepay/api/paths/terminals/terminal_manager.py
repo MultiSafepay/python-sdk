@@ -55,10 +55,11 @@ class TerminalManager(AbstractManager):
             **response.dict(),
             "data": None,
         }
-        if not dict_empty(response.get_body_data()):
+        body_data = response.get_body_data()
+        if isinstance(body_data, dict) and not dict_empty(body_data):
             try:
                 args["data"] = Terminal.from_dict(
-                    d=response.get_body_data().copy(),
+                    d=body_data.copy(),
                 )
             except ValidationError:
                 args["warnings"] = MessageList().add_message(
