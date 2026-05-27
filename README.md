@@ -41,13 +41,13 @@ The SDK uses a small transport abstraction so you can choose (and swap) the unde
 ### How it works
 
 - The SDK expects an object implementing the `HTTPTransport` / `HTTPResponse` protocols defined in `src/multisafepay/transport/http_transport.py`.
-- Event stream subscriptions also require the transport to implement `open_stream(...)` and return an `HTTPStreamResponse` with `readline()`, `close()`, and `raise_for_status()`.
+- Event stream subscriptions additionally require the transport to implement the `HTTPStreamingTransport` protocol (adds `open_stream(...)` returning an `HTTPStreamResponse` with `readline()`, `close()`, and `raise_for_status()`).
 - If you do not provide a transport, the SDK defaults to `RequestsTransport`.
 - `requests` is an optional extra:
     - To use the default transport, install `multisafepay[requests]`.
     - To avoid `requests`, inject your own transport (for example, `httpx` or `urllib3`).
 
-The built-in `RequestsTransport` supports both regular requests and SSE streams through the same configured `requests.Session`. Custom transports that only implement `request(...)` can still be used for regular API calls, but SSE subscriptions fail explicitly until `open_stream(...)` is added. The SDK does not fall back to another HTTP library for event streams.
+The built-in `RequestsTransport` implements both `HTTPTransport` and `HTTPStreamingTransport`, so the same configured `requests.Session` is reused for regular requests and SSE streams. Custom transports that only implement `HTTPTransport` (`request(...)`) can still be used for regular API calls, but SSE subscriptions fail explicitly until they also implement `HTTPStreamingTransport`. The SDK does not fall back to another HTTP library for event streams.
 
 ### Custom transport example
 
@@ -126,6 +126,10 @@ sdk = Sdk(
 order_manager = sdk.get_order_manager()
 event_manager = sdk.get_event_manager()
 
+# Build your OrderRequest here, for example:
+# from multisafepay.api.paths.orders.request.order_request import OrderRequest
+# order_request = OrderRequest(...)
+
 create_response = order_manager.create(
     request_order=order_request,
     terminal_group_id="<terminal_group_id>",
@@ -139,7 +143,7 @@ with event_manager.subscribe_order_events(order, timeout=45.0) as stream:
 
 Use `subscribe_events(events_token=..., events_stream_url=...)` when the token and stream URL are already available separately.
 
-SSE subscriptions use the same configured SDK transport as regular API calls. With the default transport this reuses the same `requests.Session`; with a custom transport, implement `open_stream(...)` on that transport instead of opening a separate HTTP connection path.
+SSE subscriptions use the same configured SDK transport as regular API calls. With the default transport this reuses the same `requests.Session`; with a custom transport, implement the `HTTPStreamingTransport` protocol (adds `open_stream(...)` on top of `HTTPTransport`) on that transport instead of opening a separate HTTP connection path.
 
 ### Development-only custom base URL override
 

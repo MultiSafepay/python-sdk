@@ -14,15 +14,18 @@ from typing import ClassVar
 from urllib.parse import urlparse
 
 from multisafepay.transport.http_transport import (
+    HTTPStreamingTransport,
+    HTTPTransport,
+)
+from multisafepay.transport.http_transport import (
     HTTPStreamResponse as StreamingResponse,
 )
-from multisafepay.transport.http_transport import HTTPTransport
 from typing_extensions import Self
 
 _STREAMING_TRANSPORT_REQUIRED_MESSAGE = (
     "Configured HTTP transport does not support streaming. "
     "Implement open_stream(method, url, headers=None, data=None, **kwargs) "
-    "to use SSE subscriptions."
+    "(HTTPStreamingTransport protocol) to use SSE subscriptions."
 )
 
 
@@ -139,7 +142,7 @@ class ServerSentEventStream:
         if transport is None:
             raise NotImplementedError(_STREAMING_TRANSPORT_REQUIRED_MESSAGE)
 
-        if not hasattr(transport, "open_stream"):
+        if not isinstance(transport, HTTPStreamingTransport):
             raise NotImplementedError(_STREAMING_TRANSPORT_REQUIRED_MESSAGE)
 
         response = transport.open_stream(

@@ -65,9 +65,12 @@ class Order(ResponseModel):
     payment_url (Optional[str]): The payment URL.
     cancel_url (Optional[str]): The cancel URL.
     session_id (Optional[str]): The session ID.
-    event_token (Optional[str]): The event token.
-    event_url (Optional[str]): The event URL.
-    event_stream_url (Optional[str]): The event stream URL.
+    events_token (Optional[str]): The events token used to authenticate SSE subscriptions.
+    events_url (Optional[str]): The events URL.
+    events_stream_url (Optional[str]): The SSE stream URL for order events.
+    event_token (Optional[str]): Backward-compatibility alias for ``events_token``.
+    event_url (Optional[str]): Backward-compatibility alias for ``events_url``.
+    event_stream_url (Optional[str]): Backward-compatibility alias for ``events_stream_url``.
 
     """
 

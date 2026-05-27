@@ -77,7 +77,8 @@ class EventManager(AbstractManager):
 
         if not events_token or not events_stream_url:
             raise ValueError(
-                "Order does not contain events_token/events_stream_url.",
+                "Order does not contain events_token/event_token "
+                "or events_stream_url/event_stream_url.",
             )
 
         return self.subscribe_events(

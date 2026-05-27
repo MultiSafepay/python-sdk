@@ -18,7 +18,9 @@ from multisafepay.api.paths.orders.response.order_response import Order
 TEST_EVENTS_STREAM_URL = "https://testapi.multisafepay.com/events/stream/"
 ORDER_EVENTS_STREAM_URL = "https://stream.example/events/stream/"
 LEGACY_EVENTS_STREAM_URL = "https://legacy.example/events/stream/"
-MISSING_EVENTS_ERROR = "events_token/events_stream_url"
+MISSING_EVENTS_ERROR = (
+    "events_token/event_token or events_stream_url/event_stream_url"
+)
 
 
 def _patch_event_stream_open(

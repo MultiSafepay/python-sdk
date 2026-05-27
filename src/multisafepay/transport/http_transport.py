@@ -7,7 +7,7 @@
 
 """HTTP Transport layer abstraction for decoupling network communication."""
 
-from typing import Optional, Protocol
+from typing import Optional, Protocol, runtime_checkable
 
 
 class HTTPResponse(Protocol):
@@ -96,6 +96,11 @@ class HTTPTransport(Protocol):
 
     The transport layer follows the Dependency Inversion Principle, allowing
     business logic to depend on abstractions rather than concrete implementations.
+
+    Implementations only need to provide regular request/response support. For
+    Server-Sent Events (SSE) subscriptions, implement
+    :class:`HTTPStreamingTransport` instead, which extends this protocol with
+    :meth:`open_stream`.
     """
 
     def request(
@@ -136,8 +141,21 @@ class HTTPTransport(Protocol):
         """
         raise NotImplementedError
 
+
+@runtime_checkable
+class HTTPStreamingTransport(HTTPTransport, Protocol):
+    """
+    Protocol for HTTP transports that also support streaming responses.
+
+    Extends :class:`HTTPTransport` with :meth:`open_stream`, used by the SDK
+    to consume Server-Sent Events (SSE). Transports that only need to handle
+    regular API calls do not have to implement this protocol; SSE features
+    will raise a clear runtime error when the configured transport does not
+    support streaming.
+    """
+
     def open_stream(
-        self: "HTTPTransport",
+        self: "HTTPStreamingTransport",
         method: str,
         url: str,
         headers: Optional[dict[str, str]] = None,

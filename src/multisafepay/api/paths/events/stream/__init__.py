@@ -34,6 +34,9 @@ def _deserialize_event_payload(raw_payload: str | None) -> object | None:
 
 def _to_event(server_sent_event: ServerSentEvent) -> Event:
     """Adapt a generic SSE message into the events-path response model."""
+    # ``Event.from_dict`` only returns ``None`` when given ``None`` (per the
+    # abstract ``ResponseModel.from_dict`` contract). Here we always pass a
+    # dict literal, so the result is guaranteed to be an ``Event``.
     event = Event.from_dict(
         {
             "event": server_sent_event.event,
@@ -43,8 +46,7 @@ def _to_event(server_sent_event: ServerSentEvent) -> Event:
             "raw_data": server_sent_event.raw_data,
         },
     )
-    if event is None:
-        raise ValueError("Unable to adapt SSE payload to Event.")
+    assert event is not None  # noqa: S101  # invariant guaranteed above
     return event
 
 
