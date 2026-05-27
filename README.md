@@ -124,7 +124,7 @@ order_request = (
 )
 ```
 
-This serializes to:
+The `amount_details` field serializes to:
 
 ```json
 {
