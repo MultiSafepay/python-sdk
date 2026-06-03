@@ -41,10 +41,13 @@ The SDK uses a small transport abstraction so you can choose (and swap) the unde
 ### How it works
 
 - The SDK expects an object implementing the `HTTPTransport` / `HTTPResponse` protocols defined in `src/multisafepay/transport/http_transport.py`.
+- Event stream subscriptions additionally require the transport to implement the `HTTPStreamingTransport` protocol (adds `open_stream(...)` returning an `HTTPStreamResponse` with `readline()`, `close()`, and `raise_for_status()`).
 - If you do not provide a transport, the SDK defaults to `RequestsTransport`.
 - `requests` is an optional extra:
     - To use the default transport, install `multisafepay[requests]`.
     - To avoid `requests`, inject your own transport (for example, `httpx` or `urllib3`).
+
+The built-in `RequestsTransport` implements both `HTTPTransport` and `HTTPStreamingTransport`, so the same configured `requests.Session` is reused for regular requests and SSE streams. Custom transports that only implement `HTTPTransport` (`request(...)`) can still be used for regular API calls, but SSE subscriptions fail explicitly until they also implement `HTTPStreamingTransport`. The SDK does not fall back to another HTTP library for event streams.
 
 ### Custom transport example
 
@@ -77,7 +80,7 @@ multisafepay_sdk: Sdk = Sdk(api_key='<api_key>', is_production=True)
 
 ### Initialize with scoped credentials
 
-Use `ScopedCredentialResolver` when the API key must change per auth scope.
+Use `ScopedCredentialResolver` when different API keys must be selected per auth scope.
 When `credential_resolver` is provided, `api_key` becomes optional.
 
 ```python
@@ -87,8 +90,9 @@ from multisafepay.client import ScopedCredentialResolver
 
 credential_resolver = ScopedCredentialResolver(
     default_api_key="<default_api_key>",
+    partner_affiliate_api_key="<partner_api_key>",
     terminal_group_api_keys={
-        "Default": "<terminal_group_api_key>",
+        "<terminal_group_id>": "<terminal_group_api_key>",
     },
 )
 
@@ -96,6 +100,45 @@ sdk = Sdk(
     is_production=False,
     credential_resolver=credential_resolver,
 )
+```
+
+### Event stream subscriptions
+
+Use `EventManager` to subscribe to MultiSafepay SSE streams directly, or to subscribe from an order response that already contains event credentials.
+
+```python
+from multisafepay import Sdk
+from multisafepay.client import ScopedCredentialResolver
+
+
+credential_resolver = ScopedCredentialResolver(
+    default_api_key="<default_api_key>",
+    terminal_group_api_keys={
+        "<terminal_group_id>": "<terminal_group_api_key>",
+    },
+)
+
+sdk = Sdk(
+    is_production=False,
+    credential_resolver=credential_resolver,
+)
+
+order_manager = sdk.get_order_manager()
+event_manager = sdk.get_event_manager()
+
+# Build your OrderRequest here, for example:
+# from multisafepay.api.paths.orders.request.order_request import OrderRequest
+# order_request = OrderRequest(...)
+
+create_response = order_manager.create(
+    request_order=order_request,
+    terminal_group_id="<terminal_group_id>",
+)
+order = create_response.get_data()
+
+with event_manager.subscribe_order_events(order, timeout=45.0) as stream:
+    for event in stream:
+        print(event)
 ```
 
 ### Cloud POS order tips
@@ -183,6 +226,29 @@ In any non-dev profile (including default `release`), custom base URLs are block
 
 Go to the folder `examples` to see how to use the SDK.
 
+The event-stream example in `examples/event_manager/subscribe_events.py` requires:
+
+```bash
+export API_KEY="<account_api_key>"
+export TERMINAL_GROUP_API_KEY_GROUP_DEFAULT="<terminal_group_api_key>"
+export CLOUD_POS_TERMINAL_GROUP_ID="<terminal_group_id>"
+export CLOUD_POS_TERMINAL_ID="<terminal_id>"
+```
+
+The SSE E2E test can also run against a dev-backed base URL and optionally resolve the terminal group automatically:
+
+```bash
+export E2E_NO_SANDBOX_BASE_URL="https://dev-api.example.com/v1/"
+export MSP_SDK_BUILD_PROFILE=dev
+export MSP_SDK_ALLOW_CUSTOM_BASE_URL=1
+export MSP_SDK_CUSTOM_BASE_URL="https://dev-api.example.com/v1/"
+export E2E_API_KEY="<account_api_key>"
+export E2E_TERMINAL_GROUP_API_KEY_GROUP_DEFAULT="<terminal_group_api_key>"
+export E2E_CLOUD_POS_TERMINAL_ID="<terminal_id>"
+# Optional when CLOUD_POS_TERMINAL_GROUP_ID is not set
+export E2E_PARTNER_API_KEY="<partner_api_key>"
+```
+
 ## Code quality checks
 
 ### Linting
@@ -214,6 +280,20 @@ When omitted, E2E defaults to `testapi.multisafepay.com`.
 
 The e2e suite does not use the shared `API_KEY` variable or the shared `MSP_SDK_*`
 custom base URL settings.
+
+Terminal endpoint examples and E2E checks use a dev-backed base URL because those endpoints are not exercised against the default shared E2E target.
+
+```bash
+export API_KEY="<account_api_key>"
+export PARTNER_API_KEY="<partner_api_key>"  # optional
+export MSP_SDK_BUILD_PROFILE=dev
+export MSP_SDK_ALLOW_CUSTOM_BASE_URL=1
+export MSP_SDK_CUSTOM_BASE_URL="https://dev-api.example.com/v1/"
+export E2E_CLOUD_POS_TERMINAL_ID="<terminal_id>"
+# Optional: set when you want to skip automatic terminal-group lookup
+export CLOUD_POS_TERMINAL_GROUP_ID="<terminal_group_id>"
+make test-e2e
+```
 
 ## Support
 

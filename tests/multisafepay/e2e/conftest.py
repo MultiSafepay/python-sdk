@@ -15,6 +15,16 @@ from multisafepay.transport import HTTPTransport
 E2E_API_KEY_ENV = "E2E_API_KEY"
 E2E_BASE_URL_ENV = "E2E_BASE_URL"
 
+# Node ids for terminal-endpoint example tests that have their own
+# selective skip logic in tests/multisafepay/e2e/examples/conftest.py.
+# The parent hook must not unconditionally skip these when E2E_API_KEY is
+# missing, otherwise the child hook's terminal-specific env detection has no
+# effect.
+TERMINAL_EXAMPLE_NODE_PREFIXES = (
+    "tests/multisafepay/e2e/examples/terminal_manager/",
+    "tests/multisafepay/e2e/examples/terminal_group_manager/",
+)
+
 # Load .env file from the project root
 load_dotenv()
 
@@ -28,10 +38,10 @@ def _get_e2e_base_url() -> str:
     return base_url or Client.TEST_URL
 
 
-def _validate_e2e_base_url(base_url: str) -> str:
+def _validate_e2e_base_url(base_url: str, env_name: str) -> str:
     parsed = urlparse(base_url)
     if parsed.scheme != "https" or not parsed.netloc:
-        msg = f"{E2E_BASE_URL_ENV} must be a valid https URL"
+        msg = f"{env_name} must be a valid https URL"
         raise pytest.UsageError(msg)
 
     parsed = urlparse(base_url)
@@ -53,7 +63,7 @@ def e2e_api_key() -> str:
 @pytest.fixture(scope="session")
 def e2e_base_url() -> str:
     """Return the dedicated base URL used by E2E tests."""
-    return _validate_e2e_base_url(_get_e2e_base_url())
+    return _validate_e2e_base_url(_get_e2e_base_url(), E2E_BASE_URL_ENV)
 
 
 @pytest.fixture(scope="session")
@@ -102,5 +112,16 @@ def pytest_collection_modifyitems(
         # This hook runs for the whole session (all collected tests), even when
         # this conftest is only loaded due to e2e tests being present/deselected.
         # Ensure we only affect e2e tests.
-        if item.nodeid.startswith("tests/multisafepay/e2e/"):
-            item.add_marker(skip)
+        if not item.nodeid.startswith("tests/multisafepay/e2e/"):
+            continue
+
+        # Terminal-endpoint example tests can run with their own dedicated
+        # credentials (API_KEY + MSP_SDK_CUSTOM_BASE_URL +
+        # E2E_CLOUD_POS_TERMINAL_ID) without E2E_API_KEY. Defer the skip
+        # decision for those tests to the child conftest under
+        # tests/multisafepay/e2e/examples/, which inspects the
+        # terminal-specific env.
+        if item.nodeid.startswith(TERMINAL_EXAMPLE_NODE_PREFIXES):
+            continue
+
+        item.add_marker(skip)

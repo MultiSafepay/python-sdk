@@ -88,6 +88,22 @@ def test_initializes_with_custom_requests_session_via_transport():
     session.close()
 
 
+def test_exposes_auth_scope_aliases_for_backward_compatibility():
+    """Test that Client keeps the public auth scope aliases in sync."""
+    assert (
+        Client.AUTH_SCOPE_DEFAULT
+        == ScopedCredentialResolver.AUTH_SCOPE_DEFAULT
+    )
+    assert (
+        Client.AUTH_SCOPE_PARTNER_AFFILIATE
+        == ScopedCredentialResolver.AUTH_SCOPE_PARTNER_AFFILIATE
+    )
+    assert (
+        Client.AUTH_SCOPE_TERMINAL_GROUP
+        == ScopedCredentialResolver.AUTH_SCOPE_TERMINAL_GROUP
+    )
+
+
 def test_defaults_to_test_url(monkeypatch: pytest.MonkeyPatch):
     """Test that client defaults to test URL when not in production."""
     monkeypatch.delenv("MSP_SDK_BUILD_PROFILE", raising=False)

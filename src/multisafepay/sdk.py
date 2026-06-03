@@ -11,6 +11,7 @@ from typing import Optional
 
 from multisafepay.api.paths.auth.auth_manager import AuthManager
 from multisafepay.api.paths.categories.category_manager import CategoryManager
+from multisafepay.api.paths.events.event_manager import EventManager
 from multisafepay.api.paths.gateways.gateway_manager import GatewayManager
 from multisafepay.api.paths.issuers.issuer_manager import IssuerManager
 from multisafepay.api.paths.orders.order_manager import OrderManager
@@ -18,6 +19,10 @@ from multisafepay.api.paths.payment_methods.payment_method_manager import (
     PaymentMethodManager,
 )
 from multisafepay.api.paths.pos.pos_manager import PosManager
+from multisafepay.api.paths.terminal_groups.terminal_group_manager import (
+    TerminalGroupManager,
+)
+from multisafepay.api.paths.terminals.terminal_manager import TerminalManager
 from multisafepay.api.paths.transactions.transaction_manager import (
     TransactionManager,
 )
@@ -178,6 +183,18 @@ class Sdk:
         """
         return CategoryManager(self.client)
 
+    def get_event_manager(self: "Sdk") -> EventManager:
+        """
+        Get the event manager.
+
+        Returns
+        -------
+        EventManager
+            The event manager instance.
+
+        """
+        return EventManager(self.client)
+
     def get_order_manager(self: "Sdk") -> OrderManager:
         """
         Get the order manager.
@@ -213,6 +230,30 @@ class Sdk:
 
         """
         return PosManager(self.client)
+
+    def get_terminal_manager(self: "Sdk") -> TerminalManager:
+        """
+        Get the terminal manager.
+
+        Returns
+        -------
+        TerminalManager
+            The terminal manager instance.
+
+        """
+        return TerminalManager(self.client)
+
+    def get_terminal_group_manager(self: "Sdk") -> TerminalGroupManager:
+        """
+        Get the terminal group manager.
+
+        Returns
+        -------
+        TerminalGroupManager
+            The terminal group manager instance.
+
+        """
+        return TerminalGroupManager(self.client)
 
     def get_client(self: "Sdk") -> Client:
         """

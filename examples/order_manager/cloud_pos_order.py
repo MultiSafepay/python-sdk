@@ -37,14 +37,20 @@ if __name__ == "__main__":
     )
     order_manager = multisafepay_sdk.get_order_manager()
 
+    order_id = f"cloud-pos-{int(time.time())}"
+
     order_request = (
         OrderRequest()
         .add_type("redirect")
-        .add_order_id(f"cloud-pos-{int(time.time())}")
+        .add_order_id(order_id)
         .add_description("Cloud POS order")
         .add_amount(100)
         .add_currency("EUR")
-        .add_gateway_info({"terminal_id": TERMINAL_ID})
+        .add_gateway_info(
+            {
+                "terminal_id": TERMINAL_ID,
+            },
+        )
     )
 
     create_response = order_manager.create(
