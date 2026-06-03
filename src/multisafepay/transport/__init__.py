@@ -7,11 +7,18 @@
 
 """Transport layer module for HTTP communication abstraction."""
 
-from .http_transport import HTTPResponse, HTTPTransport
+from .http_transport import (
+    HTTPResponse,
+    HTTPStreamingTransport,
+    HTTPStreamResponse,
+    HTTPTransport,
+)
 from .requests_transport import RequestsTransport
 
 __all__ = [
     "HTTPTransport",
+    "HTTPStreamingTransport",
     "HTTPResponse",
+    "HTTPStreamResponse",
     "RequestsTransport",
 ]

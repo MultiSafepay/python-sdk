@@ -78,6 +78,41 @@ class TestRequestsTransportWithRequests:
 
         mock_session.close.assert_called_once()
 
+    def test_open_stream_uses_shared_session_send(
+        self: "TestRequestsTransportWithRequests",
+        requires_requests: object,
+    ) -> None:
+        """Open streaming responses through the same configured session."""
+        assert requires_requests is not None
+        mock_session = Mock()
+        prepared = object()
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.headers = {"Content-Type": "text/event-stream"}
+        mock_response.raw.readline.return_value = b"data: ping\n"
+        mock_session.prepare_request.return_value = prepared
+        mock_session.send.return_value = mock_response
+
+        transport = RequestsTransport(session=mock_session)
+        response = transport.open_stream(
+            method="GET",
+            url="https://api.example.com/events/stream",
+            headers={"Accept": "text/event-stream"},
+            timeout=9.5,
+        )
+
+        assert response.readline() == b"data: ping\n"
+        request_obj = mock_session.prepare_request.call_args.args[0]
+        assert isinstance(request_obj, requires_requests.Request)
+        mock_session.send.assert_called_once_with(
+            prepared,
+            timeout=9.5,
+            stream=True,
+        )
+
+        response.close()
+        mock_response.close.assert_called_once()
+
 
 class TestRequestsTransportWithoutRequests:
     """Failure modes when `requests` isn't installed and no transport is injected."""
