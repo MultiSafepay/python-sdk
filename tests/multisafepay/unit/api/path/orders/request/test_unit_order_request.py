@@ -10,6 +10,10 @@
 
 import pytest
 
+from multisafepay.api.paths.orders.request.components.amount_details import (
+    AmountDetails,
+)
+from multisafepay.api.paths.orders.request.components.tip import Tip
 from multisafepay.api.paths.orders.request.order_request import OrderRequest
 from multisafepay.api.shared.cart.cart_item import CartItem
 from multisafepay.api.shared.cart.shopping_cart import ShoppingCart
@@ -27,6 +31,7 @@ def test_initializes_order_request_correctly():
         order_id="12345",
         currency="USD",
         amount="1000",
+        amount_details=AmountDetails(tip=Tip(amount=20)),
         payment_options=None,
         customer=None,
         delivery=None,
@@ -52,6 +57,7 @@ def test_initializes_order_request_correctly():
     assert order_request.order_id == "12345"
     assert order_request.currency == "USD"
     assert order_request.amount == 1000
+    assert order_request.amount_details == AmountDetails(tip=Tip(amount=20))
     assert order_request.gateway_info == {"info": "test"}
     assert order_request.description == "Test description"
     assert order_request.recurring_id == "rec123"
@@ -72,6 +78,7 @@ def test_initializes_order_request_with_default_values():
     assert order_request.order_id is None
     assert order_request.currency is None
     assert order_request.amount is None
+    assert order_request.amount_details is None
     assert order_request.payment_options is None
     assert order_request.customer is None
     assert order_request.delivery is None
@@ -157,6 +164,30 @@ def test_add_amount_updates_value():
 
     assert order_request.amount == 1000
     assert isinstance(order_request_updated, OrderRequest)
+
+
+def test_add_amount_details_updates_value():
+    """Tests that the add_amount_details method updates the amount_details field correctly."""
+    order_request = OrderRequest()
+    amount_details = AmountDetails(tip=Tip(amount=20))
+    order_request_updated = order_request.add_amount_details(amount_details)
+
+    assert order_request.amount_details == amount_details
+    assert isinstance(order_request_updated, OrderRequest)
+
+
+def test_to_dict_serializes_amount_details():
+    """Tests that to_dict includes the amount_details payload structure."""
+    order_request = (
+        OrderRequest()
+        .add_amount(120)
+        .add_amount_details(AmountDetails().add_tip(Tip().add_amount(20)))
+    )
+
+    assert order_request.to_dict() == {
+        "amount": 120,
+        "amount_details": {"tip": {"amount": 20}},
+    }
 
 
 def test_add_gateway_updates_value():

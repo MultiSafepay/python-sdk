@@ -141,9 +141,45 @@ with event_manager.subscribe_order_events(order, timeout=45.0) as stream:
         print(event)
 ```
 
-Use `subscribe_events(events_token=..., events_stream_url=...)` when the token and stream URL are already available separately.
+### Cloud POS order tips
 
-SSE subscriptions use the same configured SDK transport as regular API calls. With the default transport this reuses the same `requests.Session`; with a custom transport, implement the `HTTPStreamingTransport` protocol (adds `open_stream(...)` on top of `HTTPTransport`) on that transport instead of opening a separate HTTP connection path.
+For POS and Cloud POS integrations, you can send tip information as part of the order creation payload with `amount_details`. Amount values are expressed in the smallest currency unit, so this example sends a total order amount of EUR 1.20 with EUR 0.20 marked as tip.
+
+```python
+from multisafepay.api.paths.orders.request import OrderRequest
+from multisafepay.api.paths.orders.request.components import (
+    AmountDetails,
+    Tip,
+)
+
+
+order_request = (
+    OrderRequest()
+    .add_type("redirect")
+    .add_order_id("cloud-pos-order-with-tip")
+    .add_description("Cloud POS order with tip")
+    .add_amount(120)
+    .add_currency("EUR")
+    .add_gateway_info({"terminal_id": "<terminal_id>"})
+    .add_amount_details(
+        AmountDetails().add_tip(Tip().add_amount(20)),
+    )
+)
+```
+
+The `amount_details` field serializes to:
+
+```json
+{
+    "amount_details": {
+        "tip": {
+            "amount": 20
+        }
+    }
+}
+```
+
+See the full Cloud POS tip example in `examples/order_manager/cloud_pos_order_with_tip.py`.
 
 ### Development-only custom base URL override
 
