@@ -54,6 +54,13 @@ class _CaptureTransport:
         return _FakeResponse()
 
 
+class _FailingTransport:
+    """Transport stub that fails before returning a response."""
+
+    def request(self: "_FailingTransport", **_kwargs: dict) -> _FakeResponse:
+        raise ConnectionError("connection failed")
+
+
 def _build_resolver_client(
     resolver: ScopedCredentialResolver,
     transport: _CaptureTransport,
@@ -86,6 +93,18 @@ def test_initializes_with_custom_requests_session_via_transport():
     assert client.transport is transport
     assert client.transport.session is session
     session.close()
+
+
+def test_create_request_propagates_transport_failure_without_response():
+    """Test that transport failures before response assignment are not masked."""
+    client = Client(
+        api_key="mock_api_key",
+        is_production=False,
+        transport=_FailingTransport(),
+    )
+
+    with pytest.raises(ConnectionError, match="connection failed"):
+        client.create_get_request("json/orders")
 
 
 def test_exposes_auth_scope_aliases_for_backward_compatibility():
