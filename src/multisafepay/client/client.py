@@ -344,6 +344,7 @@ class Client:
             "Content-Type": "application/json",
         }
 
+        response = None
         try:
             response = self.transport.request(
                 method=method,
@@ -354,7 +355,8 @@ class Client:
             response.raise_for_status()
         except Exception as e:
             if (
-                hasattr(response, "status_code")
+                response is not None
+                and hasattr(response, "status_code")
                 and 500 <= response.status_code < 600
             ):
                 raise ApiException(f"Request failed: {e}") from e
