@@ -5,6 +5,25 @@ All notable changes to the MultiSafepay Python SDK will be documented in this fi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-07-07
+
+### Added
+- PTHMINT-101: Add dev-only custom base URL support
+- PTHMINT-116: Add scoped credential resolver and client support
+- PTHMINT-117: Add terminals and terminal-groups APIs, examples, and tests
+- PTHMINT-118: Add POS receipt retrieval and order cancellation support
+- PTHMINT-119: Add SSE event stream support and EventManager
+- PTHMINT-125: Add Cloud POS tip and amount details support
+- DAVAMS-1028: Add Microsoft Teams release notification workflow
+
+### Changed
+- PTHMINT-112: Improve E2E test environment isolation
+- PTHMINT-121: Document scoped credential usage and environment variables
+- PTHMINT-124: Update example environment configuration for scoped credentials
+
+### Fixed
+- PTHMINT-128: Prevent attribute errors when API exceptions do not include a response
+
 ## [3.0.0] - 2026-03-05
 
 ### Added
