@@ -57,7 +57,7 @@ def test_version_get_plugin_version():
 def test_version_get_version():
     """Test the get_version method of the Version object."""
     version = Version(plugin_version="1.0.1")
-    assert version.get_version() == "Plugin 1.0.1"
+    assert version.get_version() == "Plugin 1.0.1; Python-Sdk 3.0.0"
 
 
 def test_version_set_plugin_version():
