@@ -14,6 +14,7 @@ from multisafepay.client.client import Client
 from multisafepay.client.credential_resolver import (
     ScopedCredentialResolver,
 )
+from multisafepay.exception.api import ApiException
 from multisafepay.transport import RequestsTransport
 
 requests = pytest.importorskip("requests")
@@ -52,6 +53,32 @@ class _CaptureTransport:
     def request(self: "_CaptureTransport", **kwargs: dict) -> _FakeResponse:
         self.headers = kwargs.get("headers", {})
         return _FakeResponse()
+
+
+class _FailingTransport:
+    """Transport stub that fails before returning a response."""
+
+    @staticmethod
+    def request(**kwargs: dict) -> _FakeResponse:
+        raise RuntimeError("network unavailable")
+
+
+class _ServerErrorResponse(_FakeResponse):
+    """Response stub that raises for a server error."""
+
+    status_code = 500
+
+    @staticmethod
+    def raise_for_status() -> None:
+        raise RuntimeError("server error")
+
+
+class _ServerErrorTransport:
+    """Transport stub that returns a server error response."""
+
+    @staticmethod
+    def request(**kwargs: dict) -> _ServerErrorResponse:
+        return _ServerErrorResponse()
 
 
 def _build_resolver_client(
@@ -326,6 +353,30 @@ def test_create_delete_request_sends_authorization_header() -> None:
     )
     client.create_delete_request("json/recurring/1")
     assert transport.headers["Authorization"] == "Bearer test_key"
+
+
+def test_request_exception_without_response_is_reraised() -> None:
+    """Reraise transport exceptions when no response exists."""
+    client = Client(
+        api_key="test_key",
+        is_production=False,
+        transport=_FailingTransport(),
+    )
+
+    with pytest.raises(RuntimeError, match="network unavailable"):
+        client.create_get_request("json/orders")
+
+
+def test_server_error_response_raises_api_exception() -> None:
+    """Wrap server error responses in ApiException."""
+    client = Client(
+        api_key="test_key",
+        is_production=False,
+        transport=_ServerErrorTransport(),
+    )
+
+    with pytest.raises(ApiException, match="Request failed: server error"):
+        client.create_get_request("json/orders")
 
 
 def test_resolve_api_key_uses_credential_resolver() -> None:
