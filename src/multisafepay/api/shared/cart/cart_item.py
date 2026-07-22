@@ -297,7 +297,7 @@ class CartItem(ApiModel):
             # Use Decimal for precise division
             percentage_decimal = Decimal(str(tax_rate_percentage))
             rating = percentage_decimal / Decimal("100")
-            self.tax_table_selector = str(rating)
+            self.tax_table_selector = format(rating, "f")
         except (ValueError, TypeError) as e:
             raise InvalidArgumentException(
                 "Tax rate percentage cannot be converted to a string.",

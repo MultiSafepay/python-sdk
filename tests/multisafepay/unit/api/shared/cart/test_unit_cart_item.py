@@ -189,15 +189,37 @@ def test_add_tax_rate_percentage():
     assert item.tax_table_selector == "0.21"
 
 
-def test_add_tax_rate_percentage():
+def test_add_tax_rate_percentage_zero_int():
     """Test that a 0 tax rate percentage is correctly set as the tax table selector in a CartItem."""
     item = CartItem()
     item.add_tax_rate_percentage(0)
-    assert item.tax_table_selector == "0.0"
+    assert item.tax_table_selector == "0"
 
 
-def test_add_tax_rate_percentage():
+def test_add_tax_rate_percentage_zero():
     """Test that a 0.0 tax rate percentage is correctly set as the tax table selector in a CartItem."""
     item = CartItem()
     item.add_tax_rate_percentage(0.0)
     assert item.tax_table_selector == "0.0"
+
+
+def test_add_tax_rate_percentage_prevents_scientific_notation_zero():
+    """Test that a quantized Decimal zero does not produce scientific notation ('0E-10') in tax_table_selector."""
+    from decimal import Decimal
+
+    item = CartItem()
+    scientific_zero = Decimal("0").quantize(Decimal("0.0000000001"))
+    item.add_tax_rate_percentage(scientific_zero)
+    assert "E" not in item.tax_table_selector
+    assert float(item.tax_table_selector) == 0.0
+
+
+def test_add_tax_rate_percentage_prevents_scientific_notation_small_decimal():
+    """Test that small Decimal numbers with negative exponents do not produce scientific notation in tax_table_selector."""
+    from decimal import Decimal
+
+    item = CartItem()
+    small_decimal = Decimal("1E-8")
+    item.add_tax_rate_percentage(small_decimal)
+    assert "E" not in item.tax_table_selector
+    assert item.tax_table_selector == "0.0000000001"
