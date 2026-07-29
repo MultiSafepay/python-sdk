@@ -59,7 +59,8 @@ class _FailingTransport:
     """Transport stub that fails before returning a response."""
 
     @staticmethod
-    def request(**kwargs: dict) -> _FakeResponse:
+    def request(**_kwargs: dict) -> _FakeResponse:
+        """Simulate a request that fails with a transport error."""
         raise RuntimeError("network unavailable")
 
 
@@ -70,6 +71,7 @@ class _ServerErrorResponse(_FakeResponse):
 
     @staticmethod
     def raise_for_status() -> None:
+        """Simulate a server error status raise."""
         raise RuntimeError("server error")
 
 
@@ -77,7 +79,8 @@ class _ServerErrorTransport:
     """Transport stub that returns a server error response."""
 
     @staticmethod
-    def request(**kwargs: dict) -> _ServerErrorResponse:
+    def request(**_kwargs: dict) -> _ServerErrorResponse:
+        """Simulate a request that returns a server error response."""
         return _ServerErrorResponse()
 
 
