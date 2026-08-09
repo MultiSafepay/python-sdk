@@ -9,6 +9,7 @@
 
 from typing import Optional
 
+from multisafepay import __version__
 from pydantic import BaseModel
 
 
@@ -59,4 +60,4 @@ class Version(BaseModel):
         MissingPluginVersionException: If the plugin version is "unknown".
 
         """
-        return f"Plugin {self.plugin_version}"
+        return f"Plugin {self.plugin_version}; Python-Sdk {__version__}"
